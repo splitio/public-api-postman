@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f7d6ef93-a9d3-415d-a0a5-49fe5b5ee774",
+		"_postman_id": "6a551557-496e-41d0-b933-def819c9f058",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -8,6 +8,9 @@
 		{
 			"name": "LOGIN",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -41,11 +44,6 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -72,11 +70,6 @@
 			"request": {
 				"method": "GET",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"type": "text",
@@ -106,11 +99,6 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"type": "text",
@@ -145,11 +133,6 @@
 				"method": "DELETE",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -179,11 +162,6 @@
 			"request": {
 				"method": "PATCH",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"type": "text",
@@ -219,11 +197,6 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -252,11 +225,6 @@
 			"request": {
 				"method": "GET",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"type": "text",
@@ -288,11 +256,6 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"type": "text",
@@ -329,11 +292,6 @@
 				"method": "DELETE",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -365,11 +323,6 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"type": "text",
@@ -407,11 +360,6 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -447,11 +395,6 @@
 				"method": "PATCH",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -486,11 +429,6 @@
 			"request": {
 				"method": "DELETE",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"type": "text",
@@ -531,11 +469,6 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -570,11 +503,6 @@
 			"request": {
 				"method": "PUT",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "Bearer 6o1u3063ttatlfvt5rrkiltd8cgm507t1oa7"
-					},
 					{
 						"key": "",
 						"type": "text",
@@ -622,11 +550,6 @@
 				"method": "PUT",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -634,7 +557,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\"hola4\", \"hola5\", \"hola6\"]"
+					"raw": "[\"value1\", \"value2\", \"value3\"]"
 				},
 				"url": {
 					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
@@ -663,11 +586,6 @@
 			"request": {
 				"method": "GET",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"type": "text",
@@ -703,11 +621,6 @@
 				"method": "PUT",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -742,11 +655,6 @@
 				"method": "PUT",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -779,11 +687,6 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -831,11 +734,6 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"type": "text",
@@ -880,11 +778,6 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"type": "text",
@@ -926,11 +819,6 @@
 			"request": {
 				"method": "DELETE",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -974,11 +862,6 @@
 				"method": "PUT",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"type": "text",
@@ -1021,11 +904,6 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -1074,11 +952,6 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"type": "text",
@@ -1122,11 +995,6 @@
 			"request": {
 				"method": "PATCH",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -1172,11 +1040,6 @@
 				"method": "PUT",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"type": "text",
@@ -1220,11 +1083,6 @@
 			"request": {
 				"method": "DELETE",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -1273,11 +1131,6 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"type": "text",
@@ -1320,11 +1173,6 @@
 			"request": {
 				"method": "PUT",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -1371,11 +1219,6 @@
 				"method": "PUT",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"type": "text",
@@ -1420,11 +1263,6 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -1472,11 +1310,6 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"type": "text",
@@ -1514,11 +1347,6 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -1559,11 +1387,6 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -1602,11 +1425,6 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -1617,7 +1435,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}?offset=0&limit=10&tag=pato_test",
+					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}?offset=0&limit=10&tag=tag_test",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1640,7 +1458,7 @@
 						},
 						{
 							"key": "tag",
-							"value": "pato_test"
+							"value": "tag_test"
 						}
 					]
 				},
@@ -1653,11 +1471,6 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
 					{
 						"key": "Content-Type",
 						"type": "text",
@@ -1692,11 +1505,6 @@
 				"method": "DELETE",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -1730,11 +1538,6 @@
 				"method": "DELETE",
 				"header": [
 					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{auth-token}}"
-					},
-					{
 						"key": "Content-Type",
 						"type": "text",
 						"value": "application/json"
@@ -1764,5 +1567,15 @@
 			"response": []
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth-token}}",
+				"type": "string"
+			}
+		]
+  },
 	"protocolProfileBehavior": {}
 }
