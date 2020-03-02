@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f7d6ef93-a9d3-415d-a0a5-49fe5b5ee774",
+		"_postman_id": "5fbf816b-e4b4-4359-8f3d-514ba423723d",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -573,7 +573,7 @@
 					{
 						"key": "Authorization",
 						"type": "text",
-						"value": "Bearer 6o1u3063ttatlfvt5rrkiltd8cgm507t1oa7"
+						"value": "{{auth-token}}"
 					},
 					{
 						"key": "",
@@ -634,7 +634,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\"hola4\", \"hola5\", \"hola6\"]"
+					"raw": "[\"value1\", \"value2\", \"value3\"]"
 				},
 				"url": {
 					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
@@ -1617,7 +1617,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}?offset=0&limit=10&tag=pato_test",
+					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}?offset=0&limit=10&tag=tag_test",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1640,7 +1640,7 @@
 						},
 						{
 							"key": "tag",
-							"value": "pato_test"
+							"value": "tag_test"
 						}
 					]
 				},
