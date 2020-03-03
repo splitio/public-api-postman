@@ -2,7 +2,7 @@
 
 This repo contains a Postman collection file describing Split public API locate at https://docs.split.io/reference
 
-Feel free to contribute any missing endpoints for issuing pull requests.
+Currently, this is a community maintained repo. Feel free to contribute any missing endpoints by issuing pull requests. 
 
 # Installation
 
@@ -12,3 +12,10 @@ Feel free to contribute any missing endpoints for issuing pull requests.
  * Import environments by importing the file `prod.postman_environment.json`
  * In the environments tab, fill in the content of `auth-token` in the "current" column
  * Hit any endpoint!
+
+# Contribute
+
+ * Export any of the files you need to submit for review
+ * create a PR
+ 
+ Thank you for your contribution!
