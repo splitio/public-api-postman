@@ -1,43 +1,10 @@
 {
 	"info": {
-		"_postman_id": "4dc6b734-eec5-4613-b810-2876e2f5494c",
+		"_postman_id": "f8233838-f41c-4bb5-bbab-612e28e443d3",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "LOGIN",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"email\": \"{{login-email}}\", \"password\": \"{{password}}\"}"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/login",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"login"
-					]
-				},
-				"description": "You probably won't need this as this doesn't return the API key that you need for the other APIs"
-			},
-			"response": []
-		},
 		{
 			"name": "GET Workspaces",
 			"request": {
