@@ -1,6 +1,6 @@
 # Postman collection for Split Public API endpoints
 
-This repo contains a Postman collection file describing Split public API locate at https://docs.split.io/reference
+This repo contains a Postman collection file describing the Split public API located at https://docs.split.io/reference
 
 Currently, this is a community maintained repo. Feel free to contribute any missing endpoints by issuing pull requests. 
 
@@ -10,7 +10,7 @@ Currently, this is a community maintained repo. Feel free to contribute any miss
  * Clone this repository
  * Import collection by importing the file `split-admin-api.postman_collection.json`
  * Import environments by importing the file `prod.postman_environment.json`
- * In the environments tab, fill in the content of `auth-token` in the "current" column
+ * In the environments tab, fill in the content of `auth-token` in the "current" column with your admin api key (https://docs.split.io/reference#authentication)
  * Hit any endpoint!
 
 # Contribute
