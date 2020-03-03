@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6a551557-496e-41d0-b933-def819c9f058",
+		"_postman_id": "4dc6b734-eec5-4613-b810-2876e2f5494c",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1576,6 +1576,36 @@
 				"type": "string"
 			}
 		]
-  },
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "42adccdc-8f49-48b9-bfe5-a9e3995fb3bd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9e03f75a-b3e6-43a5-a338-01e3169367b2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0ee6384f-b124-4121-b7fc-a78079869247",
+			"key": "base-url",
+			"value": "https://api.split.io",
+			"type": "string"
+		}
+	],
 	"protocolProfileBehavior": {}
 }
