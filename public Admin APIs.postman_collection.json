@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "17fd19e8-092b-4e9c-b0df-2963a6bd2cea",
+		"_postman_id": "fe70a346-a3c8-4a70-94bb-55d781aaa8de",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -52,7 +52,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}?",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -92,7 +92,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}?",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -132,7 +132,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}?",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -172,7 +172,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}?",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -212,7 +212,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}?",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -252,7 +252,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}?",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -292,7 +292,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}?",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -305,80 +305,6 @@
 								"{{workspace-id}}",
 								"environments",
 								"{{environment-id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT Approve a Change Request",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"status\":\"APPROVED\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"<ChangeRequestID>"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT Reject a Change Request",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"status\":\"REJECTED\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"<ChangeRequestID>"
 							]
 						}
 					},
