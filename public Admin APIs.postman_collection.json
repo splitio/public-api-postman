@@ -289,7 +289,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/sarrubia/Split/approvalFlowsKeys.csv"
+									"src": "/Users/someuser/approvalFlowsKeys.csv"
 								},
 								{
 									"key": "segmentName",
