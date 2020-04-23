@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fe70a346-a3c8-4a70-94bb-55d781aaa8de",
+		"_postman_id": "c13396c2-7ce7-4302-b8ae-9684c4e389ad",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -124,7 +124,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"KILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"KILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -151,7 +151,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to UNKILL a Split",
+					"name": "POST Open Change Request to RESTORE a Split",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -164,7 +164,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"UNKILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"RESTORE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -204,7 +204,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -265,6 +265,79 @@
 								"{{workspace-id}}",
 								"environments",
 								"{{environment-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Open Change Request to ADD keys into a Segment via CSV",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/someuser/approvalFlowsKeys.csv"
+								},
+								{
+									"key": "segmentName",
+									"value": "<SEGMENT_NAME>",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Some CR Title",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Some CR Comment",
+									"type": "text"
+								},
+								{
+									"key": "approvers",
+									"value": "validUserEmail_1@sample.com,validUserEmail_2@sample.com",
+									"type": "text"
+								},
+								{
+									"key": "operationType",
+									"value": "CREATE",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}/file",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}",
+								"file"
 							]
 						}
 					},
