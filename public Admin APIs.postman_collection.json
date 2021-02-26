@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c13396c2-7ce7-4302-b8ae-9684c4e389ad",
+		"_postman_id": "20a2b17f-520a-4305-89b6-b2035d585bfa",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -422,6 +422,310 @@
 				}
 			],
 			"description": "Approval FLows support via Public Admin API",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User Management API",
+			"item": [
+				{
+					"name": "CREATE User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/users",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/users",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"users"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING|ACTIVE|DEACTIVATED",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "after",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "before",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "group_id",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FULL UPDATE User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"<userId>\",\n    \"email\":\"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}],\n    \"2fa\":\"<false>\",\n    \"status\":\"<ACTIVE|DEACTIVATED>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/users",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Pending User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"users",
+								"<userId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"users",
+								"<userId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/groups",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"groups",
+								"<groupId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"<name>\",\n    \"description\":\"<description>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/groups",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n        {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"users",
+								"<userId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE group",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"groups",
+								"<groupId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE group",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\n            \"id\": \"<groupId>\",\n            \"name\": \"<name>\",\n            \"description\": \"<description>\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"groups",
+								"<groupId>"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		},
 		{
@@ -1085,7 +1389,7 @@
 					"raw": "{\"name\":\"paywall_beta\",\"description\":\"description\"}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1131,7 +1435,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1175,7 +1479,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1217,7 +1521,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1259,7 +1563,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/updateDescription?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/updateDescription",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1302,7 +1606,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\"},\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1349,7 +1653,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1393,7 +1697,7 @@
 					"raw": "[{\"op\": \"replace\", \"path\": \"/trafficAllocation\", \"value\":50}]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1437,7 +1741,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"segments\":[\"employees\"],\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"},{\"name\":\"off\",\"keys\":[\"one\",\"two\"],\"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"}],\"defaultTreatment\":\"on\", \"baselineTreatment\": \"off\",\"trafficAllocation\":80,\"rules\":[],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1481,7 +1785,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1528,7 +1832,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1571,7 +1875,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/kill?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/kill",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1616,7 +1920,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/restore?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/restore",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1661,7 +1965,7 @@
 					"raw": "[\"tagA,\" \"tagB\"]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>?",
+					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1707,7 +2011,7 @@
 					"raw": "{\n\t\"eventTypeId\": \"page_load\", \n  \"environmentName\": \"Staging\",      \n  \"trafficTypeName\": \"user\", \n  \"key\": \"key_user_0\", \n  \"timestamp\": 1513357833000, \n  \"value\": 0.8,\n  \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/events?",
+					"raw": "{{base-url}}/internal/api/events",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1745,7 +2049,7 @@
 					"raw": "[\n{ \n \"eventTypeId\": \"page_latency\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user1\", \n \"timestamp\": 1513357833000, \n \"value\": 0.8  \n}, \n{ \n \"eventTypeId\": \"page_load\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user2\", \n \"timestamp\": 1513357834000, \n \"value\": 0.9,\n \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n }\n ]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/events/bulk?",
+					"raw": "{{base-url}}/internal/api/events/bulk",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1967,7 +2271,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "42adccdc-8f49-48b9-bfe5-a9e3995fb3bd",
+				"id": "81e9e139-567d-4cf4-ad82-5533fe229084",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1977,7 +2281,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "9e03f75a-b3e6-43a5-a338-01e3169367b2",
+				"id": "12df8932-69bd-4279-89cd-a8b01a9ba6ac",
 				"type": "text/javascript",
 				"exec": [
 					""
