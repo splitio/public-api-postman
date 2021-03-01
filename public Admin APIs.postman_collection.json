@@ -31,6 +31,368 @@
 					"response": []
 				},
 				{
+					"name": "GET Change Requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "REQUESTED|PUBLISHED|WITHDRAWN|REJECTED",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "after",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "before",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Given a Change Request ID this endpoint returns the full Change Request Object"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Change Request Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"status\":\"WITHDRAWN\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"<ChangeRequestID>"
+							]
+						},
+						"description": "Valid statuses: WITHDRAWN, REJECTED, APPROVED."
+					},
+					"response": []
+				},
+				{
+					"name": "POST Open Change Request adding split definition, with environment restricted approvers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split_meta>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"CREATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Open Change Request updating split definition, with environment restricted approvers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"UPDATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Open Change Request killing a split, with environment restricted approvers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"KILL\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Open Change Request restoring a split, with environment restricted approvers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"RESTORE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Open Change Request archiving a split, with environment restricted approvers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"ARCHIVE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Open Change Request adding keys to a segment, with environment restricted approvers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"segment\":{\"name\":\"<EXISTING_SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Open Change Request removing keys from a segment, with environment restricted approvers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"segment\":{\"name\":\"<EXISTING_SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/da6a9890-3402-11eb-a167-9efaf68a46a1/environments/da88f600-3402-11eb-a167-9efaf68a46a1",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"ws",
+								"da6a9890-3402-11eb-a167-9efaf68a46a1",
+								"environments",
+								"da88f600-3402-11eb-a167-9efaf68a46a1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "POST Open Change Request to create a Split Definition",
 					"request": {
 						"method": "POST",
@@ -382,47 +744,9 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "PUT Withdraw a Change Request",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"status\":\"WITHDRAWN\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"<ChangeRequestID>"
-							]
-						}
-					},
-					"response": []
 				}
 			],
-			"description": "Approval FLows support via Public Admin API",
-			"protocolProfileBehavior": {}
+			"description": "Approval Flows support via Public Admin API"
 		},
 		{
 			"name": "User Management API",
