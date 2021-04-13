@@ -648,7 +648,13 @@
 					"name": "PATCH update",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "[\n        {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]",
