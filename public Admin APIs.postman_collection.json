@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "20a2b17f-520a-4305-89b6-b2035d585bfa",
+		"_postman_id": "baef977c-0e19-4492-a63e-7c17d686b91e",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -44,12 +44,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -84,12 +79,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"UPDATE\",\n\t\"title\":\"\",\n\t\"comment\":\"\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"UPDATE\",\n\t\"title\":\"\",\n\t\"comment\":\"\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -124,12 +114,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"KILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"KILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -164,12 +149,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"RESTORE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"RESTORE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -204,12 +184,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -244,12 +219,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -316,12 +286,7 @@
 									"value": "CREATE",
 									"type": "text"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}/file",
@@ -357,12 +322,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -397,12 +357,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"status\":\"WITHDRAWN\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"status\":\"WITHDRAWN\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
@@ -421,8 +376,7 @@
 					"response": []
 				}
 			],
-			"description": "Approval FLows support via Public Admin API",
-			"protocolProfileBehavior": {}
+			"description": "Approval FLows support via Public Admin API"
 		},
 		{
 			"name": "User Management API",
@@ -434,12 +388,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"email\": \"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}]\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/users",
@@ -462,7 +411,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users",
+							"raw": "{{base-url}}/internal/api/v2/users?",
 							"host": [
 								"{{base-url}}"
 							],
@@ -510,12 +459,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"<userId>\",\n    \"email\":\"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}],\n    \"2fa\":\"<false>\",\n    \"status\":\"<ACTIVE|DEACTIVATED>\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"id\":\"<userId>\",\n    \"email\":\"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}],\n    \"2fa\":\"<false>\",\n    \"status\":\"<ACTIVE|DEACTIVATED>\"\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/users",
@@ -622,12 +566,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"<name>\",\n    \"description\":\"<description>\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"name\":\"<name>\",\n    \"description\":\"<description>\"\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/groups",
@@ -657,12 +596,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n        {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "[\n        {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
@@ -708,12 +642,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "        {\n            \"id\": \"<groupId>\",\n            \"name\": \"<name>\",\n            \"description\": \"<description>\"\n        }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "        {\n            \"id\": \"<groupId>\",\n            \"name\": \"<name>\",\n            \"description\": \"<description>\"\n        }"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
@@ -731,8 +660,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "GET Workspaces",
@@ -1395,7 +1323,7 @@
 					"raw": "{\"name\":\"paywall_beta\",\"description\":\"description\"}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1455,8 +1383,8 @@
 					],
 					"query": [
 						{
-							"key": "",
-							"value": "",
+							"key": "rolloutStatus",
+							"value": "<rollout_status_id>",
 							"disabled": true
 						}
 					]
@@ -1485,7 +1413,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1527,7 +1455,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1569,7 +1497,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/updateDescription",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/updateDescription?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1612,7 +1540,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\"},\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1659,7 +1587,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1703,7 +1631,7 @@
 					"raw": "[{\"op\": \"replace\", \"path\": \"/trafficAllocation\", \"value\":50}]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1747,7 +1675,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"segments\":[\"employees\"],\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"},{\"name\":\"off\",\"keys\":[\"one\",\"two\"],\"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"}],\"defaultTreatment\":\"on\", \"baselineTreatment\": \"off\",\"trafficAllocation\":80,\"rules\":[],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1791,7 +1719,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1838,7 +1766,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1881,7 +1809,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/kill",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/kill?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1926,7 +1854,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/restore",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/restore?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1971,7 +1899,7 @@
 					"raw": "[\"tagA,\" \"tagB\"]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>",
+					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2017,7 +1945,7 @@
 					"raw": "{\n\t\"eventTypeId\": \"page_load\", \n  \"environmentName\": \"Staging\",      \n  \"trafficTypeName\": \"user\", \n  \"key\": \"key_user_0\", \n  \"timestamp\": 1513357833000, \n  \"value\": 0.8,\n  \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/events",
+					"raw": "{{base-url}}/internal/api/events?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2055,7 +1983,7 @@
 					"raw": "[\n{ \n \"eventTypeId\": \"page_latency\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user1\", \n \"timestamp\": 1513357833000, \n \"value\": 0.8  \n}, \n{ \n \"eventTypeId\": \"page_load\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user2\", \n \"timestamp\": 1513357834000, \n \"value\": 0.9,\n \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n }\n ]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/events/bulk",
+					"raw": "{{base-url}}/internal/api/events/bulk?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2261,6 +2189,66 @@
 				"description": "Creates a Segment Metadata in a workspace."
 			},
 			"response": []
+		},
+		{
+			"name": "UPDATE Split",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/tags/0\",\n        \"value\":\"<tag_name>\"\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/description\",\n    \t\"value\":\"<description>\"\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/rolloutStatus/id\",\n    \t\"value\":\"<rollout_status_id>\"\n    }\n]"
+				},
+				"url": {
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"internal",
+						"api",
+						"v2",
+						"splits",
+						"ws",
+						"{{workspace-id}}",
+						"<split_name>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Rollout Statuses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/internal/api/v2/rolloutStatuses?wsId={wsId}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"internal",
+						"api",
+						"v2",
+						"rolloutStatuses"
+					],
+					"query": [
+						{
+							"key": "wsId",
+							"value": "{wsId}"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -2302,6 +2290,5 @@
 			"value": "https://api.split.io",
 			"type": "string"
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
