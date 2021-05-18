@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9f26de70-808c-4ec7-8cda-230dfc22ad23",
+		"_postman_id": "28705033-7d57-4547-8291-132f81ed3948",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -36,7 +36,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/?",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/",
 							"host": [
 								"{{base-url}}"
 							],
@@ -701,7 +701,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users?",
+							"raw": "{{base-url}}/internal/api/v2/users",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1613,7 +1613,7 @@
 					"raw": "{\"name\":\"paywall_beta\",\"description\":\"description\"}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1659,7 +1659,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1673,8 +1673,8 @@
 					],
 					"query": [
 						{
-							"key": "",
-							"value": "",
+							"key": "rolloutStatus",
+							"value": "<rollout_status_id>",
 							"disabled": true
 						}
 					]
@@ -1703,7 +1703,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1745,7 +1745,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1787,7 +1787,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/updateDescription?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/updateDescription",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1830,7 +1830,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\"},\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1877,7 +1877,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1921,7 +1921,7 @@
 					"raw": "[{\"op\": \"replace\", \"path\": \"/trafficAllocation\", \"value\":50}]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1965,7 +1965,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"segments\":[\"employees\"],\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"},{\"name\":\"off\",\"keys\":[\"one\",\"two\"],\"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"}],\"defaultTreatment\":\"on\", \"baselineTreatment\": \"off\",\"trafficAllocation\":80,\"rules\":[],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2009,7 +2009,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2056,7 +2056,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2099,7 +2099,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/kill?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/kill",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2144,7 +2144,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/restore?",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/restore",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2189,7 +2189,7 @@
 					"raw": "[\"tagA,\" \"tagB\"]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>?",
+					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2235,7 +2235,7 @@
 					"raw": "{\n\t\"eventTypeId\": \"page_load\", \n  \"environmentName\": \"Staging\",      \n  \"trafficTypeName\": \"user\", \n  \"key\": \"key_user_0\", \n  \"timestamp\": 1513357833000, \n  \"value\": 0.8,\n  \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/events?",
+					"raw": "{{base-url}}/internal/api/events",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2273,7 +2273,7 @@
 					"raw": "[\n{ \n \"eventTypeId\": \"page_latency\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user1\", \n \"timestamp\": 1513357833000, \n \"value\": 0.8  \n}, \n{ \n \"eventTypeId\": \"page_load\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user2\", \n \"timestamp\": 1513357834000, \n \"value\": 0.9,\n \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n }\n ]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/events/bulk?",
+					"raw": "{{base-url}}/internal/api/events/bulk",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2481,7 +2481,7 @@
 			"response": []
 		},
 		{
-			"name": "UPDATE Split",
+			"name": "UPDATE Split Copy",
 			"request": {
 				"method": "PATCH",
 				"header": [
@@ -2515,7 +2515,7 @@
 			"response": []
 		},
 		{
-			"name": "GET Rollout Statuses",
+			"name": "GET Rollout Statuses Copy",
 			"request": {
 				"method": "GET",
 				"header": [],
