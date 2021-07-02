@@ -1,30 +1,25 @@
 {
+	"variables": [],
 	"info": {
-		"_postman_id": "20a2b17f-520a-4305-89b6-b2035d585bfa",
 		"name": "public Admin APIs",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "40071480-59ff-a204-44e7-ece5f5ad5abb",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Approval Flows API",
+			"description": "Approval Flows support via Public Admin API",
 			"item": [
 				{
 					"name": "GET Change Request",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"<ChangeRequestID>"
-							]
+						"body": {
+							"mode": "raw",
+							"raw": ""
 						},
 						"description": "Given a Change Request ID this endpoint returns the full Change Request Object"
 					},
@@ -33,10 +28,8 @@
 				{
 					"name": "GET Change Requests",
 					"request": {
-						"method": "GET",
-						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/?",
 							"host": [
 								"{{base-url}}"
 							],
@@ -68,7 +61,14 @@
 									"value": null,
 									"disabled": true
 								}
-							]
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
 						},
 						"description": "Given a Change Request ID this endpoint returns the full Change Request Object"
 					},
@@ -77,6 +77,7 @@
 				{
 					"name": "PUT Change Request Status",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
 						"method": "PUT",
 						"header": [
 							{
@@ -88,25 +89,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"status\":\"WITHDRAWN\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"<ChangeRequestID>"
-							]
+							"raw": "{\n\t\"status\":\"WITHDRAWN\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n"
 						},
 						"description": "Valid statuses: WITHDRAWN, REJECTED, APPROVED."
 					},
@@ -115,6 +98,7 @@
 				{
 					"name": "POST Open Change Request adding split definition, with environment restricted approvers",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -126,35 +110,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split_meta>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"CREATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split_meta>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"CREATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request updating split definition, with environment restricted approvers",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -166,35 +131,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"UPDATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"UPDATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request killing a split, with environment restricted approvers",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -206,35 +152,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"KILL\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"KILL\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request restoring a split, with environment restricted approvers",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -246,35 +173,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"RESTORE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"RESTORE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request archiving a split, with environment restricted approvers",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -286,35 +194,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"ARCHIVE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"ARCHIVE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request adding keys to a segment, with environment restricted approvers",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -326,35 +215,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<EXISTING_SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"segment\":{\"name\":\"<EXISTING_SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request removing keys from a segment, with environment restricted approvers",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/da6a9890-3402-11eb-a167-9efaf68a46a1/environments/da88f600-3402-11eb-a167-9efaf68a46a1",
 						"method": "POST",
 						"header": [
 							{
@@ -366,35 +236,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<EXISTING_SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"segment\":{\"name\":\"<EXISTING_SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/da6a9890-3402-11eb-a167-9efaf68a46a1/environments/da88f600-3402-11eb-a167-9efaf68a46a1",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"da6a9890-3402-11eb-a167-9efaf68a46a1",
-								"environments",
-								"da88f600-3402-11eb-a167-9efaf68a46a1"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request to create a Split Definition",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -406,35 +257,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request to modify an existing Split Definition",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -446,35 +278,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"UPDATE\",\n\t\"title\":\"\",\n\t\"comment\":\"\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"UPDATE\",\n\t\"title\":\"\",\n\t\"comment\":\"\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request to KILL a Split",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -486,35 +299,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"KILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"KILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request to RESTORE a Split",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -526,35 +320,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"RESTORE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"RESTORE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request to ARCHIVE a Split",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -566,35 +341,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request to ADD keys into a Segment",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -606,35 +362,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request to ADD keys into a Segment via CSV",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}/file",
 						"method": "POST",
 						"header": [
 							{
@@ -651,7 +388,8 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/someuser/approvalFlowsKeys.csv"
+									"src": "/Users/someuser/approvalFlowsKeys.csv",
+									"value": ""
 								},
 								{
 									"key": "segmentName",
@@ -678,36 +416,16 @@
 									"value": "CREATE",
 									"type": "text"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}/file",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}",
-								"file"
 							]
-						}
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "POST Open Change Request to REMOVE keys from a Segment",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 						"method": "POST",
 						"header": [
 							{
@@ -719,74 +437,37 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"{{workspace-id}}",
-								"environments",
-								"{{environment-id}}"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				}
-			],
-			"description": "Approval Flows support via Public Admin API"
+			]
 		},
 		{
 			"name": "User Management API",
+			"description": "",
 			"item": [
 				{
 					"name": "CREATE User",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/users",
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"email\": \"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}]\n}"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"users"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "GET Users",
 					"request": {
-						"method": "GET",
-						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users",
+							"raw": "{{base-url}}/internal/api/v2/users?",
 							"host": [
 								"{{base-url}}"
 							],
@@ -822,155 +503,107 @@
 									"value": null,
 									"disabled": true
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "FULL UPDATE User",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/users",
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"<userId>\",\n    \"email\":\"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}],\n    \"2fa\":\"<false>\",\n    \"status\":\"<ACTIVE|DEACTIVATED>\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"id\":\"<userId>\",\n    \"email\":\"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}],\n    \"2fa\":\"<false>\",\n    \"status\":\"<ACTIVE|DEACTIVATED>\"\n}"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"users"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "DELETE Pending User",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/users/<userId>",
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"users",
-								"<userId>"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "GET user",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/users/<userId>",
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"users",
-								"<userId>"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "GET groups",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/groups",
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"groups"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "GET group",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/groups/<groupId>",
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"groups",
-								"<groupId>"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "CREATE group",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/groups",
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"<name>\",\n    \"description\":\"<description>\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"name\":\"<name>\",\n    \"description\":\"<description>\"\n}"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"groups"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "PATCH update",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/users/<userId>",
 						"method": "PATCH",
 						"header": [
 							{
@@ -981,86 +614,223 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n        {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "[\n        {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"users",
-								"<userId>"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "DELETE group",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/groups/<groupId>",
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"groups",
-								"<groupId>"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "UPDATE group",
 					"request": {
+						"url": "{{base-url}}/internal/api/v2/groups/<groupId>",
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "        {\n            \"id\": \"<groupId>\",\n            \"name\": \"<name>\",\n            \"description\": \"<description>\"\n        }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "        {\n            \"id\": \"<groupId>\",\n            \"name\": \"<name>\",\n            \"description\": \"<description>\"\n        }"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"groups",
-								"<groupId>"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
+		},
+		{
+			"name": "Api Key Management",
+			"description": "",
+			"item": [
+				{
+					"name": "POST Api Key",
+					"request": {
+						"url": "{{base-url}}/internal/api/v2/apiKeys",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth-token-prod}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\t\"name\": \"key name\",\n\t\t\"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n\t\t\"workspace\": {\n\t\t\t\"id\": \"workspaceId1\",\n\t\t\t\"type\": \"workspace\"\n\t\t},\n\t\t\"environments\": [\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId1\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId2\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t}\n\t\t]\n\t}"
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "4d1d9269-f6f8-4f22-b2eb-ab4de47d394b",
+							"name": "POST Admin with 2 environments",
+							"originalRequest": {
+								"url": "{{base-url}}/internal/api/v2/apiKeys",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth-token-prod}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\t\"name\": \"key name\",\n\t\t\"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n\t\t\"workspace\": {\n\t\t\t\"id\": \"workspaceId1\",\n\t\t\t\"type\": \"workspace\"\n\t\t},\n\t\t\"environments\": [\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId1\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId2\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t}\n\t\t]\n\t}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "parsed",
+							"header": [],
+							"cookie": [],
+							"responseTime": 0,
+							"body": "{\n    \"name\": \"Admin for two environments\",\n    \"apiKeyType\": \"admin\",\n    \"workspace\": {\n        \"id\": \"216c9620-721b-11eb-9f3d-3ee297d9bd2e\",\n        \"type\": \"workspace\"\n    },\n    \"environments\": [\n        {\n            \"id\": \"236c36b0-721b-11eb-9f3d-3ee297d9bd2e\",\n            \"type\": \"environment\"\n        },\n        {\n            \"id\": \"2174d380-721b-11eb-9f3d-3ee297d9bd2e\",\n            \"type\": \"environment\"\n        }\n    ]\n}"
+						},
+						{
+							"id": "daf0920d-f1f1-4283-b407-c3d5cc863d59",
+							"name": "POST Global Admin",
+							"originalRequest": {
+								"url": "{{base-url}}/internal/api/v2/apiKeys",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth-token-prod}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\t\"name\": \"key name\",\n\t\t\"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n\t\t\"workspace\": {\n\t\t\t\"id\": \"workspaceId1\",\n\t\t\t\"type\": \"workspace\"\n\t\t},\n\t\t\"environments\": [\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId1\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId2\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t}\n\t\t]\n\t}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "parsed",
+							"header": [],
+							"cookie": [],
+							"responseTime": 0,
+							"body": "{\n    \"name\": \"Global admin\",\n    \"apiKeyType\": \"admin\"\n}"
+						},
+						{
+							"id": "8cabc747-35d5-469d-b2d7-c83dfc88cd57",
+							"name": "POST Api Key Client Side",
+							"originalRequest": {
+								"url": "{{base-url}}/internal/api/v2/apiKeys",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth-token-prod}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\t\"name\": \"key name\",\n\t\t\"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n\t\t\"workspace\": {\n\t\t\t\"id\": \"workspaceId1\",\n\t\t\t\"type\": \"workspace\"\n\t\t},\n\t\t\"environments\": [\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId1\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId2\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t}\n\t\t]\n\t}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "parsed",
+							"header": [],
+							"cookie": [],
+							"responseTime": 0,
+							"body": "{\n\t\t\"name\": \"SOMETHING NAME\",\n\t\t\"apiKeyType\": \"client_side\",\n\t\t\"workspace\": {\n\t\t\t\"id\": \"216c9620-721b-11eb-9f3d-3ee297d9bd2e\",\n\t\t\t\"type\": \"workspace\"\n\t\t},\n\t\t\"environments\": [\n\t\t\t{\n\t\t\t\t\"id\": \"236c36b0-721b-11eb-9f3d-3ee297d9bd2e\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t}\n\t\t]\n\t}"
+						},
+						{
+							"id": "44d81c97-fd69-41ef-97a0-3cac20f6e771",
+							"name": "POST Api Key Server Side",
+							"originalRequest": {
+								"url": "{{base-url}}/internal/api/v2/apiKeys",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth-token-prod}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\t\"name\": \"key name\",\n\t\t\"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n\t\t\"workspace\": {\n\t\t\t\"id\": \"workspaceId1\",\n\t\t\t\"type\": \"workspace\"\n\t\t},\n\t\t\"environments\": [\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId1\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId2\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t}\n\t\t]\n\t}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "parsed",
+							"header": [],
+							"cookie": [],
+							"responseTime": 0,
+							"body": "{\n    \"name\": \"Server side\",\n    \"apiKeyType\": \"server_side\",\n    \"workspace\": {\n        \"id\": \"216c9620-721b-11eb-9f3d-3ee297d9bd2e\",\n        \"type\": \"workspace\"\n    },\n    \"environments\": [\n        {\n            \"id\": \"236c36b0-721b-11eb-9f3d-3ee297d9bd2e\",\n            \"type\": \"environment\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE Api Key",
+					"request": {
+						"url": "{{base-url}}/internal/api/v2/apiKeys/{{apiKeyId}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth-token-prod}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "GET Workspaces",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/workspaces",
 				"method": "GET",
 				"header": [
 					{
@@ -1069,17 +839,9 @@
 						"value": "application/json"
 					}
 				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/workspaces",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"workspaces"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "https://docs.split.io/reference#get-workspaces"
 			},
@@ -1088,6 +850,7 @@
 		{
 			"name": "GET Environments",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
 				"method": "GET",
 				"header": [
 					{
@@ -1096,19 +859,9 @@
 						"value": "application/json"
 					}
 				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"environments",
-						"ws",
-						"{{workspace-id}}"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "https://docs.split.io/reference#get-environments"
 			},
@@ -1117,6 +870,7 @@
 		{
 			"name": "CREATE Environment",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
 				"method": "POST",
 				"header": [
 					{
@@ -1129,20 +883,6 @@
 					"mode": "raw",
 					"raw": "{\"name\":\"new_environment\",\"production\":\"false}"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"environments",
-						"ws",
-						"{{workspace-id}}"
-					]
-				},
 				"description": "https://docs.split.io/reference#create-environment\n\nNot yet tested"
 			},
 			"response": []
@@ -1150,6 +890,7 @@
 		{
 			"name": "DELETE Environment",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
 				"method": "DELETE",
 				"header": [
 					{
@@ -1158,20 +899,9 @@
 						"value": "application/json"
 					}
 				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"environments",
-						"ws",
-						"{{workspace-id}}",
-						"<environment_name_or_id>"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "https://docs.split.io/reference#delete-environment\n\nNot yet tested"
 			},
@@ -1180,6 +910,7 @@
 		{
 			"name": "UPDATE Environment",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
 				"method": "PATCH",
 				"header": [
 					{
@@ -1192,21 +923,6 @@
 					"mode": "raw",
 					"raw": "[{\"op\": \"replace\", \"path\": \"/name\", \"value\":\"NewName\"}]"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"environments",
-						"ws",
-						"{{workspace-id}}",
-						"<environment_name_or_id>"
-					]
-				},
 				"description": "https://docs.split.io/reference#update-environment\n\nNot yet tested"
 			},
 			"response": []
@@ -1214,6 +930,7 @@
 		{
 			"name": "GET Traffic Types",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/trafficTypes/ws/{{workspace-id}}",
 				"method": "GET",
 				"header": [
 					{
@@ -1222,19 +939,9 @@
 						"value": "application/json"
 					}
 				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/ws/{{workspace-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"ws",
-						"{{workspace-id}}"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "https://docs.split.io/reference#get-traffic-types\n\nNot yet tested"
 			},
@@ -1243,6 +950,7 @@
 		{
 			"name": "GET Attributes",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
 				"method": "GET",
 				"header": [
 					{
@@ -1251,21 +959,9 @@
 						"value": "application/json"
 					}
 				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"schema",
-						"ws",
-						"{{workspace-id}}",
-						"trafficTypes",
-						"<traffic_type_id_or_name>"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "https://docs.split.io/reference#get-attributes\n\nNot yet tested"
 			},
@@ -1274,6 +970,7 @@
 		{
 			"name": "CREATE Attribute",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
 				"method": "POST",
 				"header": [
 					{
@@ -1286,22 +983,6 @@
 					"mode": "raw",
 					"raw": "{ \"id\": <string>, \"trafficTypeId\": <string>, \"displayName\": <string>, \"description\": <string>, \"dataType\": <string> }"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"schema",
-						"ws",
-						"{{workspace-id}}",
-						"trafficTypes",
-						"<traffic_type_id_or_name>"
-					]
-				},
 				"description": "https://docs.split.io/reference#save-attribute\nNot yet tested"
 			},
 			"response": []
@@ -1309,6 +990,7 @@
 		{
 			"name": "DELETE Attribute",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>/<attribute_id>",
 				"method": "DELETE",
 				"header": [
 					{
@@ -1317,22 +999,9 @@
 						"value": "application/json"
 					}
 				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>/<attribute_id>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"schema",
-						"ws",
-						"{{workspace-id}}",
-						"trafficTypes",
-						"<traffic_type_id_or_name>",
-						"<attribute_id>"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "https://docs.split.io/reference#delete-attribute\n\nNot yet tested"
 			},
@@ -1341,6 +1010,7 @@
 		{
 			"name": "CREATE Identity",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities/<key>",
 				"method": "PUT",
 				"header": [
 					{
@@ -1353,23 +1023,6 @@
 					"mode": "raw",
 					"raw": "{ \"key\": <string: key>, \"values\": { <string: attribute_id>: <string: value>, <string: attribute_id2>: <string: value2> } }"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities/<key>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"<traffic_type_id>",
-						"environments",
-						"{{environment-id}}",
-						"identities",
-						"<key>"
-					]
-				},
 				"description": "https://docs.split.io/reference#save-identity\nNot yet tested"
 			},
 			"response": []
@@ -1377,6 +1030,7 @@
 		{
 			"name": "CREATE Identities",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities",
 				"method": "POST",
 				"header": [
 					{
@@ -1389,22 +1043,6 @@
 					"mode": "raw",
 					"raw": "[{ \"key\": <string: key>, \"values\": { <string: attribute_id>: <string: value> }, { <string: attribute_id2>: <string: value2> } },\n{ \"key\": <string: key2>, \"values\": { <string: attribute_id>: <string: value> }, { <string: attribute_id2>: <string: value2> } }]"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"<traffic_type_id>",
-						"environments",
-						"{{environment-id}}",
-						"identities"
-					]
-				},
 				"description": "https://docs.split.io/reference#save-identities\nnot yet tested"
 			},
 			"response": []
@@ -1412,6 +1050,7 @@
 		{
 			"name": "UPDATE Identity",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities",
 				"method": "PATCH",
 				"header": [
 					{
@@ -1424,22 +1063,6 @@
 					"mode": "raw",
 					"raw": "{ \"key\": <string: key>, \"values\": { <string: attribute_id>: <string: value>, <string: attribute_id2>: <string: value2> } }"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"<traffic_type_id>",
-						"environments",
-						"{{environment-id}}",
-						"identities"
-					]
-				},
 				"description": "https://docs.split.io/reference#update-identity\n\nnot yet tested"
 			},
 			"response": []
@@ -1447,6 +1070,7 @@
 		{
 			"name": "DELETE Identity",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities/<key>",
 				"method": "DELETE",
 				"header": [
 					{
@@ -1459,33 +1083,14 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities/<key>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"<traffic_type_id>",
-						"environments",
-						"{{environment-id}}",
-						"identities",
-						"<key>"
-					]
-				},
 				"description": "https://docs.split.io/reference#delete-identitiy\n\nnot yet tested"
 			},
 			"response": []
 		},
 		{
 			"name": "GET Segments",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/environments/{{environment-id}}",
 				"method": "GET",
 				"header": [
 					{
@@ -1498,22 +1103,6 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/environments/{{environment-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"ws",
-						"{{workspace-id}}",
-						"environments",
-						"{{environment-id}}"
-					]
-				},
 				"description": "https://docs.split.io/reference#list-segments-in-environment"
 			},
 			"response": []
@@ -1521,6 +1110,7 @@
 		{
 			"name": "UPDATE Segment Keys via CSV",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
 				"method": "PUT",
 				"header": [
 					{
@@ -1536,28 +1126,14 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/csachetti/test.csv"
+							"src": "/Users/csachetti/test.csv",
+							"value": ""
 						},
 						{
 							"key": "payload",
 							"value": "{\"comment\": \"a string from postman\"}",
 							"type": "text"
 						}
-					]
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment_name>",
-						"upload"
 					]
 				},
 				"description": "https://docs.split.io/reference#update-segment-keys-in-environment-via-csv"
@@ -1567,6 +1143,7 @@
 		{
 			"name": "UPDATE Segment via JSON",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
 				"method": "PUT",
 				"header": [
 					{
@@ -1579,31 +1156,14 @@
 					"mode": "raw",
 					"raw": "[\"value1\", \"value2\", \"value3\"]"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment_name>",
-						"upload"
-					]
-				},
 				"description": "https://docs.split.io/reference#update-segment-keys-in-environment-via-json"
 			},
 			"response": []
 		},
 		{
 			"name": "GET Segment Keys",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/keys",
 				"method": "GET",
 				"header": [
 					{
@@ -1616,21 +1176,6 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/keys",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment_name>",
-						"keys"
-					]
-				},
 				"description": "https://docs.split.io/reference#get-segment-keys-in-environment"
 			},
 			"response": []
@@ -1638,6 +1183,7 @@
 		{
 			"name": "DELETE Segment Keys",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment name>/deleteKeys",
 				"method": "PUT",
 				"header": [
 					{
@@ -1650,21 +1196,6 @@
 					"mode": "raw",
 					"raw": "[\"user2\"]"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment name>/deleteKeys",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment name>",
-						"deleteKeys"
-					]
-				},
 				"description": "https://docs.split.io/reference#remove-segment-keys-from-environment"
 			},
 			"response": []
@@ -1672,6 +1203,7 @@
 		{
 			"name": "DELETE Segment Keys with Comment",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/removeKeys",
 				"method": "PUT",
 				"header": [
 					{
@@ -1684,42 +1216,15 @@
 					"mode": "raw",
 					"raw": "{\"keys\": [\"user1\"], \"comment\": \"some comment\"}"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/removeKeys",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment_name>",
-						"removeKeys"
-					]
-				}
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "CREATE Split",
 			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"name\":\"paywall_beta\",\"description\":\"description\"}"
-				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1739,19 +1244,10 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#create-split\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Splits (list)",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -1762,10 +1258,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "{\"name\":\"paywall_beta\",\"description\":\"description\"}"
 				},
+				"description": "https://docs.split.io/reference#create-split\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Splits (list)",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1783,18 +1286,9 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#list-splits\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Split",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
 				"method": "GET",
 				"header": [
 					{
@@ -1808,8 +1302,15 @@
 					"mode": "raw",
 					"raw": ""
 				},
+				"description": "https://docs.split.io/reference#list-splits\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Split",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1828,7 +1329,21 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "https://docs.split.io/reference#get-split\n\nNot yet tested"
 			},
@@ -1837,6 +1352,29 @@
 		{
 			"name": "DELETE Split",
 			"request": {
+				"url": {
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>?",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"internal",
+						"api",
+						"v2",
+						"splits",
+						"ws",
+						"{{workspace-id}}",
+						"<split_name>"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					],
+					"variable": []
+				},
 				"method": "DELETE",
 				"header": [
 					{
@@ -1850,28 +1388,6 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<split_name>"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
 				"description": "https://docs.split.io/reference#delete-split"
 			},
 			"response": []
@@ -1879,21 +1395,8 @@
 		{
 			"name": "UPDATE Split Description",
 			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/updateDescription",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/updateDescription?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1913,7 +1416,21 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "https://docs.split.io/reference#update-split-description\n\nNot yet tested"
 			},
@@ -1922,6 +1439,31 @@
 		{
 			"name": "CREATE Split Definition in Environment",
 			"request": {
+				"url": {
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"internal",
+						"api",
+						"v2",
+						"splits",
+						"ws",
+						"{{workspace-id}}",
+						"<split_name>",
+						"environments",
+						"{{environment-id}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					],
+					"variable": []
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -1935,8 +1477,15 @@
 					"mode": "raw",
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\"},\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
+				"description": "https://docs.split.io/reference#create-split-definition-in-environment\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Split Definition in Environment",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1957,18 +1506,9 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#create-split-definition-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Split Definition in Environment",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
 				"method": "GET",
 				"header": [
 					{
@@ -1982,8 +1522,15 @@
 					"mode": "raw",
 					"raw": ""
 				},
+				"description": "https://docs.split.io/reference#get-split-definition-in-environment\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "partial UPDATE Split Definition in Environment",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2004,15 +1551,9 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#get-split-definition-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "partial UPDATE Split Definition in Environment",
-			"request": {
 				"method": "PATCH",
 				"header": [
 					{
@@ -2026,8 +1567,15 @@
 					"mode": "raw",
 					"raw": "[{\"op\": \"replace\", \"path\": \"/trafficAllocation\", \"value\":50}]"
 				},
+				"description": "https://docs.split.io/reference#partial-update-split-definition-in-environment\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "full UPDATE Split Definition in Environment",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2048,15 +1596,9 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#partial-update-split-definition-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "full UPDATE Split Definition in Environment",
-			"request": {
 				"method": "PUT",
 				"header": [
 					{
@@ -2070,8 +1612,15 @@
 					"mode": "raw",
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"segments\":[\"employees\"],\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"},{\"name\":\"off\",\"keys\":[\"one\",\"two\"],\"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"}],\"defaultTreatment\":\"on\", \"baselineTreatment\": \"off\",\"trafficAllocation\":80,\"rules\":[],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
+				"description": "https://docs.split.io/reference#full-update-split-definition-in-environment\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Split Definition from Environment",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2092,15 +1641,9 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#full-update-split-definition-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Split Definition from Environment",
-			"request": {
 				"method": "DELETE",
 				"header": [
 					{
@@ -2114,8 +1657,15 @@
 					"mode": "raw",
 					"raw": ""
 				},
+				"description": "https://docs.split.io/reference#remove-split-definition-from-environment\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Split Definitions in Environment (List)",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2126,7 +1676,6 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2136,18 +1685,9 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#remove-split-definition-from-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Split Definitions in Environment (List)",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
 				"method": "GET",
 				"header": [
 					{
@@ -2161,29 +1701,6 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"environments",
-						"{{environment-id}}"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
 				"description": "https://docs.split.io/reference#lists-split-definitions-in-environment\n\nNot yet tested"
 			},
 			"response": []
@@ -2191,21 +1708,8 @@
 		{
 			"name": "KILL Split in Environment",
 			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/kill",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/kill?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2227,15 +1731,9 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#kill-split-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "Restore Split in Environment",
-			"request": {
 				"method": "PUT",
 				"header": [
 					{
@@ -2249,8 +1747,15 @@
 					"mode": "raw",
 					"raw": ""
 				},
+				"description": "https://docs.split.io/reference#kill-split-in-environment\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "Restore Split in Environment",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/restore",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/restore?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2272,16 +1777,10 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#restore-split-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "Associate Tags",
-			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -2292,10 +1791,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\"tagA,\" \"tagB\"]"
+					"raw": ""
 				},
+				"description": "https://docs.split.io/reference#restore-split-in-environment\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "Associate Tags",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>",
+					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2318,15 +1824,9 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#associate-tags\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "Create Event (Single)",
-			"request": {
 				"method": "POST",
 				"header": [
 					{
@@ -2338,10 +1838,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"eventTypeId\": \"page_load\", \n  \"environmentName\": \"Staging\",      \n  \"trafficTypeName\": \"user\", \n  \"key\": \"key_user_0\", \n  \"timestamp\": 1513357833000, \n  \"value\": 0.8,\n  \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n}"
+					"raw": "[\"tagA,\" \"tagB\"]"
 				},
+				"description": "https://docs.split.io/reference#associate-tags\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Event (Single)",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/events",
+					"raw": "{{base-url}}/internal/api/events?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2356,15 +1863,9 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
 				},
-				"description": "https://docs.split.io/reference#create-event\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "Create Events (Bulk)",
-			"request": {
 				"method": "POST",
 				"header": [
 					{
@@ -2376,10 +1877,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n{ \n \"eventTypeId\": \"page_latency\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user1\", \n \"timestamp\": 1513357833000, \n \"value\": 0.8  \n}, \n{ \n \"eventTypeId\": \"page_load\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user2\", \n \"timestamp\": 1513357834000, \n \"value\": 0.9,\n \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n }\n ]"
+					"raw": "{\n\t\"eventTypeId\": \"page_load\", \n  \"environmentName\": \"Staging\",      \n  \"trafficTypeName\": \"user\", \n  \"key\": \"key_user_0\", \n  \"timestamp\": 1513357833000, \n  \"value\": 0.8,\n  \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n}"
 				},
+				"description": "https://docs.split.io/reference#create-event\n\nNot yet tested"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Events (Bulk)",
+			"request": {
 				"url": {
-					"raw": "{{base-url}}/internal/api/events/bulk",
+					"raw": "{{base-url}}/internal/api/events/bulk?",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2395,7 +1903,21 @@
 							"value": "",
 							"disabled": true
 						}
-					]
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{ \n \"eventTypeId\": \"page_latency\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user1\", \n \"timestamp\": 1513357833000, \n \"value\": 0.8  \n}, \n{ \n \"eventTypeId\": \"page_load\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user2\", \n \"timestamp\": 1513357834000, \n \"value\": 0.9,\n \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n }\n ]"
 				},
 				"description": "https://docs.split.io/reference#create-events\n\nNot yet tested"
 			},
@@ -2404,6 +1926,7 @@
 		{
 			"name": "CREATE Segment",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/trafficTypes/{{traffic-type-id-or-name}}",
 				"method": "POST",
 				"header": [
 					{
@@ -2416,44 +1939,13 @@
 					"mode": "raw",
 					"raw": "{\n\t\"name\":\"friendly_customers_2\",\n\t\"description\":\"this is a segment that groups friendly customers\"\n\t\n}"
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/trafficTypes/{{traffic-type-id-or-name}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"ws",
-						"{{workspace-id}}",
-						"trafficTypes",
-						"{{traffic-type-id-or-name}}"
-					]
-				},
 				"description": "Creates a Segment Metadata in a workspace."
 			},
 			"response": []
 		},
 		{
 			"name": "GET Segments",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}?offset=0&limit=10&tag=tag_test",
 					"host": [
@@ -2480,7 +1972,20 @@
 							"key": "tag",
 							"value": "tag_test"
 						}
-					]
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "Creates a Segment Metadata in a workspace."
 			},
@@ -2489,6 +1994,7 @@
 		{
 			"name": "ACTIVATE Segment in Environment",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/friendly_customers_2",
 				"method": "POST",
 				"header": [
 					{
@@ -2501,20 +2007,6 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/friendly_customers_2",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"friendly_customers_2"
-					]
-				},
 				"description": "Creates a Segment Metadata in a workspace."
 			},
 			"response": []
@@ -2522,6 +2014,7 @@
 		{
 			"name": "DEACTIVATE Segment in Environment",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/friendly_customers_2",
 				"method": "DELETE",
 				"header": [
 					{
@@ -2533,20 +2026,6 @@
 				"body": {
 					"mode": "raw",
 					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/friendly_customers_2",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"friendly_customers_2"
-					]
 				},
 				"description": "Creates a Segment Metadata in a workspace."
 			},
@@ -2555,6 +2034,7 @@
 		{
 			"name": "DELETE Segment",
 			"request": {
+				"url": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/friendly_customers_2",
 				"method": "DELETE",
 				"header": [
 					{
@@ -2567,65 +2047,9 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/friendly_customers_2",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"ws",
-						"{{workspace-id}}",
-						"friendly_customers_2"
-					]
-				},
 				"description": "Creates a Segment Metadata in a workspace."
 			},
 			"response": []
 		}
-	],
-	"auth": {
-		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "{{auth-token}}",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "81e9e139-567d-4cf4-ad82-5533fe229084",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"id": "12df8932-69bd-4279-89cd-a8b01a9ba6ac",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"id": "0ee6384f-b124-4121-b7fc-a78079869247",
-			"key": "base-url",
-			"value": "https://api.split.io",
-			"type": "string"
-		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
