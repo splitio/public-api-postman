@@ -1059,6 +1059,54 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "Api Key Management",
+			"description": "",
+			"item": [
+				{
+					"name": "POST Api Key",
+					"request": {
+						"url": "{{base-url}}/internal/api/v2/apiKeys",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth-token-prod}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\t\"name\": \"key name\",\n\t\t\"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n\t\t\"workspace\": {\n\t\t\t\"id\": \"workspaceId1\",\n\t\t\t\"type\": \"workspace\"\n\t\t},\n\t\t\"environments\": [\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId1\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId2\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t}\n\t\t]\n\t}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Api Key",
+					"request": {
+						"url": "{{base-url}}/internal/api/v2/apiKeys/{{apiKeyId}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth-token-prod}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "GET Workspaces",
 			"request": {
 				"method": "GET",
