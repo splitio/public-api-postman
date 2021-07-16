@@ -2481,7 +2481,7 @@
 			"response": []
 		},
 		{
-			"name": "UPDATE Split Copy",
+			"name": "Full Split UPDATE",
 			"request": {
 				"method": "PATCH",
 				"header": [
@@ -2494,7 +2494,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/tags/0\",\n        \"value\":\"<tag_name>\"\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/description\",\n    \t\"value\":\"<description>\"\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/rolloutStatus/id\",\n    \t\"value\":\"<rollout_status_id>\"\n    }\n]"
+					"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/tags/0\",\n        \"value\":{\"name\":\"<tag_name>\"}\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/description\",\n    \t\"value\":\"<description>\"\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/rolloutStatus/id\",\n    \t\"value\":\"<rollout_status_id>\"\n    }\n]"
 				},
 				"url": {
 					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
@@ -2515,7 +2515,7 @@
 			"response": []
 		},
 		{
-			"name": "GET Rollout Statuses Copy",
+			"name": "GET Rollout Statuses",
 			"request": {
 				"method": "GET",
 				"header": [],
