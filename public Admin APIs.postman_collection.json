@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "28705033-7d57-4547-8291-132f81ed3948",
+		"_postman_id": "37374338-7409-426b-9e48-7d5c598ab108",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -954,47 +954,63 @@
 		},
 		{
 			"name": "Api Key Management",
-			"description": "",
 			"item": [
 				{
 					"name": "POST Api Key",
 					"request": {
-						"url": "{{base-url}}/internal/api/v2/apiKeys",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{auth-token-prod}}",
-								"description": ""
+								"value": "Bearer {{auth-token-prod}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\t\"name\": \"key name\",\n\t\t\"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n\t\t\"workspace\": {\n\t\t\t\"id\": \"workspaceId1\",\n\t\t\t\"type\": \"workspace\"\n\t\t},\n\t\t\"environments\": [\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId1\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId2\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t}\n\t\t]\n\t}"
 						},
-						"description": ""
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/apiKeys",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"apiKeys"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "DELETE Api Key",
 					"request": {
-						"url": "{{base-url}}/internal/api/v2/apiKeys/{{apiKeyId}}",
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{auth-token-prod}}",
-								"description": ""
+								"value": "Bearer {{auth-token-prod}}"
 							}
 						],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/apiKeys/{{apiKeyId}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"apiKeys",
+								"{{apiKeyId}}"
+							]
+						}
 					},
 					"response": []
 				}
@@ -2283,12 +2299,11 @@
 					"raw": "{\n\t\"eventTypeId\": \"page_load\", \n  \"environmentName\": \"Staging\",      \n  \"trafficTypeName\": \"user\", \n  \"key\": \"key_user_0\", \n  \"timestamp\": 1513357833000, \n  \"value\": 0.8,\n  \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/events",
+					"raw": "{{events-base-url}}/api/events",
 					"host": [
-						"{{base-url}}"
+						"{{events-base-url}}"
 					],
 					"path": [
-						"internal",
 						"api",
 						"events"
 					],
@@ -2321,12 +2336,11 @@
 					"raw": "[\n{ \n \"eventTypeId\": \"page_latency\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user1\", \n \"timestamp\": 1513357833000, \n \"value\": 0.8  \n}, \n{ \n \"eventTypeId\": \"page_load\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user2\", \n \"timestamp\": 1513357834000, \n \"value\": 0.9,\n \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n }\n ]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/events/bulk",
+					"raw": "{{events-base-url}}/api/events/bulk",
 					"host": [
-						"{{base-url}}"
+						"{{events-base-url}}"
 					],
 					"path": [
-						"internal",
 						"api",
 						"events",
 						"bulk"
@@ -2603,7 +2617,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "81e9e139-567d-4cf4-ad82-5533fe229084",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -2613,7 +2626,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "12df8932-69bd-4279-89cd-a8b01a9ba6ac",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -2623,10 +2635,12 @@
 	],
 	"variable": [
 		{
-			"id": "0ee6384f-b124-4121-b7fc-a78079869247",
 			"key": "base-url",
-			"value": "https://api.split.io",
-			"type": "string"
+			"value": "https://api.split.io"
+		},
+		{
+			"key": "events-base-url",
+			"value": "https://events.split.io"
 		}
 	]
 }

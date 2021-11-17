@@ -2,7 +2,7 @@
 
 This repo contains a Postman collection file describing the Split public API located at https://docs.split.io/reference
 
-Currently, this is a community maintained repo. Feel free to contribute any missing endpoints by issuing pull requests. 
+Currently, this is a community maintained repo. Feel free to contribute any missing endpoints by issuing pull requests.
 
 # Installation
 
@@ -17,5 +17,5 @@ Currently, this is a community maintained repo. Feel free to contribute any miss
 
  * Export any of the files you need to submit for review
  * create a PR
- 
+
  Thank you for your contribution!
