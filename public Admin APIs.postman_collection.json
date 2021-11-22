@@ -2253,7 +2253,7 @@
 					"raw": "[\"tagA,\" \"tagB\"]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>",
+					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/object/<object_name>/objecttype/<object_type>",
 					"host": [
 						"{{base-url}}"
 					],
