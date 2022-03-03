@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "37374338-7409-426b-9e48-7d5c598ab108",
+		"_postman_id": "d92fbb3d-b609-4bdf-a5ba-07b96dad4b8f",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -874,7 +874,7 @@
 					"response": []
 				},
 				{
-					"name": "PATCH update",
+					"name": "PATCH update remove group",
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -887,6 +887,37 @@
 						"body": {
 							"mode": "raw",
 							"raw": "[\n        {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"users",
+								"<userId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH update add group",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n       {\n       \"op\": \"add\",\n       \"path\": \"/groups/0\",\n        \"value\": {\"id\": \"<groupId>\", \"type\":\"group\"}\n    }\n]"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
