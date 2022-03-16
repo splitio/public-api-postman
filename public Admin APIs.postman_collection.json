@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d92fbb3d-b609-4bdf-a5ba-07b96dad4b8f",
+		"_postman_id": "e5b816c1-4e78-4fad-abea-25432cfb9b5a",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1048,186 +1048,407 @@
 			]
 		},
 		{
-			"name": "GET Workspaces",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/workspaces",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"workspaces"
-					]
+			"name": "Workspace API",
+			"item": [
+				{
+					"name": "CREATE Workspace",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"workspace name\",\n    \"requiresTitleAndComments\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/workspaces",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"workspaces"
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "https://docs.split.io/reference#get-workspaces"
-			},
-			"response": []
+				{
+					"name": "GET Workspaces",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/workspaces",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"workspaces"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "https://docs.split.io/reference#get-workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE workspace",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/workspaces/<workspaceId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"workspaces",
+								"<workspaceId>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "partial UPDATE workspace",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/name\",\n        \"value\": \"new_name\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/requiresTitleAndComments\",\n        \"value\": true\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/workspaces/<workspaceId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"workspaces",
+								"<workspaceId>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "GET Environments",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"environments",
-						"ws",
-						"{{workspace-id}}"
-					]
+			"name": "Environment API",
+			"item": [
+				{
+					"name": "GET Environments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"environments",
+								"ws",
+								"{{workspace-id}}"
+							]
+						},
+						"description": "https://docs.split.io/reference#get-environments"
+					},
+					"response": []
 				},
-				"description": "https://docs.split.io/reference#get-environments"
-			},
-			"response": []
+				{
+					"name": "CREATE Environment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"new_environment\",\n    \"production\": false,\n    \"changePermissions\": {\n        \"allowKills\": true,\n        \"areApprovalsRequired\": true,\n        \"areApproversRestricted\": true,\n        \"approvers\": [\n            {\n                \"id\": \"approver id\",\n                \"name\": \"approver name\",\n                \"type\": \"approver type\"\n            }\n        ],\n        \"areEditorsRestricted\": false,\n        \"editors\": null\n    },\n    \"dataExportPermissions\": {\n        \"areExportersRestricted\": true,\n        \"exporters\": [\n            {\n                \"id\": \"exporter id\",\n                \"name\": \"exporter name\",\n                \"type\": \"exporter type\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"environments",
+								"ws",
+								"{{workspace-id}}"
+							]
+						},
+						"description": "https://docs.split.io/reference#create-environment\n\nNot yet tested"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Environment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"environments",
+								"ws",
+								"{{workspace-id}}",
+								"<environment_name_or_id>"
+							]
+						},
+						"description": "https://docs.split.io/reference#delete-environment\n\nNot yet tested"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE Environment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/name\",\n        \"value\": \"NewName\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areApprovalsRequired\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areApproversRestricted\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/approvers\",\n        \"value\": [\n            {\n                \"id\": \"approver id\",\n                \"type\": \"approver type\",\n                \"name\": \"approver name\"\n            }\n        ]\n    },\n        {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areEditorsRestricted\",\n        \"value\": true\n    },\n        {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/editors\",\n        \"value\": [\n            {\n                \"id\": \"editor id\",\n                \"type\": \"editor type\",\n                \"name\": \"editor name\"\n            }\n        ]\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/dataExportPermissions/areExportersRestricted\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/dataExportPermissions/exporters\",\n        \"value\": [\n            {\n                \"id\": \"exporter id\",\n                \"type\": \"exporter type\",\n                \"name\": \"exporter name\"\n            }\n        ]\n    },\n]"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"environments",
+								"ws",
+								"{{workspace-id}}",
+								"<environment_name_or_id>"
+							],
+							"query": [
+								{
+									"key": "dry_run",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "https://docs.split.io/reference#update-environment\n\nNot yet tested"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "CREATE Environment",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"name\":\"new_environment\",\"production\":\"false}"
+			"name": "Traffic Type API",
+			"item": [
+				{
+					"name": "GET Traffic Types",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/ws/{{workspace-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"trafficTypes",
+								"ws",
+								"{{workspace-id}}"
+							]
+						},
+						"description": "https://docs.split.io/reference#get-traffic-types\n\nNot yet tested"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"environments",
-						"ws",
-						"{{workspace-id}}"
-					]
-				},
-				"description": "https://docs.split.io/reference#create-environment\n\nNot yet tested"
-			},
-			"response": []
+				{
+					"name": "DELETE Traffic Type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/<trafficTypeId>",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"trafficTypes",
+								"<trafficTypeId>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "DELETE Environment",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"environments",
-						"ws",
-						"{{workspace-id}}",
-						"<environment_name_or_id>"
-					]
+			"name": "Restriction API",
+			"item": [
+				{
+					"name": "GET Resource Restrictions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/restrictions?resource_type&resource_id",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"restrictions"
+							],
+							"query": [
+								{
+									"key": "resource_type",
+									"value": null
+								},
+								{
+									"key": "resource_id",
+									"value": null
+								},
+								{
+									"key": "offset",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "https://docs.split.io/reference#delete-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "UPDATE Environment",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[{\"op\": \"replace\", \"path\": \"/name\", \"value\":\"NewName\"}]"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"environments",
-						"ws",
-						"{{workspace-id}}",
-						"<environment_name_or_id>"
-					]
-				},
-				"description": "https://docs.split.io/reference#update-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Traffic Types",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/ws/{{workspace-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"ws",
-						"{{workspace-id}}"
-					]
-				},
-				"description": "https://docs.split.io/reference#get-traffic-types\n\nNot yet tested"
-			},
-			"response": []
+				{
+					"name": "PUT Resource Restrictions",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"resource\": {\n        \"type\": \"resource type\",\n        \"id\": \"resource id\"\n    },\n    \"operations\": {\n        \"view\": true\n    },\n    \"resourcePermissions\": {\n        \"view\": [\n            {\n                \"type\": \"resourcePermissions type\",\n                \"id\": \"resourcePermissions id\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/restrictions",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"restrictions"
+							],
+							"query": [
+								{
+									"key": "dry_run",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "GET Attributes",
@@ -2284,7 +2505,7 @@
 					"raw": "[\"tagA,\" \"tagB\"]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/object/<object_name>/objecttype/<object_type>",
+					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>",
 					"host": [
 						"{{base-url}}"
 					],
