@@ -2632,6 +2632,55 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET Export Report Metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/internal/api/metrics-reports?testId={test-id}&rule={rule}&comparison={comparison}&baseline={baseline}&fileType={file-type}&version={version}&timeZone={time-zone}",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"internal",
+						"api",
+						"metrics-reports"
+					],
+					"query": [
+						{
+							"key": "testId",
+							"value": "{test-id}"
+						},
+						{
+							"key": "rule",
+							"value": "{rule}"
+						},
+						{
+							"key": "comparison",
+							"value": "{comparison}"
+						},
+						{
+							"key": "baseline",
+							"value": "{baseline}"
+						},
+						{
+							"key": "fileType",
+							"value": "{file-type}"
+						},
+						{
+							"key": "version",
+							"value": "{version}"
+						},
+						{
+							"key": "timeZone",
+							"value": "{time-zone}"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
