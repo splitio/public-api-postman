@@ -1466,7 +1466,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}?searchPrefix=&paginate=true&limit=50",
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}?searchPrefix=&paginate=true",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1504,9 +1504,10 @@
 									"disabled": true
 								},
 								{
-									"key": "limit",
-									"value": "50",
-									"description": "Page size limit. Only available with pagination. If more than the max of 200 is supplied, the limit will be 200"
+									"key": "markerLimit",
+									"value": "",
+									"description": "Page size limit. Only available with pagination. If more than the max of 200 is supplied, the limit will be 200",
+									"disabled": true
 								}
 							]
 						},
