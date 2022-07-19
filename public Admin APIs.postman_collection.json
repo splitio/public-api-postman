@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "aff65c88-edd6-4e26-a44e-009b0d11183a",
+		"_postman_id": "662b7f0e-c243-4fd2-8013-8122a39aa966",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "14645211"
@@ -1379,7 +1379,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/restrictions?resource_type&resource_id",
+							"raw": "{{base-url}}/internal/api/v2/restrictions?resource_type=&resource_id=",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1528,7 +1528,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"someAttr\",\n    \"trafficTypeId\": \"{{traffictype-id}}\",\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\"A\", \"B\"]\n}"
+							"raw": "{\n    \"id\": \"someAttr\",\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\"A\", \"B\"]\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}",
