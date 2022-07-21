@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e5b816c1-4e78-4fad-abea-25432cfb9b5a",
+		"_postman_id": "662b7f0e-c243-4fd2-8013-8122a39aa966",
 		"name": "public Admin APIs",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14645211"
 	},
 	"item": [
 		{
@@ -65,7 +66,7 @@
 								},
 								{
 									"key": "before",
-									"value": null,
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -729,12 +730,12 @@
 								},
 								{
 									"key": "before",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "group_id",
-									"value": null,
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -1104,17 +1105,17 @@
 							"query": [
 								{
 									"key": "name",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "limit",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "offset",
-									"value": null,
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -1303,7 +1304,7 @@
 							"query": [
 								{
 									"key": "dry_run",
-									"value": null,
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -1378,7 +1379,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/restrictions?resource_type&resource_id",
+							"raw": "{{base-url}}/internal/api/v2/restrictions?resource_type=&resource_id=",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1391,20 +1392,20 @@
 							"query": [
 								{
 									"key": "resource_type",
-									"value": null
+									"value": ""
 								},
 								{
 									"key": "resource_id",
-									"value": null
+									"value": ""
 								},
 								{
 									"key": "offset",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "limit",
-									"value": null,
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -1440,7 +1441,7 @@
 							"query": [
 								{
 									"key": "dry_run",
-									"value": null,
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -1451,102 +1452,286 @@
 			]
 		},
 		{
-			"name": "GET Attributes",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"schema",
-						"ws",
-						"{{workspace-id}}",
-						"trafficTypes",
-						"<traffic_type_id_or_name>"
-					]
+			"name": "Attribute Dictionary",
+			"item": [
+				{
+					"name": "GET Attributes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}?searchPrefix=&paginate=true",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								"{{traffictype-id}}"
+							],
+							"query": [
+								{
+									"key": "searchPrefix",
+									"value": "",
+									"description": "string for search. Only works with pagination"
+								},
+								{
+									"key": "paginate",
+									"value": "true",
+									"description": "Boolean for whether to use pagination."
+								},
+								{
+									"key": "beforeMarker",
+									"value": "",
+									"description": "Get results 'Before' the marker passed into this parameter. Marker string comes from response",
+									"disabled": true
+								},
+								{
+									"key": "afterMarker",
+									"value": "",
+									"description": "Get results 'After' the marker passed into this parameter. Marker string comes from response",
+									"disabled": true
+								},
+								{
+									"key": "markerLimit",
+									"value": "",
+									"description": "Page size limit. Only available with pagination. If more than the max of 200 is supplied, the limit will be 200",
+									"disabled": true
+								}
+							]
+						},
+						"description": "https://docs.split.io/reference#get-attributes\n\nNot yet tested"
+					},
+					"response": []
 				},
-				"description": "https://docs.split.io/reference#get-attributes\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "CREATE Attribute",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"id\": <string>, \"trafficTypeId\": <string>, \"displayName\": <string>, \"description\": <string>, \"dataType\": <string> }"
+				{
+					"name": "Create Attribute",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"someAttr\",\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\"A\", \"B\"]\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								"{{traffictype-id}}"
+							]
+						},
+						"description": "https://docs.split.io/reference#save-attribute\nNot yet tested"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"schema",
-						"ws",
-						"{{workspace-id}}",
-						"trafficTypes",
-						"<traffic_type_id_or_name>"
-					]
+				{
+					"name": "Replace Attribute",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"someAttr\",\n    \"trafficTypeId\": \"{{traffictype-id}}\",\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute updated\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\"A\", \"B\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								"{{traffictype-id}}"
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "https://docs.split.io/reference#save-attribute\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Attribute",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>/<attribute_id>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"schema",
-						"ws",
-						"{{workspace-id}}",
-						"trafficTypes",
-						"<traffic_type_id_or_name>",
-						"<attribute_id>"
-					]
+				{
+					"name": "Patch Attribute",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute Patched\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\"A\", \"B\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/:attributeId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								"{{traffictype-id}}",
+								":attributeId"
+							],
+							"variable": [
+								{
+									"key": "attributeId",
+									"value": "someAttr"
+								}
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "https://docs.split.io/reference#delete-attribute\n\nNot yet tested"
-			},
-			"response": []
+				{
+					"name": "Delete Attribute",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/:attributeId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								"{{traffictype-id}}",
+								":attributeId"
+							],
+							"variable": [
+								{
+									"key": "attributeId",
+									"value": "someAttr"
+								}
+							]
+						},
+						"description": "https://docs.split.io/reference#delete-attribute\n\nNot yet tested"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Attribute Bulk (CSV)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "Select CSV file here",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/attribute:bulk",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								"{{traffictype-id}}",
+								"attribute:bulk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Attribute Bulk (JSON)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": \"someAttr\",\n        \"organizationId\": \"{{org-id}}\",\n        \"trafficTypeId\": \"{{traffictype-id}}\",\n        \"displayName\": \"Some Attribute\",\n        \"description\": \"This is an attribute\",\n        \"dataType\": \"STRING\",\n        \"isSearchable\": true,\n        \"suggestedValues\": [\n            \"A\",\n            \"B\"\n        ]\n    },\n    {\n        \"id\": \"anotherAttr\",\n        \"organizationId\": \"{{org-id}}\",\n        \"trafficTypeId\": \"{{traffictype-id}}\",\n        \"displayName\": \"Another Attribute\",\n        \"description\": \"This is also an attribute\",\n        \"dataType\": \"NUMBER\",\n        \"isSearchable\": true,\n        \"suggestedValues\": [\n            \"0\",\n            \"1\"\n        ]\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/attribute:bulk",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								"{{traffictype-id}}",
+								"attribute:bulk"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "CREATE Identity",
@@ -2853,6 +3038,55 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"jwt-auth\", jsonData.data);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/internal/api/login",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"internal",
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -2860,7 +3094,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{auth-token}}",
+				"value": "{{apikey-auth}}",
 				"type": "string"
 			}
 		]
