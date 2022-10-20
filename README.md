@@ -10,7 +10,7 @@ Currently, this is a community maintained repo. Feel free to contribute any miss
  * Clone this repository
  * Import collection by importing the file `public Admin APIs.postman_collection.json`
  * Import environments by importing the file `prod.postman_environment.json`
- * In the environments tab, fill in the content of `auth-token` in the "current" column with your admin api key (https://docs.split.io/reference#authentication)
+ * In the environments tab, fill in the content of `apikey-auth` in the "current" column with your admin api key (https://docs.split.io/reference/authentication)
  * Hit any endpoint!
 
 # Contribute
