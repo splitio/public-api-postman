@@ -3019,7 +3019,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/rolloutStatuses?wsId={wsId}",
+					"raw": "{{base-url}}/internal/api/v2/rolloutStatuses?wsId={{workspace-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -3032,7 +3032,7 @@
 					"query": [
 						{
 							"key": "wsId",
-							"value": "{wsId}"
+							"value": "{{workspace-id}}"
 						}
 					]
 				}
