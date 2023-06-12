@@ -109,7 +109,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request adding split definition, with environment restricted approvers",
+					"name": "POST Open Change Request adding feature flag definition, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -122,7 +122,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split_meta>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"CREATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
+							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"CREATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -144,7 +144,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request updating split definition, with environment restricted approvers",
+					"name": "POST Open Change Request updating feature flag definition, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -157,7 +157,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"UPDATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
+							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"UPDATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -179,7 +179,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request killing a split, with environment restricted approvers",
+					"name": "POST Open Change Request killing a feature flag, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -192,7 +192,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"KILL\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n"
+							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\"},\n  \"operationType\":\"KILL\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -214,7 +214,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request restoring a split, with environment restricted approvers",
+					"name": "POST Open Change Request restoring a feature flag, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -227,7 +227,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"RESTORE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
+							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\"},\n  \"operationType\":\"RESTORE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -249,7 +249,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request archiving a split, with environment restricted approvers",
+					"name": "POST Open Change Request archiving a feature flag, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -262,7 +262,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_split>\"},\n  \"operationType\":\"ARCHIVE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
+							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\"},\n  \"operationType\":\"ARCHIVE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -354,7 +354,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to create a Split Definition",
+					"name": "POST Open Change Request to create a feature flag definition",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -367,7 +367,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -389,7 +389,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to modify an existing Split Definition",
+					"name": "POST Open Change Request to modify an existing feature flag definition",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -402,7 +402,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"UPDATE\",\n\t\"title\":\"\",\n\t\"comment\":\"\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"UPDATE\",\n\t\"title\":\"\",\n\t\"comment\":\"\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -424,7 +424,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to KILL a Split",
+					"name": "POST Open Change Request to KILL a Feature Flag",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -437,7 +437,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"KILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\"},\n\t\"operationType\":\"KILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -459,7 +459,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to RESTORE a Split",
+					"name": "POST Open Change Request to RESTORE a Feature Flag",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -472,7 +472,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"RESTORE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\"},\n\t\"operationType\":\"RESTORE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -494,7 +494,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to ARCHIVE a Split",
+					"name": "POST Open Change Request to ARCHIVE a Feature Flag",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -507,7 +507,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<SPLIT_NAME>\"},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\"},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -1120,7 +1120,7 @@
 								}
 							]
 						},
-						"description": "https://docs.split.io/reference#get-workspaces"
+						"description": "https://docs.split.io/reference/get-workspaces"
 					},
 					"response": []
 				},
@@ -1205,7 +1205,7 @@
 								"{{workspace-id}}"
 							]
 						},
-						"description": "https://docs.split.io/reference#get-environments"
+						"description": "https://docs.split.io/reference/get-environments"
 					},
 					"response": []
 				},
@@ -1238,7 +1238,7 @@
 								"{{workspace-id}}"
 							]
 						},
-						"description": "https://docs.split.io/reference#create-environment\n\nNot yet tested"
+						"description": "https://docs.split.io/reference/create-environment\n\nNot yet tested"
 					},
 					"response": []
 				},
@@ -1268,7 +1268,7 @@
 								"<environment_name_or_id>"
 							]
 						},
-						"description": "https://docs.split.io/reference#delete-environment\n\nNot yet tested"
+						"description": "https://docs.split.io/reference/delete-environment\n\nNot yet tested"
 					},
 					"response": []
 				},
@@ -1309,7 +1309,7 @@
 								}
 							]
 						},
-						"description": "https://docs.split.io/reference#update-environment\n\nNot yet tested"
+						"description": "https://docs.split.io/reference/update-environment\n\nNot yet tested"
 					},
 					"response": []
 				}
@@ -1343,7 +1343,7 @@
 								"{{workspace-id}}"
 							]
 						},
-						"description": "https://docs.split.io/reference#get-traffic-types\n\nNot yet tested"
+						"description": "https://docs.split.io/reference/get-traffic-types\n\nNot yet tested"
 					},
 					"response": []
 				},
@@ -1511,7 +1511,7 @@
 								}
 							]
 						},
-						"description": "https://docs.split.io/reference#get-attributes\n\nNot yet tested"
+						"description": "https://docs.split.io/reference/get-attributes\n\nNot yet tested"
 					},
 					"response": []
 				},
@@ -1546,7 +1546,7 @@
 								"{{traffictype-id}}"
 							]
 						},
-						"description": "https://docs.split.io/reference#save-attribute\nNot yet tested"
+						"description": "https://docs.split.io/reference/save-attribute\nNot yet tested"
 					},
 					"response": []
 				},
@@ -1657,7 +1657,7 @@
 								}
 							]
 						},
-						"description": "https://docs.split.io/reference#delete-attribute\n\nNot yet tested"
+						"description": "https://docs.split.io/reference/delete-attribute\n\nNot yet tested"
 					},
 					"response": []
 				},
@@ -1765,7 +1765,7 @@
 						"<key>"
 					]
 				},
-				"description": "https://docs.split.io/reference#save-identity\nNot yet tested"
+				"description": "https://docs.split.io/reference/save-identity\nNot yet tested"
 			},
 			"response": []
 		},
@@ -1800,7 +1800,7 @@
 						"identities"
 					]
 				},
-				"description": "https://docs.split.io/reference#save-identities\nnot yet tested"
+				"description": "https://docs.split.io/reference/save-identities\nnot yet tested"
 			},
 			"response": []
 		},
@@ -1835,7 +1835,7 @@
 						"identities"
 					]
 				},
-				"description": "https://docs.split.io/reference#update-identity\n\nnot yet tested"
+				"description": "https://docs.split.io/reference/update-identity\n\nnot yet tested"
 			},
 			"response": []
 		},
@@ -1871,7 +1871,7 @@
 						"<key>"
 					]
 				},
-				"description": "https://docs.split.io/reference#delete-identitiy\n\nnot yet tested"
+				"description": "https://docs.split.io/reference/delete-identitiy\n\nnot yet tested"
 			},
 			"response": []
 		},
@@ -1909,7 +1909,7 @@
 						"{{environment-id}}"
 					]
 				},
-				"description": "https://docs.split.io/reference#list-segments-in-environment"
+				"description": "https://docs.split.io/reference/list-segments-in-environment"
 			},
 			"response": []
 		},
@@ -1955,7 +1955,7 @@
 						"upload"
 					]
 				},
-				"description": "https://docs.split.io/reference#update-segment-keys-in-environment-via-csv"
+				"description": "https://docs.split.io/reference/update-segment-keys-in-environment-via-csv"
 			},
 			"response": []
 		},
@@ -1989,7 +1989,7 @@
 						"upload"
 					]
 				},
-				"description": "https://docs.split.io/reference#update-segment-keys-in-environment-via-json"
+				"description": "https://docs.split.io/reference/update-segment-keys-in-environment-via-json"
 			},
 			"response": []
 		},
@@ -2026,7 +2026,7 @@
 						"keys"
 					]
 				},
-				"description": "https://docs.split.io/reference#get-segment-keys-in-environment"
+				"description": "https://docs.split.io/reference/get-segment-keys-in-environment"
 			},
 			"response": []
 		},
@@ -2060,7 +2060,7 @@
 						"deleteKeys"
 					]
 				},
-				"description": "https://docs.split.io/reference#remove-segment-keys-from-environment"
+				"description": "https://docs.split.io/reference/remove-segment-keys-from-environment"
 			},
 			"response": []
 		},
@@ -2098,7 +2098,7 @@
 			"response": []
 		},
 		{
-			"name": "CREATE Split",
+			"name": "CREATE Feature Flag",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -2136,12 +2136,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#create-split\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/create-feature-flag\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "GET Splits (list)",
+			"name": "GET Feature Flags (list)",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -2180,12 +2180,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#list-splits\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/list-feature-flags\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "GET Split",
+			"name": "GET Feature Flag",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -2204,7 +2204,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2215,7 +2215,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>"
+						"<feature_flag_name>"
 					],
 					"query": [
 						{
@@ -2225,12 +2225,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#get-split\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/get-feature-flag\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE Split",
+			"name": "DELETE Feature Flag",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -2246,7 +2246,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2257,7 +2257,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>"
+						"<feature_flag_name>"
 					],
 					"query": [
 						{
@@ -2267,12 +2267,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#delete-split"
+				"description": "https://docs.split.io/reference/delete-feature-flag"
 			},
 			"response": []
 		},
 		{
-			"name": "UPDATE Split Description",
+			"name": "UPDATE Feature Flag Description",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -2288,7 +2288,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/updateDescription",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/updateDescription",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2299,7 +2299,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
+						"<feature_flag_name>",
 						"updateDescription"
 					],
 					"query": [
@@ -2310,12 +2310,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#update-split-description\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/update-feature-flag-description\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "CREATE Split Definition in Environment",
+			"name": "CREATE Feature Flag Definition in Environment",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -2331,7 +2331,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\"},\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2342,7 +2342,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
+						"<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2354,12 +2354,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#create-split-definition-in-environment\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/create-feature-flag-definition-in-environment\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "GET Split Definition in Environment",
+			"name": "GET Feature Flag Definition in Environment",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -2378,7 +2378,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2389,7 +2389,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
+						"<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2401,12 +2401,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#get-split-definition-in-environment\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/get-feature-flag-definition-in-environment\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "partial UPDATE Split Definition in Environment",
+			"name": "partial UPDATE Feature Flag Definition in Environment",
 			"request": {
 				"method": "PATCH",
 				"header": [
@@ -2422,7 +2422,7 @@
 					"raw": "[{\"op\": \"replace\", \"path\": \"/trafficAllocation\", \"value\":50}]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2433,7 +2433,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
+						"<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2445,12 +2445,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#partial-update-split-definition-in-environment\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/partial-update-feature-flag-definition-in-environment\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "full UPDATE Split Definition in Environment",
+			"name": "full UPDATE Feature Flag Definition in Environment",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -2466,7 +2466,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"segments\":[\"employees\"],\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"},{\"name\":\"off\",\"keys\":[\"one\",\"two\"],\"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"}],\"defaultTreatment\":\"on\", \"baselineTreatment\": \"off\",\"trafficAllocation\":80,\"rules\":[],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2477,7 +2477,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
+						"<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2489,12 +2489,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#full-update-split-definition-in-environment\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/full-update-feature-flag-definition-in-environment\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE Split Definition from Environment",
+			"name": "DELETE Feature Flag Definition from Environment",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -2510,7 +2510,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2521,7 +2521,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
+						"<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2533,12 +2533,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#remove-split-definition-from-environment\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/remove-feature-flag-definition-from-environment\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "GET Split Definitions in Environment (List)",
+			"name": "GET Feature Flag Definitions in Environment (List)",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -2579,12 +2579,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#lists-split-definitions-in-environment\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/list-feature-flag-definitions-in-environment\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "KILL Split in Environment",
+			"name": "KILL Feature Flag in Environment",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -2600,7 +2600,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/kill",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}/kill",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2611,7 +2611,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
+						"<feature_flag_name>",
 						"environments",
 						"{{environment-id}}",
 						"kill"
@@ -2624,12 +2624,12 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#kill-split-in-environment\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/kill-feature-flag-in-environment\n\nNot yet tested"
 			},
 			"response": []
 		},
 		{
-			"name": "Restore Split in Environment",
+			"name": "Restore Feature Flag in Environment",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -2645,7 +2645,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>/environments/{{environment-id}}/restore",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}/restore",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2656,7 +2656,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
+						"<feature_flag_name>",
 						"environments",
 						"{{environment-id}}",
 						"restore"
@@ -2669,7 +2669,7 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#restore-split-in-environment\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/restore-feature-flag-in-environment\n\nNot yet tested"
 			},
 			"response": []
 		},
@@ -2690,7 +2690,7 @@
 					"raw": "[\"tagA,\" \"tagB\"]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<split_name>/object/<object_name>/objecttype/<object_type>",
+					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<feature_flag_name>/object/<object_name>/objecttype/<object_type>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2701,7 +2701,7 @@
 						"tags",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>",
+						"<feature_flag_name>",
 						"object",
 						"<object_name>",
 						"objecttype",
@@ -2715,7 +2715,7 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#associate-tags\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/associate-tags\n\nNot yet tested"
 			},
 			"response": []
 		},
@@ -2752,7 +2752,7 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#create-event\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/create-event\n\nNot yet tested"
 			},
 			"response": []
 		},
@@ -2790,7 +2790,7 @@
 						}
 					]
 				},
-				"description": "https://docs.split.io/reference#create-events\n\nNot yet tested"
+				"description": "https://docs.split.io/reference/create-events\n\nNot yet tested"
 			},
 			"response": []
 		},
@@ -2980,7 +2980,7 @@
 			"response": []
 		},
 		{
-			"name": "Full Split UPDATE",
+			"name": "Full Feature Flag UPDATE",
 			"request": {
 				"method": "PATCH",
 				"header": [
@@ -2996,7 +2996,7 @@
 					"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/tags/0\",\n        \"value\":{\"name\":\"<tag_name>\"}\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/description\",\n    \t\"value\":\"<description>\"\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/rolloutStatus/id\",\n    \t\"value\":\"<rollout_status_id>\"\n    }\n]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<split_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -3007,7 +3007,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<split_name>"
+						"<feature_flag_name>"
 					]
 				}
 			},
