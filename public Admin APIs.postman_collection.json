@@ -3094,7 +3094,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{apikey-auth}}",
+				"value": "{{auth-token}}",
 				"type": "string"
 			}
 		]
