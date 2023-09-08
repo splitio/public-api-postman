@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "662b7f0e-c243-4fd2-8013-8122a39aa966",
+		"_postman_id": "5d2fcd42-131b-4e65-8329-3738b5eca74c",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "14645211"
+		"_exporter_id": "21223269"
 	},
 	"item": [
 		{
@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/:<ChangeRequestID>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -24,7 +24,13 @@
 								"api",
 								"v2",
 								"changeRequests",
-								"<ChangeRequestID>"
+								":<ChangeRequestID>"
+							],
+							"variable": [
+								{
+									"key": "<ChangeRequestID>",
+									"value": ""
+								}
 							]
 						},
 						"description": "Given a Change Request ID this endpoint returns the full Change Request Object"
@@ -92,7 +98,7 @@
 							"raw": "{\n\t\"status\":\"WITHDRAWN\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/:<ChangeRequestID>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -101,7 +107,13 @@
 								"api",
 								"v2",
 								"changeRequests",
-								"<ChangeRequestID>"
+								":<ChangeRequestID>"
+							],
+							"variable": [
+								{
+									"key": "<ChangeRequestID>",
+									"value": ""
+								}
 							]
 						},
 						"description": "Valid statuses: WITHDRAWN, REJECTED, APPROVED."
@@ -773,7 +785,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"raw": "{{base-url}}/internal/api/v2/users/:<userId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -782,7 +794,13 @@
 								"api",
 								"v2",
 								"users",
-								"<userId>"
+								":<userId>"
+							],
+							"variable": [
+								{
+									"key": "<userId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -794,7 +812,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"raw": "{{base-url}}/internal/api/v2/users/:<userId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -803,7 +821,13 @@
 								"api",
 								"v2",
 								"users",
-								"<userId>"
+								":<userId>"
+							],
+							"variable": [
+								{
+									"key": "<userId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -835,7 +859,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
+							"raw": "{{base-url}}/internal/api/v2/groups/:<groupId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -844,7 +868,13 @@
 								"api",
 								"v2",
 								"groups",
-								"<groupId>"
+								":<groupId>"
+							],
+							"variable": [
+								{
+									"key": "<groupId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -890,7 +920,7 @@
 							"raw": "[\n        {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"raw": "{{base-url}}/internal/api/v2/users/:<userId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -899,7 +929,13 @@
 								"api",
 								"v2",
 								"users",
-								"<userId>"
+								":<userId>"
+							],
+							"variable": [
+								{
+									"key": "<userId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -921,7 +957,7 @@
 							"raw": "[\n       {\n       \"op\": \"add\",\n       \"path\": \"/groups/0\",\n        \"value\": {\"id\": \"<groupId>\", \"type\":\"group\"}\n    }\n]"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"raw": "{{base-url}}/internal/api/v2/users/:<userId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -930,7 +966,13 @@
 								"api",
 								"v2",
 								"users",
-								"<userId>"
+								":<userId>"
+							],
+							"variable": [
+								{
+									"key": "<userId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -942,7 +984,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
+							"raw": "{{base-url}}/internal/api/v2/groups/:<groupId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -951,7 +993,13 @@
 								"api",
 								"v2",
 								"groups",
-								"<groupId>"
+								":<groupId>"
+							],
+							"variable": [
+								{
+									"key": "<groupId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -967,7 +1015,7 @@
 							"raw": "        {\n            \"id\": \"<groupId>\",\n            \"name\": \"<name>\",\n            \"description\": \"<description>\"\n        }"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
+							"raw": "{{base-url}}/internal/api/v2/groups/:<groupId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -976,7 +1024,13 @@
 								"api",
 								"v2",
 								"groups",
-								"<groupId>"
+								":<groupId>"
+							],
+							"variable": [
+								{
+									"key": "<groupId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1031,7 +1085,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/apiKeys/{{apiKeyId}}",
+							"raw": "{{base-url}}/internal/api/v2/apiKeys/:<apiKeyId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1040,7 +1094,13 @@
 								"api",
 								"v2",
 								"apiKeys",
-								"{{apiKeyId}}"
+								":<apiKeyId>"
+							],
+							"variable": [
+								{
+									"key": "<apiKeyId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1130,7 +1190,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/workspaces/<workspaceId>",
+							"raw": "{{base-url}}/internal/api/v2/workspaces/:<workspaceId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1139,7 +1199,13 @@
 								"api",
 								"v2",
 								"workspaces",
-								"<workspaceId>"
+								":<workspaceId>"
+							],
+							"variable": [
+								{
+									"key": "<workspaceId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1160,7 +1226,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/workspaces/<workspaceId>",
+							"raw": "{{base-url}}/internal/api/v2/workspaces/:<workspaceId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1169,7 +1235,13 @@
 								"api",
 								"v2",
 								"workspaces",
-								"<workspaceId>"
+								":<workspaceId>"
+							],
+							"variable": [
+								{
+									"key": "<workspaceId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1254,7 +1326,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/:<environment_name_or_id>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1265,7 +1337,13 @@
 								"environments",
 								"ws",
 								"{{workspace-id}}",
-								"<environment_name_or_id>"
+								":<environment_name_or_id>"
+							],
+							"variable": [
+								{
+									"key": "<environment_name_or_id>",
+									"value": ""
+								}
 							]
 						},
 						"description": "https://docs.split.io/reference/delete-environment\n\nNot yet tested"
@@ -1288,7 +1366,7 @@
 							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/name\",\n        \"value\": \"NewName\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areApprovalsRequired\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areApproversRestricted\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/approvers\",\n        \"value\": [\n            {\n                \"id\": \"approver id\",\n                \"type\": \"approver type\",\n                \"name\": \"approver name\"\n            }\n        ]\n    },\n        {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areEditorsRestricted\",\n        \"value\": true\n    },\n        {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/editors\",\n        \"value\": [\n            {\n                \"id\": \"editor id\",\n                \"type\": \"editor type\",\n                \"name\": \"editor name\"\n            }\n        ]\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/dataExportPermissions/areExportersRestricted\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/dataExportPermissions/exporters\",\n        \"value\": [\n            {\n                \"id\": \"exporter id\",\n                \"type\": \"exporter type\",\n                \"name\": \"exporter name\"\n            }\n        ]\n    },\n]"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/:<environment_name_or_id>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1299,13 +1377,19 @@
 								"environments",
 								"ws",
 								"{{workspace-id}}",
-								"<environment_name_or_id>"
+								":<environment_name_or_id>"
 							],
 							"query": [
 								{
 									"key": "dry_run",
 									"value": "",
 									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "<environment_name_or_id>",
+									"value": ""
 								}
 							]
 						},
@@ -1353,7 +1437,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/trafficTypes/<trafficTypeId>",
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/:<trafficTypeId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1362,7 +1446,13 @@
 								"api",
 								"v2",
 								"trafficTypes",
-								"<trafficTypeId>"
+								":<trafficTypeId>"
+							],
+							"variable": [
+								{
+									"key": "<trafficTypeId>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1466,7 +1556,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}?searchPrefix=&paginate=true",
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:<traffictype-id>?searchPrefix=&paginate=true",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1478,7 +1568,7 @@
 								"ws",
 								"{{workspace-id}}",
 								"trafficTypes",
-								"{{traffictype-id}}"
+								":<traffictype-id>"
 							],
 							"query": [
 								{
@@ -1509,6 +1599,12 @@
 									"description": "Page size limit. Only available with pagination. If more than the max of 200 is supplied, the limit will be 200",
 									"disabled": true
 								}
+							],
+							"variable": [
+								{
+									"key": "<traffictype-id>",
+									"value": ""
+								}
 							]
 						},
 						"description": "https://docs.split.io/reference/get-attributes\n\nNot yet tested"
@@ -1531,7 +1627,7 @@
 							"raw": "{\n    \"id\": \"someAttr\",\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\"A\", \"B\"]\n}"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}",
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:<traffictype-id>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1543,7 +1639,13 @@
 								"ws",
 								"{{workspace-id}}",
 								"trafficTypes",
-								"{{traffictype-id}}"
+								":<traffictype-id>"
+							],
+							"variable": [
+								{
+									"key": "<traffictype-id>",
+									"value": ""
+								}
 							]
 						},
 						"description": "https://docs.split.io/reference/save-attribute\nNot yet tested"
@@ -1565,7 +1667,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}",
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:<traffictype-id>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1577,7 +1679,13 @@
 								"ws",
 								"{{workspace-id}}",
 								"trafficTypes",
-								"{{traffictype-id}}"
+								":<traffictype-id>"
+							],
+							"variable": [
+								{
+									"key": "<traffictype-id>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1598,7 +1706,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/:attributeId",
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:<traffictype-id>/:<attributeId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1610,13 +1718,17 @@
 								"ws",
 								"{{workspace-id}}",
 								"trafficTypes",
-								"{{traffictype-id}}",
-								":attributeId"
+								":<traffictype-id>",
+								":<attributeId>"
 							],
 							"variable": [
 								{
-									"key": "attributeId",
-									"value": "someAttr"
+									"key": "<traffictype-id>",
+									"value": ""
+								},
+								{
+									"key": "<attributeId>",
+									"value": ""
 								}
 							]
 						}
@@ -1635,7 +1747,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/:attributeId",
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:<traffictype-id>/:<attributeId>",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1647,13 +1759,17 @@
 								"ws",
 								"{{workspace-id}}",
 								"trafficTypes",
-								"{{traffictype-id}}",
-								":attributeId"
+								":<traffictype-id>",
+								":<attributeId>"
 							],
 							"variable": [
 								{
-									"key": "attributeId",
-									"value": "someAttr"
+									"key": "<traffictype-id>",
+									"value": ""
+								},
+								{
+									"key": "<attributeId>",
+									"value": ""
 								}
 							]
 						},
@@ -1678,7 +1794,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/attribute:bulk",
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:<traffictype-id>/attribute:bulk",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1690,8 +1806,14 @@
 								"ws",
 								"{{workspace-id}}",
 								"trafficTypes",
-								"{{traffictype-id}}",
+								":<traffictype-id>",
 								"attribute:bulk"
+							],
+							"variable": [
+								{
+									"key": "<traffictype-id>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1712,7 +1834,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/attribute:bulk",
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:<traffictype-id>/attribute:bulk",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1724,8 +1846,14 @@
 								"ws",
 								"{{workspace-id}}",
 								"trafficTypes",
-								"{{traffictype-id}}",
+								":<traffictype-id>",
 								"attribute:bulk"
+							],
+							"variable": [
+								{
+									"key": "<traffictype-id>",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1749,7 +1877,7 @@
 					"raw": "{ \"key\": <string: key>, \"values\": { <string: attribute_id>: <string: value>, <string: attribute_id2>: <string: value2> } }"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities/<key>",
+					"raw": "{{base-url}}/internal/api/v2/trafficTypes/:<traffic_type_id>/environments/{{environment-id}}/identities/:<key>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1758,11 +1886,21 @@
 						"api",
 						"v2",
 						"trafficTypes",
-						"<traffic_type_id>",
+						":<traffic_type_id>",
 						"environments",
 						"{{environment-id}}",
 						"identities",
-						"<key>"
+						":<key>"
+					],
+					"variable": [
+						{
+							"key": "<traffic_type_id>",
+							"value": ""
+						},
+						{
+							"key": "<key>",
+							"value": ""
+						}
 					]
 				},
 				"description": "https://docs.split.io/reference/save-identity\nNot yet tested"
@@ -1785,7 +1923,7 @@
 					"raw": "[{ \"key\": <string: key>, \"values\": { <string: attribute_id>: <string: value> }, { <string: attribute_id2>: <string: value2> } },\n{ \"key\": <string: key2>, \"values\": { <string: attribute_id>: <string: value> }, { <string: attribute_id2>: <string: value2> } }]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities",
+					"raw": "{{base-url}}/internal/api/v2/trafficTypes/:<traffic_type_id>/environments/{{environment-id}}/identities",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1794,10 +1932,16 @@
 						"api",
 						"v2",
 						"trafficTypes",
-						"<traffic_type_id>",
+						":<traffic_type_id>",
 						"environments",
 						"{{environment-id}}",
 						"identities"
+					],
+					"variable": [
+						{
+							"key": "<traffic_type_id>",
+							"value": ""
+						}
 					]
 				},
 				"description": "https://docs.split.io/reference/save-identities\nnot yet tested"
@@ -1820,7 +1964,7 @@
 					"raw": "{ \"key\": <string: key>, \"values\": { <string: attribute_id>: <string: value>, <string: attribute_id2>: <string: value2> } }"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities",
+					"raw": "{{base-url}}/internal/api/v2/trafficTypes/:<traffic_type_id>/environments/{{environment-id}}/identities",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1829,10 +1973,16 @@
 						"api",
 						"v2",
 						"trafficTypes",
-						"<traffic_type_id>",
+						":<traffic_type_id>",
 						"environments",
 						"{{environment-id}}",
 						"identities"
+					],
+					"variable": [
+						{
+							"key": "<traffic_type_id>",
+							"value": ""
+						}
 					]
 				},
 				"description": "https://docs.split.io/reference/update-identity\n\nnot yet tested"
@@ -1855,7 +2005,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities/<key>",
+					"raw": "{{base-url}}/internal/api/v2/trafficTypes/:<traffic_type_id>/environments/{{environment-id}}/identities/:<key>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1864,11 +2014,21 @@
 						"api",
 						"v2",
 						"trafficTypes",
-						"<traffic_type_id>",
+						":<traffic_type_id>",
 						"environments",
 						"{{environment-id}}",
 						"identities",
-						"<key>"
+						":<key>"
+					],
+					"variable": [
+						{
+							"key": "<traffic_type_id>",
+							"value": ""
+						},
+						{
+							"key": "<key>",
+							"value": ""
+						}
 					]
 				},
 				"description": "https://docs.split.io/reference/delete-identitiy\n\nnot yet tested"
@@ -1941,7 +2101,7 @@
 					]
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
+					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:<segment_name>/upload",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1951,8 +2111,14 @@
 						"v2",
 						"segments",
 						"{{environment-id}}",
-						"<segment_name>",
+						":<segment_name>",
 						"upload"
+					],
+					"variable": [
+						{
+							"key": "<segment_name>",
+							"value": ""
+						}
 					]
 				},
 				"description": "https://docs.split.io/reference/update-segment-keys-in-environment-via-csv"
@@ -1975,7 +2141,7 @@
 					"raw": "[\"value1\", \"value2\", \"value3\"]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
+					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:<segment_name>/upload",
 					"host": [
 						"{{base-url}}"
 					],
@@ -1985,8 +2151,14 @@
 						"v2",
 						"segments",
 						"{{environment-id}}",
-						"<segment_name>",
+						":<segment_name>",
 						"upload"
+					],
+					"variable": [
+						{
+							"key": "<segment_name>",
+							"value": ""
+						}
 					]
 				},
 				"description": "https://docs.split.io/reference/update-segment-keys-in-environment-via-json"
@@ -2012,7 +2184,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/keys",
+					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:<segment_name>/keys",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2022,8 +2194,14 @@
 						"v2",
 						"segments",
 						"{{environment-id}}",
-						"<segment_name>",
+						":<segment_name>",
 						"keys"
+					],
+					"variable": [
+						{
+							"key": "<segment_name>",
+							"value": ""
+						}
 					]
 				},
 				"description": "https://docs.split.io/reference/get-segment-keys-in-environment"
@@ -2046,7 +2224,7 @@
 					"raw": "[\"user2\"]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment name>/deleteKeys",
+					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:<segment name>/deleteKeys",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2056,8 +2234,14 @@
 						"v2",
 						"segments",
 						"{{environment-id}}",
-						"<segment name>",
+						":<segment name>",
 						"deleteKeys"
+					],
+					"variable": [
+						{
+							"key": "<segment name>",
+							"value": ""
+						}
 					]
 				},
 				"description": "https://docs.split.io/reference/remove-segment-keys-from-environment"
@@ -2080,7 +2264,7 @@
 					"raw": "{\"keys\": [\"user1\"], \"comment\": \"some comment\"}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/removeKeys",
+					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:<segment_name>/removeKeys",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2090,8 +2274,14 @@
 						"v2",
 						"segments",
 						"{{environment-id}}",
-						"<segment_name>",
+						":<segment_name>",
 						"removeKeys"
+					],
+					"variable": [
+						{
+							"key": "<segment_name>",
+							"value": ""
+						}
 					]
 				}
 			},
@@ -2114,7 +2304,7 @@
 					"raw": "{\"name\":\"paywall_beta\",\"description\":\"description\"}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/:<traffic_type_id_or_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2126,13 +2316,19 @@
 						"ws",
 						"{{workspace-id}}",
 						"trafficTypes",
-						"<traffic_type_id_or_name>"
+						":<traffic_type_id_or_name>"
 					],
 					"query": [
 						{
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<traffic_type_id_or_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2204,7 +2400,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2215,13 +2411,19 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>"
+						":<feature_flag_name>"
 					],
 					"query": [
 						{
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2246,7 +2448,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2257,13 +2459,19 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>"
+						":<feature_flag_name>"
 					],
 					"query": [
 						{
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2288,7 +2496,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/updateDescription",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>/updateDescription",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2299,7 +2507,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>",
+						":<feature_flag_name>",
 						"updateDescription"
 					],
 					"query": [
@@ -2307,6 +2515,12 @@
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2331,7 +2545,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\"},\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2342,7 +2556,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>",
+						":<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2351,6 +2565,12 @@
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2378,7 +2598,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2389,7 +2609,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>",
+						":<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2398,6 +2618,12 @@
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2422,7 +2648,7 @@
 					"raw": "[{\"op\": \"replace\", \"path\": \"/trafficAllocation\", \"value\":50}]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2433,7 +2659,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>",
+						":<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2442,6 +2668,12 @@
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2466,7 +2698,7 @@
 					"raw": "{\"treatments\":[{\"name\":\"on\",\"segments\":[\"employees\"],\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"},{\"name\":\"off\",\"keys\":[\"one\",\"two\"],\"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"}],\"defaultTreatment\":\"on\", \"baselineTreatment\": \"off\",\"trafficAllocation\":80,\"rules\":[],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2477,7 +2709,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>",
+						":<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2486,6 +2718,12 @@
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2510,7 +2748,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>/environments/{{environment-id}}",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2521,7 +2759,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>",
+						":<feature_flag_name>",
 						"environments",
 						"{{environment-id}}"
 					],
@@ -2530,6 +2768,12 @@
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2600,7 +2844,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}/kill",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>/environments/{{environment-id}}/kill",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2611,7 +2855,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>",
+						":<feature_flag_name>",
 						"environments",
 						"{{environment-id}}",
 						"kill"
@@ -2621,6 +2865,12 @@
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2645,7 +2895,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}/restore",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>/environments/{{environment-id}}/restore",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2656,7 +2906,7 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>",
+						":<feature_flag_name>",
 						"environments",
 						"{{environment-id}}",
 						"restore"
@@ -2666,6 +2916,12 @@
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
 						}
 					]
 				},
@@ -2690,7 +2946,7 @@
 					"raw": "[\"tagA,\" \"tagB\"]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<feature_flag_name>/object/<object_name>/objecttype/<object_type>",
+					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/:<feature_flag_name>/object/:<object_name>/objecttype/:<object_type>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2701,17 +2957,31 @@
 						"tags",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>",
+						":<feature_flag_name>",
 						"object",
-						"<object_name>",
+						":<object_name>",
 						"objecttype",
-						"<object_type>"
+						":<object_type>"
 					],
 					"query": [
 						{
 							"key": "",
 							"value": "",
 							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
+						},
+						{
+							"key": "<object_name>",
+							"value": ""
+						},
+						{
+							"key": "<object_type>",
+							"value": ""
 						}
 					]
 				},
@@ -2810,7 +3080,7 @@
 					"raw": "{\n\t\"name\":\"friendly_customers_2\",\n\t\"description\":\"this is a segment that groups friendly customers\"\n\t\n}"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/trafficTypes/{{traffic-type-id-or-name}}",
+					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/trafficTypes/:<traffic-type-id-or-name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2822,7 +3092,13 @@
 						"ws",
 						"{{workspace-id}}",
 						"trafficTypes",
-						"{{traffic-type-id-or-name}}"
+						":<traffic-type-id-or-name>"
+					],
+					"variable": [
+						{
+							"key": "<traffic-type-id-or-name>",
+							"value": ""
+						}
 					]
 				},
 				"description": "Creates a Segment Metadata in a workspace."
@@ -2848,7 +3124,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}?offset=0&limit=10&tag=tag_test",
+					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}?offset=0&limit=10",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2871,7 +3147,8 @@
 						},
 						{
 							"key": "tag",
-							"value": "tag_test"
+							"value": "",
+							"disabled": true
 						}
 					]
 				},
@@ -2895,7 +3172,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/friendly_customers_2",
+					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:<segment_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2905,7 +3182,13 @@
 						"v2",
 						"segments",
 						"{{environment-id}}",
-						"friendly_customers_2"
+						":<segment_name>"
+					],
+					"variable": [
+						{
+							"key": "<segment_name>",
+							"value": ""
+						}
 					]
 				},
 				"description": "Creates a Segment Metadata in a workspace."
@@ -2928,7 +3211,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/friendly_customers_2",
+					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:<segment_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2938,7 +3221,13 @@
 						"v2",
 						"segments",
 						"{{environment-id}}",
-						"friendly_customers_2"
+						":<segment_name>"
+					],
+					"variable": [
+						{
+							"key": "<segment_name>",
+							"value": ""
+						}
 					]
 				},
 				"description": "Creates a Segment Metadata in a workspace."
@@ -2961,7 +3250,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/friendly_customers_2",
+					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/:<segment_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -2972,7 +3261,13 @@
 						"segments",
 						"ws",
 						"{{workspace-id}}",
-						"friendly_customers_2"
+						":<segment_name>"
+					],
+					"variable": [
+						{
+							"key": "<segment_name>",
+							"value": ""
+						}
 					]
 				},
 				"description": "Creates a Segment Metadata in a workspace."
@@ -2996,7 +3291,7 @@
 					"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/tags/0\",\n        \"value\":{\"name\":\"<tag_name>\"}\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/description\",\n    \t\"value\":\"<description>\"\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/rolloutStatus/id\",\n    \t\"value\":\"<rollout_status_id>\"\n    }\n]"
 				},
 				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>",
+					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:<feature_flag_name>",
 					"host": [
 						"{{base-url}}"
 					],
@@ -3007,7 +3302,13 @@
 						"splits",
 						"ws",
 						"{{workspace-id}}",
-						"<feature_flag_name>"
+						":<feature_flag_name>"
+					],
+					"variable": [
+						{
+							"key": "<feature_flag_name>",
+							"value": ""
+						}
 					]
 				}
 			},
