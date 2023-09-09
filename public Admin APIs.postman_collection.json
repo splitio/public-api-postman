@@ -1432,6 +1432,37 @@
 					"response": []
 				},
 				{
+					"name": "Create Traffic Types",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"dialog_pair\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/ws/{{workspace-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"trafficTypes",
+								"ws",
+								"{{workspace-id}}"
+							]
+						}
+					},
+					"response": []
+				},				
+				{
 					"name": "DELETE Traffic Type",
 					"request": {
 						"method": "DELETE",
