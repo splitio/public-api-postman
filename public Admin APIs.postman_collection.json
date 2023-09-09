@@ -347,7 +347,7 @@
 							"raw": "{\n\t\"segment\":{\"name\":\"<EXISTING_SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[]\n}\n"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/da6a9890-3402-11eb-a167-9efaf68a46a1/environments/da88f600-3402-11eb-a167-9efaf68a46a1",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -357,9 +357,9 @@
 								"v2",
 								"changeRequests",
 								"ws",
-								"da6a9890-3402-11eb-a167-9efaf68a46a1",
+								"{{workspace-id}}",
 								"environments",
-								"da88f600-3402-11eb-a167-9efaf68a46a1"
+								"{{environment-id}}"
 							]
 						}
 					},
