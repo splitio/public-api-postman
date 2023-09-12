@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/:<ChangeRequestID>",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/:ChangeRequestID",
 							"host": [
 								"{{base-url}}"
 							],
@@ -24,11 +24,11 @@
 								"api",
 								"v2",
 								"changeRequests",
-								":<ChangeRequestID>"
+								":ChangeRequestID"
 							],
 							"variable": [
 								{
-									"key": "<ChangeRequestID>",
+									"key": "ChangeRequestID",
 									"value": ""
 								}
 							]
