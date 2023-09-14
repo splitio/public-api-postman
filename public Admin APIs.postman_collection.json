@@ -1,21 +1,417 @@
 {
 	"info": {
-		"_postman_id": "662b7f0e-c243-4fd2-8013-8122a39aa966",
+		"_postman_id": "99938df6-9722-42e1-bb1c-aefd3b2d18b2",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "14645211"
+		"_exporter_id": "21223269"
 	},
 	"item": [
 		{
-			"name": "Approval Flows API",
+			"name": "API KEYS",
 			"item": [
 				{
-					"name": "GET Change Request",
+					"name": "Create an Api Key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth-token-prod}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"key name\",\n    \"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n    \"workspace\": {\n        \"id\": \"workspaceId1\",\n        \"type\": \"workspace\"\n    },\n    \"environments\": [\n        {\n            \"id\": \"environmentId1\",\n            \"type\": \"environment\"\n        },\n        {\n            \"id\": \"environmentId2\",\n            \"type\": \"environment\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/apiKeys",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"apiKeys"
+							]
+						},
+						"description": "Create and add an API key to your organization."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Api Key",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth-token-prod}}"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/apiKeys/:apiKeyId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"apiKeys",
+								":apiKeyId"
+							],
+							"variable": [
+								{
+									"key": "apiKeyId",
+									"value": "",
+									"description": "For security reasons, this is the \"id\" of the key, not the key itself."
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ATTRIBUTE DICTIONARY",
+			"item": [
+				{
+					"name": "Get Attributes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:traffictype-id?searchPrefix=&paginate=true",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								":traffictype-id"
+							],
+							"query": [
+								{
+									"key": "searchPrefix",
+									"value": "",
+									"description": "string for search. Only works with pagination"
+								},
+								{
+									"key": "paginate",
+									"value": "true",
+									"description": "Boolean for whether to use pagination."
+								},
+								{
+									"key": "beforeMarker",
+									"value": "",
+									"description": "Get results 'Before' the marker passed into this parameter. Marker string comes from response",
+									"disabled": true
+								},
+								{
+									"key": "afterMarker",
+									"value": "",
+									"description": "Get results 'After' the marker passed into this parameter. Marker string comes from response",
+									"disabled": true
+								},
+								{
+									"key": "markerLimit",
+									"value": "",
+									"description": "Page size limit. Only available with pagination. If more than the max of 200 is supplied, the limit will be 200",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "traffictype-id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Get all attributes for a trafficType. Non-paginated operation is deprecated, prefer setting the paginate flag to true. When using pagination, the default markerLimit is 50, maximum markerLimit is 200.\n\nPagination examples:\n\n- Page Forward: Send Next Marker into After Marker parameter\n    \n- Reload Page (when paging forward): Send Previous Marker into After Marker parameter\n    \n- Page Backwards: Send Previous Marker into Before Marker parameter\n    \n- Reload Page (when paging backwards): Send Next Marker into Before Marker parameter"
+					},
+					"response": []
+				},
+				{
+					"name": "Save Attribute",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"someAttr\",\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\n        \"A\",\n        \"B\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:traffictype-id",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								":traffictype-id"
+							],
+							"variable": [
+								{
+									"key": "traffictype-id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Save an attribute for a traffic type ID. The attribute is created if it does not exist, and is overwritten completely with the provided attribute object if it does. This endpoint also accepts a PUT that behaves identically to the POST, but the POST is preferred. Use the PATCH endpoint for partial updates. The attribute ID must start with a letter followed by a combination of dashes(-), underscores(_), letters(a-z A-Z), or numbers(0-9)."
+					},
+					"response": []
+				},
+				{
+					"name": "Save Attribute (alternate)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"someAttr\",\n    \"trafficTypeId\": \"{{traffictype-id}}\",\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute updated\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\n        \"A\",\n        \"B\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:traffictype-id",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								":traffictype-id"
+							],
+							"variable": [
+								{
+									"key": "traffictype-id",
+									"value": ""
+								}
+							]
+						},
+						"description": "POST is preferred. See documentation."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Attribute",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:traffictype-id/:attributeId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								":traffictype-id",
+								":attributeId"
+							],
+							"variable": [
+								{
+									"key": "traffictype-id",
+									"value": ""
+								},
+								{
+									"key": "attributeId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Delete an attribute schema by its traffic type and attribute ID. This removes any stored data for that attribute from all Identities (keys) in the Split application. The change to Identity keys is processed asynchronously for traffic types with many Identities it may take up to a minute. However, the Attribute delete occurs synchronously, and if the http call returns as a success (2XX), then the attribute is successfully deleted."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Attribute",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute Patched\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\n        \"A\",\n        \"B\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:traffictype-id/:attributeId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								":traffictype-id",
+								":attributeId"
+							],
+							"variable": [
+								{
+									"key": "traffictype-id",
+									"value": ""
+								},
+								{
+									"key": "attributeId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Partial update of an attribute. Any fields not sent in the body cause no changes, fields sent as null in the body remove them from the attribute."
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Upload Attribute via CSV",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "Select CSV file here",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:traffictype-id/attribute:bulk",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								":traffictype-id",
+								"attribute:bulk"
+							],
+							"variable": [
+								{
+									"key": "traffictype-id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Bulk upload attributes. If an attribute already exists, it is replaced. This endpoints accepts either JSON or CSV form uploads. If there is an issue parsing any of the attributes, an error is thrown and attributes with issues are sent back with error messages. The maximum size for a CSV file is 1MB, and CSVs must be encoded as UTF-8. The attribute ID must start with a letter followed by a combination of dashes(-), underscores(_), letters(a-z A-Z), or numbers(0-9)."
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Upload Attribute via JSON",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": \"someAttr\",\n        \"organizationId\": \"{{org-id}}\",\n        \"trafficTypeId\": \"{{traffictype-id}}\",\n        \"displayName\": \"Some Attribute\",\n        \"description\": \"This is an attribute\",\n        \"dataType\": \"STRING\",\n        \"isSearchable\": true,\n        \"suggestedValues\": [\n            \"A\",\n            \"B\"\n        ]\n    },\n    {\n        \"id\": \"anotherAttr\",\n        \"organizationId\": \"{{org-id}}\",\n        \"trafficTypeId\": \"{{traffictype-id}}\",\n        \"displayName\": \"Another Attribute\",\n        \"description\": \"This is also an attribute\",\n        \"dataType\": \"NUMBER\",\n        \"isSearchable\": true,\n        \"suggestedValues\": [\n            \"0\",\n            \"1\"\n        ]\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/:traffictype-id/attribute:bulk",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"schema",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								":traffictype-id",
+								"attribute:bulk"
+							],
+							"variable": [
+								{
+									"key": "traffictype-id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Bulk upload attributes. If an attribute already exists, it is replaced. This endpoints accepts either JSON or CSV form uploads. If there is an issue parsing any of the attributes, an error is thrown and attributes with issues are sent back with error messages. The maximum size for a CSV file is 1MB, and CSVs must be encoded as UTF-8. The attribute ID must start with a letter followed by a combination of dashes(-), underscores(_), letters(a-z A-Z), or numbers(0-9)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CHANGE REQUESTS",
+			"item": [
+				{
+					"name": "Get Change Request",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/:ChangeRequestID",
 							"host": [
 								"{{base-url}}"
 							],
@@ -24,7 +420,13 @@
 								"api",
 								"v2",
 								"changeRequests",
-								"<ChangeRequestID>"
+								":ChangeRequestID"
+							],
+							"variable": [
+								{
+									"key": "ChangeRequestID",
+									"value": ""
+								}
 							]
 						},
 						"description": "Given a Change Request ID this endpoint returns the full Change Request Object"
@@ -32,7 +434,7 @@
 					"response": []
 				},
 				{
-					"name": "GET Change Requests",
+					"name": "List Change Requests",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -51,7 +453,8 @@
 							"query": [
 								{
 									"key": "status",
-									"value": "REQUESTED|PUBLISHED|WITHDRAWN|REJECTED",
+									"value": "",
+									"description": "one of REQUESTED|APPROVED|PUBLISHED|WITHDRAWN|REJECTED",
 									"disabled": true
 								},
 								{
@@ -71,12 +474,12 @@
 								}
 							]
 						},
-						"description": "Given a Change Request ID this endpoint returns the full Change Request Object"
+						"description": "Retrieves change requests"
 					},
 					"response": []
 				},
 				{
-					"name": "PUT Change Request Status",
+					"name": "Update Change Request Status",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -89,10 +492,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"status\":\"WITHDRAWN\",\n\t\"comment\":\"CR comment from Admin API\"\n}\n"
+							"raw": "{\n    \"status\": \"WITHDRAWN\",\n    \"comment\": \"CR comment from Admin API\"\n}"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/<ChangeRequestID>",
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/:ChangeRequestID",
 							"host": [
 								"{{base-url}}"
 							],
@@ -101,15 +504,21 @@
 								"api",
 								"v2",
 								"changeRequests",
-								"<ChangeRequestID>"
+								":ChangeRequestID"
+							],
+							"variable": [
+								{
+									"key": "ChangeRequestID",
+									"value": ""
+								}
 							]
 						},
-						"description": "Valid statuses: WITHDRAWN, REJECTED, APPROVED."
+						"description": "Update the status of an open change request given an ID.\n\nValid statuses: WITHDRAWN, REJECTED, APPROVED."
 					},
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request adding feature flag definition, with environment restricted approvers",
+					"name": "Submit Change Request adding feature flag definition, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -122,7 +531,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"CREATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
+							"raw": "{\n    \"split\": {\n        \"name\": \"<existing_feature_flag>\",\n        \"treatments\": [\n            {\n                \"name\": \"on\",\n                \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n            },\n            {\n                \"name\": \"off\",\n                \"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"\n            }\n        ],\n        \"defaultTreatment\": \"off\",\n        \"baselineTreatment\": \"off\",\n        \"defaultRule\": [\n            {\n                \"treatment\": \"off\",\n                \"size\": 100\n            }\n        ]\n    },\n    \"operationType\": \"CREATE\",\n    \"title\": \"the best title\",\n    \"comment\": \"the best comment\",\n    \"rolloutStatus\": {\n        \"id\": \"<rollout_status_id>\"\n    },\n    \"approvers\": []\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -144,7 +553,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request updating feature flag definition, with environment restricted approvers",
+					"name": "Submit Change Request updating feature flag definition, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -157,7 +566,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n  \"operationType\":\"UPDATE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
+							"raw": "{\n    \"split\": {\n        \"name\": \"<existing_feature_flag>\",\n        \"treatments\": [\n            {\n                \"name\": \"on\",\n                \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n            },\n            {\n                \"name\": \"off\",\n                \"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"\n            }\n        ],\n        \"defaultTreatment\": \"off\",\n        \"baselineTreatment\": \"off\",\n        \"defaultRule\": [\n            {\n                \"treatment\": \"off\",\n                \"size\": 100\n            }\n        ]\n    },\n    \"operationType\": \"UPDATE\",\n    \"title\": \"the best title\",\n    \"comment\": \"the best comment\",\n    \"rolloutStatus\": {\n        \"id\": \"<rollout_status_id>\"\n    },\n    \"approvers\": []\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -179,7 +588,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request killing a feature flag, with environment restricted approvers",
+					"name": "Submit Change Request killing a feature flag, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -192,7 +601,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\"},\n  \"operationType\":\"KILL\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"approvers\":[]\n}\n"
+							"raw": "{\n    \"split\": {\n        \"name\": \"<existing_feature_flag>\"\n    },\n    \"operationType\": \"KILL\",\n    \"title\": \"the best title\",\n    \"comment\": \"the best comment\",\n    \"approvers\": []\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -214,7 +623,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request restoring a feature flag, with environment restricted approvers",
+					"name": "Submit Change Request restoring a feature flag, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -227,7 +636,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\"},\n  \"operationType\":\"RESTORE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
+							"raw": "{\n    \"split\": {\n        \"name\": \"<existing_feature_flag>\"\n    },\n    \"operationType\": \"RESTORE\",\n    \"title\": \"the best title\",\n    \"comment\": \"the best comment\",\n    \"rolloutStatus\": {\n        \"id\": \"<rollout_status_id>\"\n    },\n    \"approvers\": []\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -249,7 +658,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request archiving a feature flag, with environment restricted approvers",
+					"name": "Submit Change Request archiving a feature flag, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -262,7 +671,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"split\": {\"name\":\"<existing_feature_flag>\"},\n  \"operationType\":\"ARCHIVE\",\n  \"title\":\"the best title\",\n  \"comment\":\"the best comment\",\n  \"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n  \"approvers\":[]\n}\n"
+							"raw": "{\n    \"split\": {\n        \"name\": \"<existing_feature_flag>\"\n    },\n    \"operationType\": \"ARCHIVE\",\n    \"title\": \"the best title\",\n    \"comment\": \"the best comment\",\n    \"rolloutStatus\": {\n        \"id\": \"<rollout_status_id>\"\n    },\n    \"approvers\": []\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -284,7 +693,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request adding keys to a segment, with environment restricted approvers",
+					"name": "Submit Change Request adding keys to a segment, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -297,7 +706,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<EXISTING_SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[]\n}\n"
+							"raw": "{\n    \"segment\": {\n        \"name\": \"<EXISTING_SEGMENT_NAME>\",\n        \"keys\": [\n            \"k1\",\n            \"k2\"\n        ]\n    },\n    \"operationType\": \"CREATE\",\n    \"title\": \"Some CR Title\",\n    \"comment\": \"Some CR Comment\",\n    \"approvers\": []\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -319,7 +728,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request removing keys from a segment, with environment restricted approvers",
+					"name": "Submit Change Request removing keys from a segment, with environment restricted approvers",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -332,42 +741,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<EXISTING_SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[]\n}\n"
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/da6a9890-3402-11eb-a167-9efaf68a46a1/environments/da88f600-3402-11eb-a167-9efaf68a46a1",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"changeRequests",
-								"ws",
-								"da6a9890-3402-11eb-a167-9efaf68a46a1",
-								"environments",
-								"da88f600-3402-11eb-a167-9efaf68a46a1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST Open Change Request to create a feature flag definition",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n    \"segment\": {\n        \"name\": \"<EXISTING_SEGMENT_NAME>\",\n        \"keys\": [\n            \"k1\",\n            \"k2\"\n        ]\n    },\n    \"operationType\": \"ARCHIVE\",\n    \"title\": \"Some CR Title\",\n    \"comment\": \"Some CR Comment\",\n    \"approvers\": []\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -389,7 +763,42 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to modify an existing feature flag definition",
+					"name": "Submit Change Request to create a feature flag definition",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"split\": {\n        \"name\": \"<FEATURE_FLAG_NAME>\",\n        \"treatments\": [\n            {\n                \"name\": \"on\",\n                \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n            },\n            {\n                \"name\": \"off\",\n                \"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"\n            }\n        ],\n        \"defaultTreatment\": \"off\",\n        \"baselineTreatment\": \"off\",\n        \"rules\": [\n            {\n                \"buckets\": [\n                    {\n                        \"treatment\": \"on\",\n                        \"size\": 50\n                    },\n                    {\n                        \"treatment\": \"off\",\n                        \"size\": 50\n                    }\n                ],\n                \"condition\": {\n                    \"matchers\": [\n                        {\n                            \"type\": \"IN_SEGMENT\",\n                            \"string\": \"employees\"\n                        }\n                    ]\n                }\n            }\n        ],\n        \"defaultRule\": [\n            {\n                \"treatment\": \"off\",\n                \"size\": 100\n            }\n        ]\n    },\n    \"operationType\": \"CREATE\",\n    \"title\": \"Some CR Title\",\n    \"comment\": \"Some CR Comment\",\n    \"rolloutStatus\": {\n        \"id\": \"<rollout_status_id>\"\n    },\n    \"approvers\": [\n        \"validUserEmail@sample.com\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"changeRequests",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Change Request to modify an existing feature flag definition",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -402,7 +811,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\", \"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\",\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"}],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]},\n\t\n\t\"operationType\":\"UPDATE\",\n\t\"title\":\"\",\n\t\"comment\":\"\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n    \"split\": {\n        \"name\": \"<FEATURE_FLAG_NAME>\",\n        \"treatments\": [\n            {\n                \"name\": \"on\",\n                \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n            },\n            {\n                \"name\": \"off\",\n                \"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"\n            }\n        ],\n        \"defaultTreatment\": \"off\",\n        \"baselineTreatment\": \"off\",\n        \"rules\": [\n            {\n                \"buckets\": [\n                    {\n                        \"treatment\": \"on\",\n                        \"size\": 50\n                    },\n                    {\n                        \"treatment\": \"off\",\n                        \"size\": 50\n                    }\n                ],\n                \"condition\": {\n                    \"matchers\": [\n                        {\n                            \"type\": \"IN_SEGMENT\",\n                            \"string\": \"employees\"\n                        }\n                    ]\n                }\n            }\n        ],\n        \"defaultRule\": [\n            {\n                \"treatment\": \"off\",\n                \"size\": 100\n            }\n        ]\n    },\n    \"operationType\": \"UPDATE\",\n    \"title\": \"\",\n    \"comment\": \"\",\n    \"rolloutStatus\": {\n        \"id\": \"<rollout_status_id>\"\n    },\n    \"approvers\": [\n        \"validUserEmail@sample.com\"\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -424,7 +833,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to KILL a Feature Flag",
+					"name": "Submit Change Request to KILL a Feature Flag",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -437,7 +846,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\"},\n\t\"operationType\":\"KILL\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n    \"split\": {\n        \"name\": \"<FEATURE_FLAG_NAME>\"\n    },\n    \"operationType\": \"KILL\",\n    \"title\": \"Some CR Title\",\n    \"comment\": \"Some CR Comment\",\n    \"approvers\": [\n        \"validUserEmail@sample.com\"\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -459,7 +868,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to RESTORE a Feature Flag",
+					"name": "Submit Change Request to RESTORE a Feature Flag",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -472,7 +881,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\"},\n\t\"operationType\":\"RESTORE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n    \"split\": {\n        \"name\": \"<FEATURE_FLAG_NAME>\"\n    },\n    \"operationType\": \"RESTORE\",\n    \"title\": \"Some CR Title\",\n    \"comment\": \"Some CR Comment\",\n    \"rolloutStatus\": {\n        \"id\": \"<rollout_status_id>\"\n    },\n    \"approvers\": [\n        \"validUserEmail@sample.com\"\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -494,7 +903,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to ARCHIVE a Feature Flag",
+					"name": "Submit Change Request to ARCHIVE a Feature Flag",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -507,7 +916,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"split\": {\"name\":\"<FEATURE_FLAG_NAME>\"},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"rolloutStatus\":{\"id\":\"<rollout_status_id>\"},\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n    \"split\": {\n        \"name\": \"<FEATURE_FLAG_NAME>\"\n    },\n    \"operationType\": \"ARCHIVE\",\n    \"title\": \"Some CR Title\",\n    \"comment\": \"Some CR Comment\",\n    \"rolloutStatus\": {\n        \"id\": \"<rollout_status_id>\"\n    },\n    \"approvers\": [\n        \"validUserEmail@sample.com\"\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -529,7 +938,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to ADD keys into a Segment",
+					"name": "Submit Change Request to ADD keys into a Segment",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -542,7 +951,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"CREATE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n    \"segment\": {\n        \"name\": \"<SEGMENT_NAME>\",\n        \"keys\": [\n            \"k1\",\n            \"k2\"\n        ]\n    },\n    \"operationType\": \"CREATE\",\n    \"title\": \"Some CR Title\",\n    \"comment\": \"Some CR Comment\",\n    \"approvers\": [\n        \"validUserEmail@sample.com\"\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -564,7 +973,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to ADD keys into a Segment via CSV",
+					"name": "Submit Change Request to ADD keys into a Segment via CSV",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -632,7 +1041,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Open Change Request to REMOVE keys from a Segment",
+					"name": "Submit Change Request to REMOVE keys from a Segment",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -645,7 +1054,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"segment\":{\"name\":\"<SEGMENT_NAME>\", \"keys\":[\"k1\",\"k2\"]},\n\t\"operationType\":\"ARCHIVE\",\n\t\"title\":\"Some CR Title\",\n\t\"comment\":\"Some CR Comment\",\n\t\"approvers\":[\"validUserEmail@sample.com\"]\n}\n"
+							"raw": "{\n    \"segment\": {\n        \"name\": \"<SEGMENT_NAME>\",\n        \"keys\": [\n            \"k1\",\n            \"k2\"\n        ]\n    },\n    \"operationType\": \"ARCHIVE\",\n    \"title\": \"Some CR Title\",\n    \"comment\": \"Some CR Comment\",\n    \"approvers\": [\n        \"validUserEmail@sample.com\"\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/changeRequests/ws/{{workspace-id}}/environments/{{environment-id}}",
@@ -670,19 +1079,21 @@
 			"description": "Approval Flows support via Public Admin API"
 		},
 		{
-			"name": "User Management API",
+			"name": "ENVIRONMENTS",
 			"item": [
 				{
-					"name": "CREATE User",
+					"name": "Get Environments",
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}]\n}"
-						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users",
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -690,14 +1101,1007 @@
 								"internal",
 								"api",
 								"v2",
-								"users"
+								"environments",
+								"ws",
+								"{{workspace-id}}"
+							]
+						},
+						"description": "Get a list of environments."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Environment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"new_environment\",\n    \"production\": false,\n    \"changePermissions\": {\n        \"allowKills\": true,\n        \"areApprovalsRequired\": true,\n        \"areApproversRestricted\": true,\n        \"approvers\": [\n            {\n                \"id\": \"approver id\",\n                \"name\": \"approver name\",\n                \"type\": \"approver type\"\n            }\n        ],\n        \"areEditorsRestricted\": false,\n        \"editors\": null\n    },\n    \"dataExportPermissions\": {\n        \"areExportersRestricted\": true,\n        \"exporters\": [\n            {\n                \"id\": \"exporter id\",\n                \"name\": \"exporter name\",\n                \"type\": \"exporter type\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"environments",
+								"ws",
+								"{{workspace-id}}"
+							]
+						},
+						"description": "Creates an environment\n\nSkipping approvals requires passing the approvalSkippableBy attribute in the payload. However, it’s only allowed if the approvers are required or restricted. Also, as for this current version Administrators must be the only group that can skip the approvals.\n\n``` json\n\"approvalSkippableBy\": [\n{\n\"id\": \"\",\n\"name\": \"Administrators\",\n\"type\": \"group\"\n}\n]\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Environment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/:environment_name_or_id",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"environments",
+								"ws",
+								"{{workspace-id}}",
+								":environment_name_or_id"
+							],
+							"variable": [
+								{
+									"key": "environment_name_or_id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Deletes an environment"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE Environment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/name\",\n        \"value\": \"NewName\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areApprovalsRequired\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areApproversRestricted\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/approvers\",\n        \"value\": [\n            {\n                \"id\": \"approver id\",\n                \"type\": \"approver type\",\n                \"name\": \"approver name\"\n            }\n        ]\n    },\n        {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areEditorsRestricted\",\n        \"value\": true\n    },\n        {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/editors\",\n        \"value\": [\n            {\n                \"id\": \"editor id\",\n                \"type\": \"editor type\",\n                \"name\": \"editor name\"\n            }\n        ]\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/dataExportPermissions/areExportersRestricted\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/dataExportPermissions/exporters\",\n        \"value\": [\n            {\n                \"id\": \"exporter id\",\n                \"type\": \"exporter type\",\n                \"name\": \"exporter name\"\n            }\n        ]\n    },\n]"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/:environment_name_or_id",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"environments",
+								"ws",
+								"{{workspace-id}}",
+								":environment_name_or_id"
+							],
+							"query": [
+								{
+									"key": "dry_run",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "environment_name_or_id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Updates an environment.\n\nWith Skip Approvals  \nSkipping approvals requires passing the approvalSkippableBy attribute in the payload. However, it’s only allowed if the approvers are required or approvers are restricted. Also, as for this current version, Administrators must be the only group that can skip the approvals. Modifying the name might cause issues in the user interface.\n\n``` json\n\"approvalSkippableBy\": [\n{\n\"id\": \"\",\n\"name\": \"Administrators\",\n\"type\": \"group\"\n}\n]\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EVENTS",
+			"item": [
+				{
+					"name": "Create Event (Single)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"eventTypeId\": \"page_load\", \n  \"environmentName\": \"Staging\",      \n  \"trafficTypeName\": \"user\", \n  \"key\": \"key_user_0\", \n  \"timestamp\": 1513357833000, \n  \"value\": 0.8,\n  \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n}"
+						},
+						"url": {
+							"raw": "{{events-base-url}}/api/events",
+							"host": [
+								"{{events-base-url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "https://docs.split.io/reference/create-event\n\nNot yet tested"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Events (Bulk)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{ \n \"eventTypeId\": \"page_latency\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user1\", \n \"timestamp\": 1513357833000, \n \"value\": 0.8  \n}, \n{ \n \"eventTypeId\": \"page_load\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user2\", \n \"timestamp\": 1513357834000, \n \"value\": 0.9,\n \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n }\n ]"
+						},
+						"url": {
+							"raw": "{{events-base-url}}/api/events/bulk",
+							"host": [
+								"{{events-base-url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"bulk"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "https://docs.split.io/reference/create-events\n\nNot yet tested"
+					},
+					"response": []
+				}
+			],
+			"description": "See API docs for detailed explanation of role and structure of events: [https://docs.split.io/reference/events-overview](https://docs.split.io/reference/events-overview)"
+		},
+		{
+			"name": "FEATURE FLAGS",
+			"item": [
+				{
+					"name": "List Feature Flags",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}"
+							],
+							"query": [
+								{
+									"key": "rolloutStatus",
+									"value": "<rollout_status_id>",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Retrieves the feature flags for a workspace."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Feature Flag",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Retrieves the feature flag."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Feature Flag",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"paywall_beta\",\"description\":\"description\"}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/:traffic_type_id_or_name",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								":traffic_type_id_or_name"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "traffic_type_id_or_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Create a feature flag in a workspace given a traffic type. This API does not configure the flag in any environment."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Feature Flag",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/tags/0\",\n        \"value\":{\"name\":\"<tag_name>\"}\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/description\",\n    \t\"value\":\"<description>\"\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/rolloutStatus/id\",\n    \t\"value\":\"<rollout_status_id>\"\n    }\n]"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name"
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Allows updating the feature flag description, tags, and rollout status."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Feature Flag Description",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/updateDescription",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"updateDescription"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Changes the description of a particular feature flag."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Feature Flag",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Deletes a feature flag from a workspace. Must first delete feature flag definitions for the feature flag in all environments in the workspace or this request will fail."
+					},
+					"response": []
+				},
+				{
+					"name": "List Feature Flag Definitions in Environment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Retrieves the feature flag definitions given an environment."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Feature Flag Definition in Environment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"environments",
+								"{{environment-id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Retrieves a feature flag definition given the name and the environment."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Feature Flag Definition in Environment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"treatments\": [\n        {\n            \"name\": \"on\",\n            \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n        },\n        {\n            \"name\": \"off\"\n        },\n        \"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"\n    ],\n    \"defaultTreatment\": \"off\",\n    \"baselineTreatment\": \"off\",\n    \"rules\": [\n        {\n            \"buckets\": [\n                {\n                    \"treatment\": \"on\",\n                    \"size\": 50\n                },\n                {\n                    \"treatment\": \"off\",\n                    \"size\": 50\n                }\n            ],\n            \"condition\": {\n                \"matchers\": [\n                    {\n                        \"type\": \"IN_SEGMENT\",\n                        \"string\": \"employees\"\n                    }\n                ]\n            }\n        }\n    ],\n    \"defaultRule\": [\n        {\n            \"treatment\": \"off\",\n            \"size\": 100\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"environments",
+								"{{environment-id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Configures a feature flag definition for a specific environment."
+					},
+					"response": []
+				},
+				{
+					"name": "Full Update Feature Flag Definition in Environment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"treatments\": [\n        {\n            \"name\": \"on\",\n            \"segments\": [\n                \"employees\"\n            ],\n            \"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"\n        },\n        {\n            \"name\": \"off\",\n            \"keys\": [\n                \"one\",\n                \"two\"\n            ],\n            \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n        }\n    ],\n    \"defaultTreatment\": \"on\",\n    \"baselineTreatment\": \"off\",\n    \"trafficAllocation\": 80,\n    \"rules\": [],\n    \"defaultRule\": [\n        {\n            \"treatment\": \"off\",\n            \"size\": 100\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"environments",
+								"{{environment-id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Performs a full update of a feature flag definition for a specific environment."
+					},
+					"response": []
+				},
+				{
+					"name": "Partial Update Feature Flag Definition in Environment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/trafficAllocation\",\n        \"value\": 50\n    }\n]"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"environments",
+								"{{environment-id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "See examples of partial updates in API docs: [https://docs.split.io/reference/partial-update-feature-flag-definition-in-environment](https://docs.split.io/reference/partial-update-feature-flag-definition-in-environment)"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Feature Flag Definition from Environment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"environments",
+								"{{environment-id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Unconfigures a feature flag definition for a specific environment. Any SDK calling this feature flag returns \"control\" for the selected environment."
+					},
+					"response": []
+				},
+				{
+					"name": "Kill Feature Flag in Environment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}/kill",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"environments",
+								"{{environment-id}}",
+								"kill"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Kills a feature in a specific environment."
+					},
+					"response": []
+				},
+				{
+					"name": "Kill Feature Flag in Environment (alternate)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}/kill",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"environments",
+								"{{environment-id}}",
+								"kill"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Kills a feature in a specific environment"
+					},
+					"response": []
+				},
+				{
+					"name": "Restore Feature Flag in Environment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}/restore",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"splits",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"environments",
+								"{{environment-id}}",
+								"restore"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Restores a feature in a specific environment."
+					},
+					"response": []
+				}
+			],
+			"description": "See API docs for details on feature flags and feature flag definitions:\n\n[https://docs.split.io/reference/feature-flag](https://docs.split.io/reference/feature-flag)\n\n[https://docs.split.io/reference/feature-flag-definition](https://docs.split.io/reference/feature-flag-definition)"
+		},
+		{
+			"name": "GROUPS",
+			"item": [
+				{
+					"name": "List groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/groups",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"groups"
+							]
+						},
+						"description": "List all active groups in the organization."
+					},
+					"response": []
+				},
+				{
+					"name": "Get group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/groups/:groupId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"groups",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": ""
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET Users",
+					"name": "List Users In Group",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -739,119 +2143,13 @@
 									"disabled": true
 								}
 							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "FULL UPDATE User",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\":\"<userId>\",\n    \"email\":\"<email>\",\n    \"groups\":[{\"id\":\"<groupId>\", \"type\":\"group\"}],\n    \"2fa\":\"<false>\",\n    \"status\":\"<ACTIVE|DEACTIVATED>\"\n}"
 						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"users"
-							]
-						}
+						"description": "List all active, deactivated, and pending users in the organization."
 					},
 					"response": []
 				},
 				{
-					"name": "DELETE Pending User",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"users",
-								"<userId>"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET user",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"users",
-								"<userId>"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET groups",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"groups"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET group",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"groups",
-								"<groupId>"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CREATE group",
+					"name": "Create group",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -875,22 +2173,16 @@
 					"response": []
 				},
 				{
-					"name": "PATCH update remove group",
+					"name": "Update group",
 					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
+						"method": "PUT",
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n        {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]"
+							"raw": "        {\n            \"id\": \"<groupId>\",\n            \"name\": \"<name>\",\n            \"description\": \"<description>\"\n        }"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"raw": "{{base-url}}/internal/api/v2/groups/:groupId",
 							"host": [
 								"{{base-url}}"
 							],
@@ -898,8 +2190,41 @@
 								"internal",
 								"api",
 								"v2",
-								"users",
-								"<userId>"
+								"groups",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete group",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/groups/:groupId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"groups",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -918,10 +2243,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n       {\n       \"op\": \"add\",\n       \"path\": \"/groups/0\",\n        \"value\": {\"id\": \"<groupId>\", \"type\":\"group\"}\n    }\n]"
+							"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/groups/0\",\n        \"value\": {\n            \"id\": \"<groupId>\",\n            \"type\": \"group\"\n        }\n    }\n]"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/users/<userId>",
+							"raw": "{{base-url}}/internal/api/v2/users/:userId",
 							"host": [
 								"{{base-url}}"
 							],
@@ -930,19 +2255,35 @@
 								"api",
 								"v2",
 								"users",
-								"<userId>"
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "DELETE group",
+					"name": "PATCH update remove group",
 					"request": {
-						"method": "DELETE",
-						"header": [],
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"test\",\n        \"path\": \"/groups/0/id\",\n        \"value\": \"<groupId>\"\n    },\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\"\n    }\n]"
+						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
+							"raw": "{{base-url}}/internal/api/v2/users/:userId",
 							"host": [
 								"{{base-url}}"
 							],
@@ -950,140 +2291,69 @@
 								"internal",
 								"api",
 								"v2",
-								"groups",
-								"<groupId>"
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
 							]
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "IDENTITIES",
+			"item": [
+				{
+					"name": "Save Identities",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"key\": <string: key>,\n        \"values\": { <string: attribute_id>: <string: value>\n        },\n        { <string: attribute_id2>: <string: value2>\n        }\n    },\n    {\n        \"key\": <string: key2>,\n        \"values\": { <string: attribute_id>: <string: value>\n        },\n        { <string: attribute_id2>: <string: value2>\n        }\n    }\n]"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/:traffic_type_id/environments/{{environment-id}}/identities",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"trafficTypes",
+								":traffic_type_id",
+								"environments",
+								"{{environment-id}}",
+								"identities"
+							],
+							"variable": [
+								{
+									"key": "traffic_type_id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Create or overwrite identities for a given traffic type and environment. The attribute ID must start with a letter followed by a combination of dashes(-), underscores(_), letters(a-z A-Z), or numbers(0-9)."
+					},
+					"response": []
 				},
 				{
-					"name": "UPDATE group",
+					"name": "Save Identity",
 					"request": {
 						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "        {\n            \"id\": \"<groupId>\",\n            \"name\": \"<name>\",\n            \"description\": \"<description>\"\n        }"
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/groups/<groupId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"groups",
-								"<groupId>"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Api Key Management",
-			"item": [
-				{
-					"name": "POST Api Key",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{auth-token-prod}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\t\"name\": \"key name\",\n\t\t\"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n\t\t\"workspace\": {\n\t\t\t\"id\": \"workspaceId1\",\n\t\t\t\"type\": \"workspace\"\n\t\t},\n\t\t\"environments\": [\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId1\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": \"environmentId2\",\n\t\t\t\t\"type\": \"environment\"\n\t\t\t}\n\t\t]\n\t}"
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/apiKeys",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"apiKeys"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DELETE Api Key",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{auth-token-prod}}"
-							}
-						],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/apiKeys/{{apiKeyId}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"apiKeys",
-								"{{apiKeyId}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Workspace API",
-			"item": [
-				{
-					"name": "CREATE Workspace",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"workspace name\",\n    \"requiresTitleAndComments\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/workspaces",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"workspaces"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Workspaces",
-					"request": {
-						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -1091,8 +2361,12 @@
 								"value": "application/json"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": <string: key>,\n    \"values\": { <string: attribute_id>: <string: value>, <string: attribute_id2>: <string: value2>\n    }\n}"
+						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/workspaces",
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/:traffic_type_id/environments/{{environment-id}}/identities/:key",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1100,180 +2374,30 @@
 								"internal",
 								"api",
 								"v2",
-								"workspaces"
+								"trafficTypes",
+								":traffic_type_id",
+								"environments",
+								"{{environment-id}}",
+								"identities",
+								":key"
 							],
-							"query": [
+							"variable": [
 								{
-									"key": "name",
-									"value": "",
-									"disabled": true
+									"key": "traffic_type_id",
+									"value": ""
 								},
 								{
-									"key": "limit",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "offset",
-									"value": "",
-									"disabled": true
+									"key": "key",
+									"value": ""
 								}
 							]
 						},
-						"description": "https://docs.split.io/reference/get-workspaces"
+						"description": "Create or overwrite a single key for a given traffic type and environment. The attribute ID must start with a letter followed by a combination of dashes(-), underscores(_), letters(a-z A-Z), or numbers(0-9)."
 					},
 					"response": []
 				},
 				{
-					"name": "DELETE workspace",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/workspaces/<workspaceId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"workspaces",
-								"<workspaceId>"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "partial UPDATE workspace",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/name\",\n        \"value\": \"new_name\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/requiresTitleAndComments\",\n        \"value\": true\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/workspaces/<workspaceId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"workspaces",
-								"<workspaceId>"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Environment API",
-			"item": [
-				{
-					"name": "GET Environments",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"environments",
-								"ws",
-								"{{workspace-id}}"
-							]
-						},
-						"description": "https://docs.split.io/reference/get-environments"
-					},
-					"response": []
-				},
-				{
-					"name": "CREATE Environment",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"new_environment\",\n    \"production\": false,\n    \"changePermissions\": {\n        \"allowKills\": true,\n        \"areApprovalsRequired\": true,\n        \"areApproversRestricted\": true,\n        \"approvers\": [\n            {\n                \"id\": \"approver id\",\n                \"name\": \"approver name\",\n                \"type\": \"approver type\"\n            }\n        ],\n        \"areEditorsRestricted\": false,\n        \"editors\": null\n    },\n    \"dataExportPermissions\": {\n        \"areExportersRestricted\": true,\n        \"exporters\": [\n            {\n                \"id\": \"exporter id\",\n                \"name\": \"exporter name\",\n                \"type\": \"exporter type\"\n            }\n        ]\n    }\n}"
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"environments",
-								"ws",
-								"{{workspace-id}}"
-							]
-						},
-						"description": "https://docs.split.io/reference/create-environment\n\nNot yet tested"
-					},
-					"response": []
-				},
-				{
-					"name": "DELETE Environment",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"environments",
-								"ws",
-								"{{workspace-id}}",
-								"<environment_name_or_id>"
-							]
-						},
-						"description": "https://docs.split.io/reference/delete-environment\n\nNot yet tested"
-					},
-					"response": []
-				},
-				{
-					"name": "UPDATE Environment",
+					"name": "Update Identity",
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -1285,10 +2409,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/name\",\n        \"value\": \"NewName\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areApprovalsRequired\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areApproversRestricted\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/approvers\",\n        \"value\": [\n            {\n                \"id\": \"approver id\",\n                \"type\": \"approver type\",\n                \"name\": \"approver name\"\n            }\n        ]\n    },\n        {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/areEditorsRestricted\",\n        \"value\": true\n    },\n        {\n        \"op\": \"replace\",\n        \"path\": \"/changePermissions/editors\",\n        \"value\": [\n            {\n                \"id\": \"editor id\",\n                \"type\": \"editor type\",\n                \"name\": \"editor name\"\n            }\n        ]\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/dataExportPermissions/areExportersRestricted\",\n        \"value\": true\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/dataExportPermissions/exporters\",\n        \"value\": [\n            {\n                \"id\": \"exporter id\",\n                \"type\": \"exporter type\",\n                \"name\": \"exporter name\"\n            }\n        ]\n    },\n]"
+							"raw": "{\n    \"key\": <string: key>,\n    \"values\": { <string: attribute_id>: <string: value>, <string: attribute_id2>: <string: value2>\n    }\n}"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/environments/ws/{{workspace-id}}/<environment_name_or_id>",
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/:traffic_type_id/environments/{{environment-id}}/identities",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1296,32 +2420,27 @@
 								"internal",
 								"api",
 								"v2",
+								"trafficTypes",
+								":traffic_type_id",
 								"environments",
-								"ws",
-								"{{workspace-id}}",
-								"<environment_name_or_id>"
+								"{{environment-id}}",
+								"identities"
 							],
-							"query": [
+							"variable": [
 								{
-									"key": "dry_run",
-									"value": "",
-									"disabled": true
+									"key": "traffic_type_id",
+									"value": ""
 								}
 							]
 						},
-						"description": "https://docs.split.io/reference/update-environment\n\nNot yet tested"
+						"description": "Update a single key for a given traffic type and environment. Any provided attribute values are overwritten, but existing values otherwise remain. The attribute ID must start with a letter followed by a combination of dashes(-), underscores(_), letters(a-z A-Z), or numbers(0-9)."
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Traffic Type API",
-			"item": [
+				},
 				{
-					"name": "GET Traffic Types",
+					"name": "Delete Identity",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -1329,8 +2448,12 @@
 								"value": "application/json"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/trafficTypes/ws/{{workspace-id}}",
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/:traffic_type_id/environments/{{environment-id}}/identities/:key",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1339,42 +2462,34 @@
 								"api",
 								"v2",
 								"trafficTypes",
-								"ws",
-								"{{workspace-id}}"
+								":traffic_type_id",
+								"environments",
+								"{{environment-id}}",
+								"identities",
+								":key"
+							],
+							"variable": [
+								{
+									"key": "traffic_type_id",
+									"value": ""
+								},
+								{
+									"key": "key",
+									"value": ""
+								}
 							]
 						},
-						"description": "https://docs.split.io/reference/get-traffic-types\n\nNot yet tested"
-					},
-					"response": []
-				},
-				{
-					"name": "DELETE Traffic Type",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/trafficTypes/<trafficTypeId>",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"trafficTypes",
-								"<trafficTypeId>"
-							]
-						}
+						"description": "Delete a key from a given traffic type and environment."
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "Restriction API",
+			"name": "RESTRICTIONS",
 			"item": [
 				{
-					"name": "GET Resource Restrictions",
+					"name": "List Restrictions",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1414,7 +2529,7 @@
 					"response": []
 				},
 				{
-					"name": "PUT Resource Restrictions",
+					"name": "Update Restrictions",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -1449,13 +2564,578 @@
 					},
 					"response": []
 				}
+			],
+			"description": "Restricts operations on a resource. Only workspace view can be restricted for now."
+		},
+		{
+			"name": "ROLLOUT STATUSES",
+			"item": [
+				{
+					"name": "Get Rollout Statuses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/rolloutStatuses?wsId={{workspace-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"rolloutStatuses"
+							],
+							"query": [
+								{
+									"key": "wsId",
+									"value": "{{workspace-id}}"
+								}
+							]
+						},
+						"description": "Use this endpoint to see what the available rollout statuses are in a given workspace."
+					},
+					"response": []
+				}
 			]
 		},
 		{
-			"name": "Attribute Dictionary",
+			"name": "SEGMENTS",
 			"item": [
 				{
-					"name": "GET Attributes",
+					"name": "List Segments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}?offset=0&limit=10",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"ws",
+								"{{workspace-id}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "tag",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Lists segments in your organization for a given workspace."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Segment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"friendly_customers_2\",\n    \"description\": \"this is a segment that groups friendly customers\"\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/trafficTypes/:traffic-type-id-or-name",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"ws",
+								"{{workspace-id}}",
+								"trafficTypes",
+								":traffic-type-id-or-name"
+							],
+							"variable": [
+								{
+									"key": "traffic-type-id-or-name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Create a segment in your organization given a traffic type. This API does not configure the segment in any environment."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Segment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/:segment_name",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"ws",
+								"{{workspace-id}}",
+								":segment_name"
+							],
+							"variable": [
+								{
+									"key": "segment_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Delete a segment from your organization. This automatically unconfigures the segment definition from all environments."
+					},
+					"response": []
+				},
+				{
+					"name": "List Segments In Environment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/environments/{{environment-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"ws",
+								"{{workspace-id}}",
+								"environments",
+								"{{environment-id}}"
+							]
+						},
+						"description": "Lists segments in your organization for a given workspace."
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Segment in Environment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:segment_name",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"{{environment-id}}",
+								":segment_name"
+							],
+							"variable": [
+								{
+									"key": "segment_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Creates a Segment Metadata in a workspace."
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Segment in Environment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:segment_name",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"{{environment-id}}",
+								":segment_name"
+							],
+							"variable": [
+								{
+									"key": "segment_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Deactivate a segment in an environment."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Segment Keys in Environment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:segment_name/keys",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"{{environment-id}}",
+								":segment_name",
+								"keys"
+							],
+							"variable": [
+								{
+									"key": "segment_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Retrieve segments keys for a given existing segment."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Segment Keys in Environment via CSV",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/csachetti/test.csv"
+								},
+								{
+									"key": "payload",
+									"value": "{\"comment\": \"a string from postman\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:segment_name/upload",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"{{environment-id}}",
+								":segment_name",
+								"upload"
+							],
+							"variable": [
+								{
+									"key": "segment_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Bulk upload a CSV file containing a list of identifiers. The segment must exist before calling this endpoint. Segments are limited to 100,000 members and each call can only include 10,000 new members at a time."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Segment Keys via JSON",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    \"value1\",\n    \"value2\",\n    \"value3\"\n]"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:segment_name/upload",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"{{environment-id}}",
+								":segment_name",
+								"upload"
+							],
+							"variable": [
+								{
+									"key": "segment_name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Bulk upload a list of identifiers via JSON to a segment. The segment must exist before calling this endpoint. Segments are limited to 100,000 members and each call can only include 10,000 new members at a time."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Segment Keys from Environment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    \"user2\"\n]"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:segment name/deleteKeys",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"{{environment-id}}",
+								":segment name",
+								"deleteKeys"
+							],
+							"variable": [
+								{
+									"key": "segment name",
+									"value": ""
+								}
+							]
+						},
+						"description": "Delete a list of segment keys via JSON from an existing segment."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Segment Keys From Environment with Comment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"keys\": [\n        \"user1\"\n    ],\n    \"comment\": \"some comment\"\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/:segment_name/removeKeys",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"segments",
+								"{{environment-id}}",
+								":segment_name",
+								"removeKeys"
+							],
+							"variable": [
+								{
+									"key": "segment_name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TAGS",
+			"item": [
+				{
+					"name": "Associate Tags",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    \"tagA,\" \"tagB\"\n]"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/:feature_flag_name/object/:object_name/objecttype/:object_type",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"tags",
+								"ws",
+								"{{workspace-id}}",
+								":feature_flag_name",
+								"object",
+								":object_name",
+								"objecttype",
+								":object_type"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "feature_flag_name",
+									"value": ""
+								},
+								{
+									"key": "object_name",
+									"value": ""
+								},
+								{
+									"key": "object_type",
+									"value": ""
+								}
+							]
+						},
+						"description": "Use tags to organize and manage feature flag, segments, and metrics across the Split user interface. Use this endpoint to associate tags with existing feature flags."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TRAFFIC TYPES",
+			"item": [
+				{
+					"name": "Get Traffic Types",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1466,7 +3146,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}?searchPrefix=&paginate=true",
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/ws/{{workspace-id}}",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1474,64 +3154,135 @@
 								"internal",
 								"api",
 								"v2",
-								"schema",
-								"ws",
-								"{{workspace-id}}",
 								"trafficTypes",
-								"{{traffictype-id}}"
+								"ws",
+								"{{workspace-id}}"
+							]
+						},
+						"description": "https://docs.split.io/reference/get-traffic-types\n\nNot yet tested"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Traffic Types",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"dialog_pair\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/ws/{{workspace-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"trafficTypes",
+								"ws",
+								"{{workspace-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Traffic Type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/trafficTypes/:trafficTypeId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"trafficTypes",
+								":trafficTypeId"
+							],
+							"variable": [
+								{
+									"key": "trafficTypeId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Deletes traffic type."
+					},
+					"response": []
+				}
+			],
+			"description": "A traffic type is a particular identifier type for any hierarchy of your customer base. Traffic types in Split are completely customizable and can be any database key you choose to send to Split, e.g.,. a user ID, account ID, IP address, browser ID, etc. Any internal database key you're using to track what \"customer\" means to you.\n\nThe creation and editing of traffic types are limited to administrators within the Split application."
+		},
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "List Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/users",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"users"
 							],
 							"query": [
 								{
-									"key": "searchPrefix",
-									"value": "",
-									"description": "string for search. Only works with pagination"
-								},
-								{
-									"key": "paginate",
-									"value": "true",
-									"description": "Boolean for whether to use pagination."
-								},
-								{
-									"key": "beforeMarker",
-									"value": "",
-									"description": "Get results 'Before' the marker passed into this parameter. Marker string comes from response",
+									"key": "status",
+									"value": "PENDING|ACTIVE|DEACTIVATED",
 									"disabled": true
 								},
 								{
-									"key": "afterMarker",
-									"value": "",
-									"description": "Get results 'After' the marker passed into this parameter. Marker string comes from response",
+									"key": "limit",
+									"value": "20",
 									"disabled": true
 								},
 								{
-									"key": "markerLimit",
+									"key": "after",
 									"value": "",
-									"description": "Page size limit. Only available with pagination. If more than the max of 200 is supplied, the limit will be 200",
+									"disabled": true
+								},
+								{
+									"key": "before",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "group_id",
+									"value": "",
 									"disabled": true
 								}
 							]
 						},
-						"description": "https://docs.split.io/reference/get-attributes\n\nNot yet tested"
+						"description": "List all active, deactivated, and pending users in the organization."
 					},
 					"response": []
 				},
 				{
-					"name": "Create Attribute",
+					"name": "Get user",
 					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"someAttr\",\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\"A\", \"B\"]\n}"
-						},
+						"method": "GET",
+						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}",
+							"raw": "{{base-url}}/internal/api/v2/users/:userId",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1539,33 +3290,55 @@
 								"internal",
 								"api",
 								"v2",
-								"schema",
-								"ws",
-								"{{workspace-id}}",
-								"trafficTypes",
-								"{{traffictype-id}}"
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
 							]
 						},
-						"description": "https://docs.split.io/reference/save-attribute\nNot yet tested"
+						"description": "Get a user by their user Id."
 					},
 					"response": []
 				},
 				{
-					"name": "Replace Attribute",
+					"name": "Invite a New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"<email>\",\n  \"groups\": [\n    {\n      \"id\": \"<groupId>\",\n      \"type\": \"group\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/users",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Full Update User",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"someAttr\",\n    \"trafficTypeId\": \"{{traffictype-id}}\",\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute updated\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\"A\", \"B\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"id\": \"<userId>\",\n  \"email\": \"<email>\",\n  \"groups\": [\n    {\n      \"id\": \"<groupId>\",\n      \"type\": \"group\"\n    }\n  ],\n  \"2fa\": \"<false>\",\n  \"status\": \"<ACTIVE|DEACTIVATED>\"\n}"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}",
+							"raw": "{{base-url}}/internal/api/v2/users",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1573,24 +3346,20 @@
 								"internal",
 								"api",
 								"v2",
-								"schema",
-								"ws",
-								"{{workspace-id}}",
-								"trafficTypes",
-								"{{traffictype-id}}"
+								"users"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Patch Attribute",
+					"name": "Update a User's Groups",
 					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"displayName\": \"Some Attribute\",\n    \"description\": \"This is an attribute Patched\",\n    \"dataType\": \"STRING\",\n    \"isSearchable\": true,\n    \"suggestedValues\": [\"A\", \"B\"]\n}",
+							"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/groups/0\",\n        \"value\": {\n            \"id\": \"<groupId>\",\n            \"type\": \"group\"\n        }\n    }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1598,7 +3367,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/:attributeId",
+							"raw": "{{base-url}}/internal/api/v2/users/:userId",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1606,36 +3375,27 @@
 								"internal",
 								"api",
 								"v2",
-								"schema",
-								"ws",
-								"{{workspace-id}}",
-								"trafficTypes",
-								"{{traffictype-id}}",
-								":attributeId"
+								"users",
+								":userId"
 							],
 							"variable": [
 								{
-									"key": "attributeId",
-									"value": "someAttr"
+									"key": "userId",
+									"value": ""
 								}
 							]
-						}
+						},
+						"description": "Get a user by their user Id."
 					},
 					"response": []
 				},
 				{
-					"name": "Delete Attribute",
+					"name": "Delete a Pending User",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/:attributeId",
+							"raw": "{{base-url}}/internal/api/v2/users/:userId",
 							"host": [
 								"{{base-url}}"
 							],
@@ -1643,89 +3403,14 @@
 								"internal",
 								"api",
 								"v2",
-								"schema",
-								"ws",
-								"{{workspace-id}}",
-								"trafficTypes",
-								"{{traffictype-id}}",
-								":attributeId"
+								"users",
+								":userId"
 							],
 							"variable": [
 								{
-									"key": "attributeId",
-									"value": "someAttr"
+									"key": "userId",
+									"value": ""
 								}
-							]
-						},
-						"description": "https://docs.split.io/reference/delete-attribute\n\nNot yet tested"
-					},
-					"response": []
-				},
-				{
-					"name": "Create Attribute Bulk (CSV)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"description": "Select CSV file here",
-									"type": "file",
-									"src": []
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/attribute:bulk",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"schema",
-								"ws",
-								"{{workspace-id}}",
-								"trafficTypes",
-								"{{traffictype-id}}",
-								"attribute:bulk"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Attribute Bulk (JSON)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"id\": \"someAttr\",\n        \"organizationId\": \"{{org-id}}\",\n        \"trafficTypeId\": \"{{traffictype-id}}\",\n        \"displayName\": \"Some Attribute\",\n        \"description\": \"This is an attribute\",\n        \"dataType\": \"STRING\",\n        \"isSearchable\": true,\n        \"suggestedValues\": [\n            \"A\",\n            \"B\"\n        ]\n    },\n    {\n        \"id\": \"anotherAttr\",\n        \"organizationId\": \"{{org-id}}\",\n        \"trafficTypeId\": \"{{traffictype-id}}\",\n        \"displayName\": \"Another Attribute\",\n        \"description\": \"This is also an attribute\",\n        \"dataType\": \"NUMBER\",\n        \"isSearchable\": true,\n        \"suggestedValues\": [\n            \"0\",\n            \"1\"\n        ]\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base-url}}/internal/api/v2/schema/ws/{{workspace-id}}/trafficTypes/{{traffictype-id}}/attribute:bulk",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"internal",
-								"api",
-								"v2",
-								"schema",
-								"ws",
-								"{{workspace-id}}",
-								"trafficTypes",
-								"{{traffictype-id}}",
-								"attribute:bulk"
 							]
 						}
 					},
@@ -1734,1310 +3419,149 @@
 			]
 		},
 		{
-			"name": "CREATE Identity",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"key\": <string: key>, \"values\": { <string: attribute_id>: <string: value>, <string: attribute_id2>: <string: value2> } }"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities/<key>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"<traffic_type_id>",
-						"environments",
-						"{{environment-id}}",
-						"identities",
-						"<key>"
-					]
-				},
-				"description": "https://docs.split.io/reference/save-identity\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "CREATE Identities",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[{ \"key\": <string: key>, \"values\": { <string: attribute_id>: <string: value> }, { <string: attribute_id2>: <string: value2> } },\n{ \"key\": <string: key2>, \"values\": { <string: attribute_id>: <string: value> }, { <string: attribute_id2>: <string: value2> } }]"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"<traffic_type_id>",
-						"environments",
-						"{{environment-id}}",
-						"identities"
-					]
-				},
-				"description": "https://docs.split.io/reference/save-identities\nnot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "UPDATE Identity",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"key\": <string: key>, \"values\": { <string: attribute_id>: <string: value>, <string: attribute_id2>: <string: value2> } }"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"<traffic_type_id>",
-						"environments",
-						"{{environment-id}}",
-						"identities"
-					]
-				},
-				"description": "https://docs.split.io/reference/update-identity\n\nnot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Identity",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/trafficTypes/<traffic_type_id>/environments/{{environment-id}}/identities/<key>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"trafficTypes",
-						"<traffic_type_id>",
-						"environments",
-						"{{environment-id}}",
-						"identities",
-						"<key>"
-					]
-				},
-				"description": "https://docs.split.io/reference/delete-identitiy\n\nnot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Segments",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/environments/{{environment-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"ws",
-						"{{workspace-id}}",
-						"environments",
-						"{{environment-id}}"
-					]
-				},
-				"description": "https://docs.split.io/reference/list-segments-in-environment"
-			},
-			"response": []
-		},
-		{
-			"name": "UPDATE Segment Keys via CSV",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "",
-						"type": "text",
-						"value": "",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/Users/csachetti/test.csv"
+			"name": "WORKSPACES",
+			"item": [
+				{
+					"name": "Get Workspaces",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/workspaces",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"workspaces"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "",
+									"disabled": true
+								}
+							]
 						},
-						{
-							"key": "payload",
-							"value": "{\"comment\": \"a string from postman\"}",
-							"type": "text"
-						}
-					]
+						"description": "Retrieves the Workspaces for an organization.\n\nThe result set of the API may be subject to reduction based on the Workspace View Restrictions."
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment_name>",
-						"upload"
-					]
-				},
-				"description": "https://docs.split.io/reference/update-segment-keys-in-environment-via-csv"
-			},
-			"response": []
-		},
-		{
-			"name": "UPDATE Segment via JSON",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\"value1\", \"value2\", \"value3\"]"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/upload",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment_name>",
-						"upload"
-					]
-				},
-				"description": "https://docs.split.io/reference/update-segment-keys-in-environment-via-json"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Segment Keys",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/keys",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment_name>",
-						"keys"
-					]
-				},
-				"description": "https://docs.split.io/reference/get-segment-keys-in-environment"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Segment Keys",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\"user2\"]"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment name>/deleteKeys",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment name>",
-						"deleteKeys"
-					]
-				},
-				"description": "https://docs.split.io/reference/remove-segment-keys-from-environment"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Segment Keys with Comment",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"keys\": [\"user1\"], \"comment\": \"some comment\"}"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/<segment_name>/removeKeys",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"<segment_name>",
-						"removeKeys"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CREATE Feature Flag",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"name\":\"paywall_beta\",\"description\":\"description\"}"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/trafficTypes/<traffic_type_id_or_name>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"trafficTypes",
-						"<traffic_type_id_or_name>"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/create-feature-flag\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Feature Flags (list)",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}"
-					],
-					"query": [
-						{
-							"key": "rolloutStatus",
-							"value": "<rollout_status_id>",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/list-feature-flags\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Feature Flag",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/get-feature-flag\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Feature Flag",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/delete-feature-flag"
-			},
-			"response": []
-		},
-		{
-			"name": "UPDATE Feature Flag Description",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/updateDescription",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>",
-						"updateDescription"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/update-feature-flag-description\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "CREATE Feature Flag Definition in Environment",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"treatments\":[{\"name\":\"on\",\"configurations\":\"{\\\"color\\\":\\\"blue\\\"}\"},{\"name\":\"off\"},\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"],\"defaultTreatment\":\"off\", \"baselineTreatment\": \"off\",\"rules\":[{\"buckets\":[{\"treatment\":\"on\",\"size\":50},{\"treatment\":\"off\",\"size\":50}],\"condition\":{\"matchers\":[{\"type\":\"IN_SEGMENT\",\"string\":\"employees\"}]}}],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>",
-						"environments",
-						"{{environment-id}}"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/create-feature-flag-definition-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Feature Flag Definition in Environment",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>",
-						"environments",
-						"{{environment-id}}"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/get-feature-flag-definition-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "partial UPDATE Feature Flag Definition in Environment",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[{\"op\": \"replace\", \"path\": \"/trafficAllocation\", \"value\":50}]"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>",
-						"environments",
-						"{{environment-id}}"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/partial-update-feature-flag-definition-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "full UPDATE Feature Flag Definition in Environment",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"treatments\":[{\"name\":\"on\",\"segments\":[\"employees\"],\"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"},{\"name\":\"off\",\"keys\":[\"one\",\"two\"],\"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"}],\"defaultTreatment\":\"on\", \"baselineTreatment\": \"off\",\"trafficAllocation\":80,\"rules\":[],\"defaultRule\":[{\"treatment\":\"off\",\"size\":100}]}"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>",
-						"environments",
-						"{{environment-id}}"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/full-update-feature-flag-definition-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Feature Flag Definition from Environment",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>",
-						"environments",
-						"{{environment-id}}"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/remove-feature-flag-definition-from-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Feature Flag Definitions in Environment (List)",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/environments/{{environment-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"environments",
-						"{{environment-id}}"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/list-feature-flag-definitions-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "KILL Feature Flag in Environment",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}/kill",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>",
-						"environments",
-						"{{environment-id}}",
-						"kill"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/kill-feature-flag-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "Restore Feature Flag in Environment",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>/environments/{{environment-id}}/restore",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>",
-						"environments",
-						"{{environment-id}}",
-						"restore"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/restore-feature-flag-in-environment\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "Associate Tags",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\"tagA,\" \"tagB\"]"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/<feature_flag_name>/object/<object_name>/objecttype/<object_type>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"tags",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>",
-						"object",
-						"<object_name>",
-						"objecttype",
-						"<object_type>"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/associate-tags\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "Create Event (Single)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"eventTypeId\": \"page_load\", \n  \"environmentName\": \"Staging\",      \n  \"trafficTypeName\": \"user\", \n  \"key\": \"key_user_0\", \n  \"timestamp\": 1513357833000, \n  \"value\": 0.8,\n  \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n}"
-				},
-				"url": {
-					"raw": "{{events-base-url}}/api/events",
-					"host": [
-						"{{events-base-url}}"
-					],
-					"path": [
-						"api",
-						"events"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/create-event\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "Create Events (Bulk)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n{ \n \"eventTypeId\": \"page_latency\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user1\", \n \"timestamp\": 1513357833000, \n \"value\": 0.8  \n}, \n{ \n \"eventTypeId\": \"page_load\", \n \"environmentName\": \"Staging\",      \n \"trafficTypeName\": \"user\", \n \"key\": \"key_user2\", \n \"timestamp\": 1513357834000, \n \"value\": 0.9,\n \"properties\":{\"martin\": 21.565,\"vertical\":\"restaurant\",\"GMV\":true}\n }\n ]"
-				},
-				"url": {
-					"raw": "{{events-base-url}}/api/events/bulk",
-					"host": [
-						"{{events-base-url}}"
-					],
-					"path": [
-						"api",
-						"events",
-						"bulk"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
-					]
-				},
-				"description": "https://docs.split.io/reference/create-events\n\nNot yet tested"
-			},
-			"response": []
-		},
-		{
-			"name": "CREATE Segment",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"name\":\"friendly_customers_2\",\n\t\"description\":\"this is a segment that groups friendly customers\"\n\t\n}"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/trafficTypes/{{traffic-type-id-or-name}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"ws",
-						"{{workspace-id}}",
-						"trafficTypes",
-						"{{traffic-type-id-or-name}}"
-					]
-				},
-				"description": "Creates a Segment Metadata in a workspace."
-			},
-			"response": []
-		},
-		{
-			"name": "GET Segments",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}?offset=0&limit=10&tag=tag_test",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"ws",
-						"{{workspace-id}}"
-					],
-					"query": [
-						{
-							"key": "offset",
-							"value": "0"
+				{
+					"name": "Create Workspace",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"workspace name\",\n    \"requiresTitleAndComments\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "limit",
-							"value": "10"
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/workspaces",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"workspaces"
+							]
 						},
-						{
-							"key": "tag",
-							"value": "tag_test"
-						}
-					]
+						"description": "Allows you to create workspaces.\n\nNote: When you create a workspace from this API, this won't create the default environment. You must use the create environment API to create an environment."
+					},
+					"response": []
 				},
-				"description": "Creates a Segment Metadata in a workspace."
-			},
-			"response": []
-		},
-		{
-			"name": "ACTIVATE Segment in Environment",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+				{
+					"name": "Delete Workspace",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/workspaces/:workspaceId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"workspaces",
+								":workspaceId"
+							],
+							"variable": [
+								{
+									"key": "workspaceId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Deletes a workspace."
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/friendly_customers_2",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"friendly_customers_2"
-					]
-				},
-				"description": "Creates a Segment Metadata in a workspace."
-			},
-			"response": []
-		},
-		{
-			"name": "DEACTIVATE Segment in Environment",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/{{environment-id}}/friendly_customers_2",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"{{environment-id}}",
-						"friendly_customers_2"
-					]
-				},
-				"description": "Creates a Segment Metadata in a workspace."
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Segment",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/segments/ws/{{workspace-id}}/friendly_customers_2",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"segments",
-						"ws",
-						"{{workspace-id}}",
-						"friendly_customers_2"
-					]
-				},
-				"description": "Creates a Segment Metadata in a workspace."
-			},
-			"response": []
-		},
-		{
-			"name": "Full Feature Flag UPDATE",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/tags/0\",\n        \"value\":{\"name\":\"<tag_name>\"}\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/description\",\n    \t\"value\":\"<description>\"\n    },\n    {\n    \t\"op\":\"replace\",\n    \t\"path\":\"/rolloutStatus/id\",\n    \t\"value\":\"<rollout_status_id>\"\n    }\n]"
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/<feature_flag_name>",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"splits",
-						"ws",
-						"{{workspace-id}}",
-						"<feature_flag_name>"
-					]
+				{
+					"name": "Partial Updatee Workspace",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/name\",\n        \"value\": \"new_name\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/requiresTitleAndComments\",\n        \"value\": true\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v2/workspaces/:workspaceId",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v2",
+								"workspaces",
+								":workspaceId"
+							],
+							"variable": [
+								{
+									"key": "workspaceId",
+									"value": ""
+								}
+							]
+						},
+						"description": "This endpoint provides a partial update for a workspace."
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET Rollout Statuses",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base-url}}/internal/api/v2/rolloutStatuses?wsId={{workspace-id}}",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"v2",
-						"rolloutStatuses"
-					],
-					"query": [
-						{
-							"key": "wsId",
-							"value": "{{workspace-id}}"
-						}
-					]
-				}
-			},
-			"response": []
+			],
+			"description": "Workspaces allow you to separately manage your feature flags and experiments across your different business units, product lines, and applications."
 		},
 		{
 			"name": "Login",
