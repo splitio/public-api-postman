@@ -1757,7 +1757,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"treatments\": [\n        {\n            \"name\": \"on\",\n            \"segments\": [\n                \"employees\"\n            ],\n            \"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"\n        },\n        {\n            \"name\": \"off\",\n            \"keys\": [\n                \"one\",\n                \"two\"\n            ],\n            \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n        }\n    ],\n    \"defaultTreatment\": \"on\",\n    \"baselineTreatment\": \"off\",\n    \"trafficAllocation\": 80,\n    \"rules\": [],\n    \"defaultRule\": [\n        {\n            \"treatment\": \"off\",\n            \"size\": 100\n        }\n    ]\n}"
+							"raw": "{\n    \"treatments\": [\n        {\n            \"name\": \"on\",\n            \"segments\": [\n                \"docs_testers\"\n            ],\n            \"configurations\": \"{\\\"color\\\":\\\"green\\\"}\"\n        },\n        {\n            \"name\": \"off\",\n            \"keys\": [\n                \"one\",\n                \"two\"\n            ],\n            \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n        }\n    ],\n    \"defaultTreatment\": \"on\",\n    \"baselineTreatment\": \"off\",\n    \"trafficAllocation\": 80,\n    \"rules\": [],\n    \"defaultRule\": [\n        {\n            \"treatment\": \"off\",\n            \"size\": 100\n        }\n    ],\n    \"title\": \"test-title\",\n    \"comment\": \"test-comment\"\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}",
