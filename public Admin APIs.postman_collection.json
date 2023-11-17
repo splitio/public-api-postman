@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "99938df6-9722-42e1-bb1c-aefd3b2d18b2",
+		"_postman_id": "73d75a18-728a-4180-89c7-bc5efd85378d",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21223269"
+		"_exporter_id": "8710719"
 	},
 	"item": [
 		{
@@ -2916,6 +2916,7 @@
 								{
 									"key": "payload",
 									"value": "{\"comment\": \"a string from postman\"}",
+									"contentType": "application/json",
 									"type": "text"
 								}
 							]
