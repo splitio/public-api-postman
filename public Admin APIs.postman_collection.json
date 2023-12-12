@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "73d75a18-728a-4180-89c7-bc5efd85378d",
+		"_postman_id": "5ed15b93-acda-4d0e-982e-e4529c88fc2d",
 		"name": "public Admin APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "8710719"
@@ -1707,7 +1707,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"treatments\": [\n        {\n            \"name\": \"on\",\n            \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n        },\n        {\n            \"name\": \"off\"\n        },\n        \"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"\n    ],\n    \"defaultTreatment\": \"off\",\n    \"baselineTreatment\": \"off\",\n    \"rules\": [\n        {\n            \"buckets\": [\n                {\n                    \"treatment\": \"on\",\n                    \"size\": 50\n                },\n                {\n                    \"treatment\": \"off\",\n                    \"size\": 50\n                }\n            ],\n            \"condition\": {\n                \"matchers\": [\n                    {\n                        \"type\": \"IN_SEGMENT\",\n                        \"string\": \"employees\"\n                    }\n                ]\n            }\n        }\n    ],\n    \"defaultRule\": [\n        {\n            \"treatment\": \"off\",\n            \"size\": 100\n        }\n    ]\n}"
+							"raw": "{\n    \"treatments\": [\n        {\n            \"name\": \"on\",\n            \"configurations\": \"{\\\"color\\\":\\\"blue\\\"}\"\n        },\n        {\n            \"name\": \"off\",\n            \"configurations\": \"{\\\"color\\\":\\\"red\\\"}\"\n        }\n    ],\n    \"defaultTreatment\": \"off\",\n    \"baselineTreatment\": \"off\",\n    \"rules\": [\n        {\n            \"buckets\": [\n                {\n                    \"treatment\": \"on\",\n                    \"size\": 50\n                },\n                {\n                    \"treatment\": \"off\",\n                    \"size\": 50\n                }\n            ],\n            \"condition\": {\n                \"matchers\": [\n                    {\n                        \"type\": \"IN_SEGMENT\",\n                        \"string\": \"employees\"\n                    }\n                ]\n            }\n        }\n    ],\n    \"defaultRule\": [\n        {\n            \"treatment\": \"off\",\n            \"size\": 100\n        }\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base-url}}/internal/api/v2/splits/ws/{{workspace-id}}/:feature_flag_name/environments/{{environment-id}}",
@@ -3084,10 +3084,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    \"tagA,\" \"tagB\"\n]"
+							"raw": "[\n    \"tagA\", \"tagB\"\n]"
 						},
 						"url": {
-							"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/:feature_flag_name/object/:object_name/objecttype/:object_type",
+							"raw": "{{base-url}}/internal/api/v2/tags/ws/{{workspace-id}}/object/:object_name/objecttype/:object_type",
 							"host": [
 								"{{base-url}}"
 							],
@@ -3098,7 +3098,6 @@
 								"tags",
 								"ws",
 								"{{workspace-id}}",
-								":feature_flag_name",
 								"object",
 								":object_name",
 								"objecttype",
@@ -3112,10 +3111,6 @@
 								}
 							],
 							"variable": [
-								{
-									"key": "feature_flag_name",
-									"value": ""
-								},
 								{
 									"key": "object_name",
 									"value": ""
@@ -3563,6 +3558,135 @@
 				}
 			],
 			"description": "Workspaces allow you to separately manage your feature flags and experiments across your different business units, product lines, and applications."
+		},
+		{
+			"name": "FLAG SETS",
+			"item": [
+				{
+					"name": "List Flag Sets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v3/flag-sets?workspace_id={{workspace-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v3",
+								"flag-sets"
+							],
+							"query": [
+								{
+									"key": "after",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "before",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "workspace_id",
+									"value": "{{workspace-id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Flag Set",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v3/flag-sets/:flag_set_id",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v3",
+								"flag-sets",
+								":flag_set_id"
+							],
+							"variable": [
+								{
+									"key": "flag_set_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Flag Set",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"flag_set_name\", \n    \"description\": \"flag set description\", \n    \"workspace\": {\n        \"id\":{{workspace-id}}, \"type\": \"WORKSPACE\"\n        }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/internal/api/v3/flag-sets",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v3",
+								"flag-sets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/internal/api/v3/flag-sets/:flag_set_id",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"internal",
+								"api",
+								"v3",
+								"flag-sets",
+								":flag_set_id"
+							],
+							"variable": [
+								{
+									"key": "flag_set_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Login",
