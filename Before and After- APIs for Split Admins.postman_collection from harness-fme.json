@@ -1,0 +1,2662 @@
+{
+	"info": {
+		"_postman_id": "ab25d079-4df6-4a1f-a439-7334f4af4926",
+		"name": "Before and After: APIs for Split Admins",
+		"description": "This collection provides working examples of the following:\n\n- Split API endpoints which will be deprecated after a Split account is migrated to Harness.\n    \n- Harness API endpoints that will replace the deprecated API endpoints.\n    \n\nIn each folder, you will see a \"Split (BEFORE)\" and \"Harness (AFTER)\" subfolder. These contain working examples of how Split Admin API tasks are performed in Split today, paired with working examples of how those same tasks can be performed in a Split account once it is migrated to Harness.\n\nThe folder names are based on endpoint names that Split adminstrators will be familiar with: while there is no \"Restrictions\" endpoint on the Harness side, we document the replacement for Split's Restrictions (project view permissions control) endpoints under Restrictions > Harness (AFTER).\n\n**Important: You will need a Harness API Key to operate against the new Harness API endpoints.**\n\nHarness API Keys are created in Harness under Acccount Settings > Access Control > Service Accounts. API Keys created there with the proper role and scope will be able to hit both the new endpoints on Harness, and the go-forward endpoints not being deprecated on Split.\n\nThe diagram below shows what type of API key can be used and when:\n\n<img src=\"https://content.pstmn.io/17e6376f-5a4b-4b7f-aa87-bd3619cf0b01/aGFybmVzcy12cy1zcGxpdC1hcGkta2V5cy12ZW5uLWRpYWdyYW0ucG5n\">",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43022685",
+		"_collection_link": "https://www.postman.com/fme-tech-enablement/harness-fme/collection/qzyjhr8/before-and-after-apis-for-split-admins?action=share&source=collection_link&creator=43022685"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Split (BEFORE)",
+					"item": [
+						{
+							"name": "List Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Split API Base URL}}/users",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "PENDING|ACTIVE|DEACTIVATED",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "20",
+											"disabled": true
+										},
+										{
+											"key": "after",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "before",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "group_id",
+											"value": "",
+											"disabled": true
+										}
+									]
+								},
+								"description": "List all active, deactivated, and pending users in the organization.\n\nAlso supports getting a list of users in a group with optional query param, group_id."
+							},
+							"response": []
+						},
+						{
+							"name": "Get User",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Split API Base URL}}/users/{{Split User Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"users",
+										"{{Split User Identifier}}"
+									]
+								},
+								"description": "Get a user by their user Id."
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "content",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"updated user name\"\n    // \"email\": \"<email>\",\n    // \"2fa\":false,\n    // \"status\":\"ACTIVE\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/users/{{Split User Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"users",
+										"{{Split User Identifier}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a Pending User",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Split API Base URL}}/users/:userId",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add User to Group",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Split API Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/groups/0\",\n        \"value\": {\n            \"id\": \"{{Split Group Identifier}}\",\n            \"type\": \"group\"\n        }\n    }\n]"
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/users/{{Split User Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"users",
+										"{{Split User Identifier}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove User from Group",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Split API Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"op\": \"remove\",\n        \"path\": \"/groups/0\",\n        \"value\": {\n            \"id\": \"{{Split Group Identifier}}\",\n            \"type\": \"group\"\n        }\n    }\n]"
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/users/{{Split User Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"users",
+										"{{Split User Identifier}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invite a new User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"<email>\",\n  \"groups\": [\n    {\n      \"id\": \"<groupId>\",\n      \"type\": \"group\"\n    }\n  ]\n}"
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/users",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "The `/users` endpoint becomes unavailable to you once your account has been migrated to Harness.\n\nSee the overview in the Users folder above this one for a side-by-side comparison of how users are managed in Split vs Harness.\n\n### Deleting and Disabling Users\n\n- Split supports the deletion of pending users only.\n    \n- Split supports a disabled user state. Harness does not.\n    \n\n### Group Membership: Managed by This Endpoint\n\nIn addition to **CRUD operations on users**, this endpoint is where **group membership** **operations** are performed in Split. For that reason, you will find these group-related examples here under Users, instead of in the Groups folder:\n\n- List Users (optionally takes group as filter)\n    \n- Add User to Group\n    \n- Remove User from Group",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Split API Token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Harness (AFTER)",
+					"item": [
+						{
+							"name": "Get List of Users",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Harness API Base URL}}/user/aggregate?accountIdentifier={{Harness Account Identifier}}&searchTerm=",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user",
+										"aggregate"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "searchTerm",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Harness API Base URL}}/user/aggregate/{{Harness User Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user",
+										"aggregate",
+										"{{Harness User Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"uuid\": \"wtW6nhcYS5KqUqEeekMtuA\",\n    \"name\": \"Johannes Liegl\",\n    \"email\": \"johannes.liegl+demo@harness.io\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/user?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add User to Group",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userGroupIdsToAdd\": [\n        \"EnablementGroup\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/user/add-user-to-groups/{{Harness User Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user",
+										"add-user-to-groups",
+										"{{Harness User Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invite a New User",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"emails\": [\n        \"david.karow+enablement@harness.io\"\n    ],\n    \"roleBindings\": [\n        {\n            \"roleIdentifier\": \"_fme_manager\",\n            \"roleName\": \"Split FME Manager Role\",\n            \"roleScopeLevel\": \"account\",\n            \"resourceGroupIdentifier\": \"_all_resources_including_child_scopes\",\n            \"resourceGroupName\": \"All Resources Including Child Scopes\",\n            \"managedRole\": true,\n            \"managedRoleAssignment\": false\n        },\n        {\n            \"roleIdentifier\": \"_fme_administrator\",\n            \"roleName\": \"Split FME Administrator Role\",\n            \"roleScopeLevel\": \"account\",\n            \"resourceGroupIdentifier\": \"_all_resources_including_child_scopes\",\n            \"resourceGroupName\": \"All Resources Including Child Scopes\",\n            \"managedRole\": true,\n            \"managedRoleAssignment\": false\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/user/users?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user",
+										"users"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Pending User",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Harness API Base URL}}/invites/{{Harness Invite Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"invites",
+										"{{Harness Invite Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Pending Users",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Harness API Base URL}}/invites/aggregate?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"invites",
+										"aggregate"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "The `/user` and `/invites` endpoints here replace the Split `/users` endpoint after migration.\n\nSee the overview in the Users folder above this one for a side-by-side comparison of how users are managed in Split vs Harness.\n\n### Deleting and Disabling Users\n\n- Harness supports the deletion of pending and active users.\n    \n- Harness does not support a disabled user state because of conflicts that can create with different SCIM providers",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Harness API Token}}",
+								"type": "string"
+							}
+						]
+					}
+				}
+			],
+			"description": "In Split, adding a user to the system automatically granted them a fixed set of global permissions. In Harness, you have **greater control over user permissions**. Refer to the section below this table to understand how **migrated users receive their permissions automatically**, and why you must **exercise more care when creating new users via the API**.\n\n**How Users Are Managed Differently in Split vs. Harness**\n\n| **Aspect** | **Split** (Before) | **Harness** (After) |\n| --- | --- | --- |\n| **User Roles** | Users were either **Administrators, Editors, or Viewers**, with hardcoded roles. | Users can be **assigned any role**, scoped to **any resource group**. Roles can be granted directly or through **group membership**. |\n| **User Scope** | Users had a **global account-level scope**. | Users exist at **Account, Organization, or Project levels**, allowing for more fine-grained access control. |\n| **Role Assignment** | Roles were **fixed per user** and could not be customized. | Roles are **assigned dynamically** based on **role bindings** that link users to **specific permissions and resource groups**. |\n| **User Creation** | Users were created via **direct API calls** with limited configuration options. | Users are created with **explicit role assignments** and can be added to groups that define their access. |\n| **Access Control** | Permissions were set **individually** per user or through environment-level settings. | Permissions are **inherited from roles and groups**, allowing for **centralized permission management**. |\n| **User Group Membership** | Groups were **lists of users** with no assigned permissions, except for Administrators. | Groups can be **granted roles**, and users automatically inherit the permissions assigned to the group. |\n\n---\n\n### **Observing Migrated Users vs. Creating New Users in Harness**\n\nWhen working with **users in Harness after migrating from Split**, it is essential to distinguish between how **migrated users** got their permissions and the steps you take to grant permissions when adding **new users post-migration**. Please pay particular attention to the way group memberships control most of this process. Let us know if you have questions!\n\n---\n\n### **Migrated Users: Automatically Configured with Correct Roles and Scope**\n\n- **During the migration**, all existing users from Split will be **pre-configured with the appropriate roles and scope** that match their previous access levels.\n    \n- These users will be assigned the correct **roles, resource groups, and permissions** to ensure they can continue working as they did in Split **without additional manual configuration**.\n    \n- If acting on a migrated user (e.g., modifying roles, adding them to new groups), ensure that **any changes align with their intended level of access** to avoid accidental over-permissioning or restriction.\n    \n\n---\n\n### **Creating New Users Post-Migration: Manual Role and Scope Assignment Required**\n\n- **New users do not inherit automatic permissions**—they must be explicitly assigned the correct **role(s) and scope**.\n    \n- When adding a new user, consider:\n    \n    - **Role Selection:** Assign the correct role based on what the user needs to do (e.g., `project_viewer`, `fme_manager`).\n        \n    - **Scope Definition:** Determine whether the user should have access at the **Account, Organization, or Project level**.\n        \n    - **Group Membership:** Adding users to **pre-configured groups** (e.g., `_all_account_fme_editors_`) can help apply the correct permissions more efficiently.\n        \n\n---\n\n### **Key Considerations for API Users**\n\n✔ **Migrated users already have the correct permissions—modify them only if necessary.**\n\n✔ **New users require manual role and scope assignment—apply permissions carefully.**\n\n✔ **Use role bindings to assign access in a structured, scalable way.**\n\n✔ **Double-check the scope of new users to ensure they have access to the right resources without over-permissioning.**"
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Split (BEFORE)",
+					"item": [
+						{
+							"name": "List Groups",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Split API Base URL}}/groups",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"groups"
+									]
+								},
+								"description": "List all active groups in the organization."
+							},
+							"response": []
+						},
+						{
+							"name": "Get Group",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Split API Base URL}}/groups/{{Split Group Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"groups",
+										"{{Split Group Identifier}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Group",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"enablement\",\n    \"description\":\"the enablement\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/groups",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Group",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\n            \"name\": \"en1\",\n            \"description\": \"en1too\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/groups/{{Split Group Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"groups",
+										"{{Split Group Identifier}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Split API Base URL}}/groups/{{Split Group Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"groups",
+										"{{Split Group Identifier}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "The `/groups` endpoint becomes unavailable to you once your account has been migrated to Harness.\n\n- This endpoint manages data **about** each group, **not its list of members**.\n    \n- For **management of members** _**in**_ **each group** see these examples in Users:\n    \n    - List Users (optionally takes group as filter)\n        \n    - Add User to Group\n        \n    - Remove User from Group",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Split API Token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Harness (AFTER)",
+					"item": [
+						{
+							"name": "List Groups",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Harness API Base URL}}/user-groups/?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user-groups",
+										""
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Group",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Harness API Base URL}}/user-groups/{{Harness Group Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user-groups",
+										"{{Harness Group Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"identifier\": \"theEnGroup\",\n    \"name\": \"the en group\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/user-groups?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user-groups"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Group",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"identifier\": \"theEnGroup\",\n    \"name\": \"the enablement group\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/user-groups?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user-groups"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Group",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Harness API Base URL}}/user-groups/{{Harness Group Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"user-groups",
+										"{{Harness Group Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "The `/user-groups` endpoint here replaces the Split `/groups` and `/users` endpoints after migration.\n\n### **How User Groups Are Used in Harness**\n\nIn **Harness**, user groups function differently from **Split**, providing greater flexibility in managing permissions and access control.\n\n#### **Key Ways User Groups Are Used in Harness:**\n\n1. **User Groups Can Have Role Bindings**\n    \n    - In **Split**, groups were just lists of users with no assigned roles (except for Administrators).\n        \n    - In **Harness**, user groups **can be assigned one or more roles**, which determine what actions members can perform.\n        \n2. **Groups Can Exist at Different Levels**\n    \n    - In **Split**, all groups were **global (account-level only)**.\n        \n    - In **Harness**, groups can be created at the **Account, Organization, or Project level**, allowing for **more granular access control**.\n        \n3. **User Groups Control Access in RBAC**\n    \n    - In **Split**, groups granted access only be being included in **environment or object-level permissions** settings.\n        \n    - In **Harness**, groups are used **directly in Role Assignments (Role Bindings)** to manage access.\n        \n4. **Default Groups for Migrated Users**\n    \n    - **Harness automatically creates certain groups during migration** to mimic Split’s open-access behavior outside of restricted projects:\n        \n        - `_all_account_admins_` → Full access\n            \n        - `_all_account_fme_editors_` → Editing permissions\n            \n        - `_all_account_fme_viewers_` → Read-only access.\n            \n\n---\n\n### **Key Takeaways**\n\n✔ **Harness user groups manage permissions through role bindings, not just membership.**\n\n✔ **Groups exist at multiple levels (Account, Org, Project), unlike Split’s global groups.**\n\n✔ **User Groups are used in RBAC to assign permissions efficiently.**",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Harness API Token}}",
+								"type": "string"
+							}
+						]
+					}
+				}
+			],
+			"description": "### **How Groups Are Administered Differently in Split vs. Harness**\n\n| **Aspect** | **Split (Before)** | **Harness (After)** |\n| --- | --- | --- |\n| **Group Functionality** | Groups are simple **lists of users**, except for the Administrators group. | Groups can have **role bindings**, meaning they can grant permissions. |\n| **Permissions** | Groups themselves **do not have roles**; permissions are granted via environment/object-level settings. | Groups can be assigned **one or more roles**, defining what actions members can perform. |\n| **Scope** | Groups are **global (account-level only)**—they cannot be scoped to a project. | Groups can exist at **Account, Organization, or Project level**, providing flexibility. |\n| **Creating a Group** | Admins create a group with only a **name and description**. | Admins create a group and can assign **users, roles, and notification settings**. |\n| **Managing Membership** | Users are **added or removed manually** through the Users API. | Users can be added or removed, and their **permissions are determined by the group's assigned roles**. |\n| **Using Groups for Permissions** | Groups grant permissions **only when used in environment or object-level entries**. | Groups can be assigned **roles directly**, making them the preferred way to manage access. |\n| **Default Groups in Migration** | Only the **Administrators group** had special privileges. | Migrated users are assigned to **new default groups**: `_all_account_admins_`, `_all_account_fme_editors_`, `_all_account_fme_viewers_`. |\n\n---\n\n### **Key Takeaways**\n\n✔ **Split groups were just lists of users; Harness groups can have assigned roles.**\n\n✔ **Harness supports hierarchical groups at different scopes (Account, Organization, Project).**\n\n✔ **Within Harness, groups are the preferred way to manage permissions, reducing manual role assignments.**"
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Split (BEFORE)",
+					"item": [
+						{
+							"name": "Get Projects",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Split API Base URL}}/workspaces",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"workspaces"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Retrieves the Workspaces for an organization.\n\nThe result set of the API may be subject to reduction based on the Workspace View Restrictions."
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"workspace name\",\n    \"requiresTitleAndComments\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/workspaces",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"workspaces"
+									]
+								},
+								"description": "Allows you to create workspaces.\n\nNote: When you create a workspace from this API, this won't create the default environment. You must use the create environment API to create an environment."
+							},
+							"response": []
+						},
+						{
+							"name": "Update Project",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/name\",\n        \"value\": \"old project\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/requiresTitleAndComments\",\n        \"value\": true\n    }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/workspaces/{{Split Workspace Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"workspaces",
+										"{{Split Workspace Identifier}}"
+									]
+								},
+								"description": "This endpoint provides a partial update for a workspace."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Project",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Split API Base URL}}/workspaces/{{Split Workspace Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"workspaces",
+										"{{Split Workspace Identifier}}"
+									]
+								},
+								"description": "Deletes a workspace."
+							},
+							"response": []
+						}
+					],
+					"description": "`POST /workspaces`, `PATCH /workspaces`, and `DELETE /workspaces` will become unavailable when your account is migrated to Harness.\n\n`GET /workspaces` will **not** be deprecated, to support lookup of the `wsId` corresponding to a Harness Project `name`. Please see the Harness (AFTER) folder below for details.",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Split API Token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Harness (AFTER)",
+					"item": [
+						{
+							"name": "Get Projects",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Harness API Base URL}}/projects?accountIdentifier={{Harness Account Identifier}}&orgIdentifier={{Harness Organization Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"projects"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "orgIdentifier",
+											"value": "{{Harness Organization Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"project\": {\n        \"orgIdentifier\": \"{{Harness Organization Identifier}}\",\n        \"identifier\": \"NewProj\",\n        \"name\": \"NewProj\",\n        \"color\": \"string\",\n        \"modules\": [\n            \"CD\"\n        ],\n        \"description\": \"a new project\",\n        \"tags\": {}\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/projects?accountIdentifier={{Harness Account Identifier}}&orgIdentifier={{Harness Organization Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"projects"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "orgIdentifier",
+											"value": "{{Harness Organization Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Project",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"project\": {\n        \"orgIdentifier\": \"{{Harness Organization Identifier}}\",\n        \"identifier\": \"NewProj\",\n        \"name\": \"NewProjJJ\",\n        \"color\": \"string\",\n        \"modules\": [\n            \"CD\"\n        ],\n        \"description\": \"a new project\",\n        \"tags\": {}\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/projects/{{Harness Project Identifier}}?accountIdentifier={{Harness Account Identifier}}&orgIdentifier={{Harness Organization Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"projects",
+										"{{Harness Project Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "orgIdentifier",
+											"value": "{{Harness Organization Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Project",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Harness API Base URL}}/projects/{{Harness Project Identifier}}?accountIdentifier={{Harness Account Identifier}}&orgIdentifier={{Harness Organization Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"projects",
+										"{{Harness Project Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "orgIdentifier",
+											"value": "{{Harness Organization Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "The `/projects` endpoint here replaces the `POST`, `PATCH`, and `DELETE` verbs for the Split `/workspaces` endpoint after migration.\n\nThe `GET` verb for the Split `/workspaces` endpoint will **not** be deprecated, in order to address the following use case:\n\n#### **Retrieving** **`wsId`** **Using the Harness Project Name**\n\nIn many of the remaining Split Admin API endpoints, you will need a workspace ID, often abbreviated as `ws` or `wsId`. Here is how you can obtain the `wsId` that corresponds to a Harness project:\n\n1. **Use the** **`filter`** **Option in GET Workspaces:** Submit GET /workspaces request to the Split Admin API that used the optional query param `name` and the value of the Harness Project `name` (not the Harness Project `identifier`).\n    \n2. **Extract the** **`wsId`** **from the Response:** Once the API returns the filtered result, the **workspace ID (**`wsId`**)** will be included in the response alongside the project name.\n    \n\nNote: The usage pattern here (using the editable `name` rather than the permanent `identifier`) differs from the typical Harness API pattern, but it is the correct pattern to use when calling this Split Admin API endpoint.",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Harness API Token}}",
+								"type": "string"
+							}
+						]
+					}
+				}
+			],
+			"description": "### **How Projects Are Managed in Split vs. Harness**\n\n| **Aspect** | **Split** | **Harness** |\n| --- | --- | --- |\n| **Terminology** | Projects were called **Workspaces** until late 2024, when interfaces and documentation switched to the term **Projects**. The API retained the term **Workspaces.** | Projects are called **Projects** and are integrated into the **RBAC hierarchy** (Account → Organization → Project). |\n| **Scope & Structure** | Workspaces are managed independently and have no explicit hierarchy. | Projects exist within **Organizations** and **Accounts**, enabling structured role-based access. |\n| **Access Management** | Access is managed via **Project View Restrictions**, which require explicit API calls to set visibility. | Projects are **restricted by default**, and access is controlled using **RBAC role assignments and resource groups**. |\n| **Permissions & Roles** | Permissions are assigned per user or group via manual restrictions. | Permissions are assigned through **Roles and Resource Groups**, which can be inherited or explicitly defined. |\n| **Creating a Project** | Creating a new project (workspace) requires a **direct API call**, specifying only a name and optional settings. | Creating a project involves defining its **scope within the Account/Organization**, and **RBAC settings determine who can access and modify it**. |\n| **Project Restrictions** | Open workspaces are **the default**, but can be explicitly restricted via API. | Projects are **restricted by default**, and broad access must be explicitly granted via role bindings. |\n\n---\n\n### **Key Takeaways**\n\n✔ **Harness projects follow a structured hierarchy (Account → Organization → Project), unlike Split’s flat workspace model.**  \n  \n✔ **RBAC replaces manual project restrictions, offering more flexible and scalable access management.**  \n  \n✔ **Projects are restricted by default in Harness, whereas Split workspaces are open by default unless restricted.**"
+		},
+		{
+			"name": "API Keys",
+			"item": [
+				{
+					"name": "Split (BEFORE)",
+					"item": [
+						{
+							"name": "Create an Api Key",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth-token-prod}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"key name wwe\",\n    \"apiKeyType\": \"admin\", // \"admin\", \"client_side\", \"server_side\"\n    \"workspace\": {\n        \"id\": \"{{Split Workspace Identifier}}\",\n        \"type\": \"workspace\"\n    },\n    \"environments\": [\n        {\n            \"id\": \"{{Split Environment Identifier}}\",\n            \"type\": \"environment\"\n        }\n        //,\n        // {\n        //     \"id\": \"environmentId2\",\n        //     \"type\": \"environment\"\n        // }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/apiKeys",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"apiKeys"
+									]
+								},
+								"description": "Create and add an API key to your organization."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete an Api Key",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth-token-prod}}"
+									}
+								],
+								"url": {
+									"raw": "{{Split API Base URL}}/apiKeys/{{Split Admin API Key Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"apiKeys",
+										"{{Split Admin API Key Identifier}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "`POST /apiKeys` (Split Admin API key **creation)** will not available for the `admin` type API keys after your migration date.\n\n`DEL /apiKeys` (Split Admin API key **deletion)** will remain available for the `admin` type API keys after your migration date, but only to delete those keys created _before your migration_.\n\n### **SDK API Key Management Remains at This Endpoint**\n\nContinue to use this endpoint for `client_side` and `server_side` SDK API Key management.\n\n### **How Admin API Keys Are Managed in Split**\n\nIn **Split**, API key management operates differently from **Harness**, particularly in how permissions and scopes are assigned.\n\n1. **API Keys Have Direct Permissions:**\n    \n    - Each API key is **individually assigned roles and scopes**.\n        \n    - API keys control access to resources **without a service account concept**.\n        \n    - Permissions are set directly on each key, rather than inheriting permissions from a parent entity.\n        \n2. **Scopes Are Defined at the Key Level:**\n    \n    - API keys are tied to **specific resource scopes**, such as workspaces, users, or groups.\n        \n    - Users must carefully manage the scope to ensure that API keys have appropriate access.\n        \n3. **Manual Rotation and Expiration Handling:**\n    \n    - API key rotation is manual.\n        \n    - There is no built-in expiration mechanism—users must **delete and recreate keys** to manage security.\n        \n\n---\n\n### **How It Works Differently in Harness**\n\n- API keys **no longer define permissions** themselves. Instead:\n    \n    1. **Permissions are managed at the Service Account level**.\n        \n    2. **API keys inherit permissions from their parent Service Account**.\n        \n    3. **Tokens provide additional security and expiration settings**.",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Split API Token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Harness (AFTER)",
+					"item": [
+						{
+							"name": "Create Service Account",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"identifier\": \"test_service_account\",\n  \"name\": \"test service account\",\n  \"email\": \"test@gmail.com\",\n//   \"description\": \"string\",\n//   \"tags\": {\n//     \"property1\": \"string\",\n//     \"property2\": \"string\"\n//   },\n  \"accountIdentifier\": \"{{Harness Account Identifier}}\"\n//   \"orgIdentifier\": \"string\",\n//   \"projectIdentifier\": \"string\",\n//   \"governanceMetadata\": {\n//   ... <Removing this because it's thousands of lines. See https://apidocs.harness.io/tag/Service-Account#operation/listServiceAccount if you actually want to use it> ...\n//   }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/serviceaccount?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"serviceaccount"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create API Key",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"identifier\": \"test_api_key\",\n  \"name\": \"test api key\",\n//   \"description\": \"string\",\n//   \"tags\": {\n//     \"property1\": \"string\",\n//     \"property2\": \"string\"\n//   },\n  \"apiKeyType\": \"SERVICE_ACCOUNT\",\n  \"parentIdentifier\": \"test_service_account\",\n//   \"defaultTimeToExpireToken\": 0,\n  \"accountIdentifier\": \"{{Harness Account Identifier}}\"\n//   \"projectIdentifier\": \"string\",\n//   \"orgIdentifier\": \"string\",\n//   \"governanceMetadata\": {\n   //   ... <Removing this because it's thousands of lines. See https://apidocs.harness.io/tag/ApiKey#operation/createApiKey if you actually want to use it> ...\n//  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/apikey?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"apikey"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Give API Key Permissions",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"identifier\": \"example_role_assignment\",\n  \"resourceGroupIdentifier\": \"_all_account_level_resources\",\n  \"roleIdentifier\": \"_account_admin\",\n  \"roleReference\": {\n    \"identifier\": \"_account_admin\",\n    \"scopeLevel\": \"ACCOUNT\"\n  },\n  \"principal\": {\n    \"scope\": \"ACCOUNT\",\n    \"identifier\": \"test_service_account\",\n    \"type\": \"SERVICE_ACCOUNT\"\n  },\n  \"disabled\": false,\n  \"managed\": false,\n  \"internal\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Auth Base URL}}/roleassignments?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Auth Base URL}}"
+									],
+									"path": [
+										"roleassignments"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Token for API Key",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"identifier\": \"test_token2\",\n  \"name\": \"test token 2\",\n//   \"validFrom\": 0,\n//   \"validTo\": 0,\n//   \"scheduledExpireTime\": 0,\n//   \"valid\": true,\n  \"accountIdentifier\": \"{{Harness Account Identifier}}\",\n//   \"projectIdentifier\": \"string\",\n//   \"orgIdentifier\": \"string\",\n  \"apiKeyIdentifier\": \"test_api_key\",\n  \"parentIdentifier\": \"test_service_account\",\n  \"apiKeyType\": \"SERVICE_ACCOUNT\"\n//   \"description\": \"string\",\n//   \"tags\": {\n//     \"property1\": \"string\",\n//     \"property2\": \"string\"\n//   },\n//   \"sshKeyContent\": \"string\",\n//   \"sshKeyUsage\": [\n//     \"AUTH\"\n//   ]\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/token?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"token"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rotate a Token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/token/rotate/{{Harness Token Identifier}}?accountIdentifier={{Harness Account Identifier}}&apiKeyType={{Harness API Key Type}}&parentIdentifier={{Harness Parent Identifier}}&apiKeyIdentifier={{Harness API Key Identifier}}&rotateTimestamp={{Harness Rotate Timestamp}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"token",
+										"rotate",
+										"{{Harness Token Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "apiKeyType",
+											"value": "{{Harness API Key Type}}"
+										},
+										{
+											"key": "parentIdentifier",
+											"value": "{{Harness Parent Identifier}}"
+										},
+										{
+											"key": "apiKeyIdentifier",
+											"value": "{{Harness API Key Identifier}}"
+										},
+										{
+											"key": "rotateTimestamp",
+											"value": "{{Harness Rotate Timestamp}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Service Accounts",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/serviceaccount?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"serviceaccount"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List API Keys",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/apikey?accountIdentifier={{Harness Account Identifier}}&apiKeyType={{Harness API Key Type}}&parentIdentifier={{Harness Parent Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"apikey"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "apiKeyType",
+											"value": "{{Harness API Key Type}}"
+										},
+										{
+											"key": "parentIdentifier",
+											"value": "{{Harness Parent Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get API Key",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/apikey/aggregate/test_api_key?accountIdentifier={{Harness Account Identifier}}&apiKeyType={{Harness API Key Type}}&parentIdentifier={{Harness Parent Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"apikey",
+										"aggregate",
+										"test_api_key"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "apiKeyType",
+											"value": "{{Harness API Key Type}}"
+										},
+										{
+											"key": "parentIdentifier",
+											"value": "{{Harness Parent Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List API Tokens",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/token/aggregate?accountIdentifier={{Harness Account Identifier}}&apiKeyType={{Harness API Key Type}}&parentIdentifier={{Harness Parent Identifier}}&apiKeyIdentifier={{Harness API Key Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"token",
+										"aggregate"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "apiKeyType",
+											"value": "{{Harness API Key Type}}"
+										},
+										{
+											"key": "parentIdentifier",
+											"value": "{{Harness Parent Identifier}}"
+										},
+										{
+											"key": "apiKeyIdentifier",
+											"value": "{{Harness API Key Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete API Key Permissions",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Auth Base URL}}/roleassignments/{{Harness Role Assignment Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Auth Base URL}}"
+									],
+									"path": [
+										"roleassignments",
+										"{{Harness Role Assignment Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a token",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/token/{{Harness Token Identifier}}?accountIdentifier={{Harness Account Identifier}}&apiKeyType={{Harness API Key Type}}&parentIdentifier={{Harness Parent Identifier}}&apiKeyIdentifier={{Harness API Key Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"token",
+										"{{Harness Token Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "apiKeyType",
+											"value": "{{Harness API Key Type}}"
+										},
+										{
+											"key": "parentIdentifier",
+											"value": "{{Harness Parent Identifier}}"
+										},
+										{
+											"key": "apiKeyIdentifier",
+											"value": "{{Harness API Key Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete API Key",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/apikey/{{Harness API Key Identifier}}?accountIdentifier={{Harness Account Identifier}}&apiKeyType={{Harness API Key Type}}&parentIdentifier={{Harness Parent Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"apikey",
+										"{{Harness API Key Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										},
+										{
+											"key": "apiKeyType",
+											"value": "{{Harness API Key Type}}"
+										},
+										{
+											"key": "parentIdentifier",
+											"value": "{{Harness Parent Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Service Account",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness API Base URL}}/serviceaccount/{{Harness Service Account Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness API Base URL}}"
+									],
+									"path": [
+										"serviceaccount",
+										"{{Harness Service Account Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "The `/serviceaccount`, `/apikey`, `/token`, and `/roleassignments` endpoints here replace the Split `/apiKeys` endpoint after migration to Harness.\n\n## API Key Structure: Service Account > API Key > Token\n\nWhile Split Admin API keys were a single entity, in Harness they consist of three entities at different levels for greater control.\n\n## **1\\. Service Account Level**\n\n- **Primary Role:** Defines **who** (a machine identity) is making API requests.\n    \n- **What Can Be Set Here?**\n    \n    - **Permissions & Roles**: Permissions are assigned at the **Service Account level**, not at the API Key or Token level.\n        \n    - **Scope**: A Service Account can be scoped at **Account, Organization, or Project level**.\n        \n    - **Ownership of API Keys**: Each API Key is linked to a specific **Service Account**.\n        \n- **Key Takeaway:** **Permissions are set at the Service Account level, and all API Keys created under it inherit these permissions.**\n    \n\n## **2\\. API Key Level**\n\n- **Primary Role:** Acts as an **access credential** tied to a Service Account.\n    \n- **What Can Be Set Here?**\n    \n    - **Scope**: An API Key belongs to a specific **Service Account**, meaning it has the same permissions.\n        \n    - **Token Generation**: Each API Key can have multiple **Tokens** for authentication.\n        \n    - **Expiry Control**: API Keys **do not expire** unless explicitly deleted.\n        \n- **Key Takeaway:** **API Keys provide authentication, but they do not define permissions themselves.**\n    \n\n## **3\\. Token Level**\n\n- **Primary Role:** A short-lived, displayed-once **credential** used to authenticate requests.\n    \n- **What Can Be Set Here?**\n    \n    - **Expiration Date**: Tokens can have an **expiration time** (or be permanent).\n        \n    - **One-Time Visibility**: A token is **only shown once** when created.\n        \n    - **Rotatable**: Tokens can be **revoked and rotated** without affecting the API Key.\n        \n- **Key Takeaway:** **Tokens are temporary authentication mechanisms derived from API Keys. They enable secure, limited-time API access.**\n    \n\n### **Summary: How They Work Together**\n\n| **Level** | **Purpose** | **What Can Be Set Here?** |\n| --- | --- | --- |\n| **Service Account** | Defines identity & permissions | **Roles, permissions, and scope** (Account/Org/Project) |\n| **API Key** | Authentication credential | **Scoped to a Service Account** (inherits permissions) |\n| **Token** | Temporary authentication | **Expiration, rotation, and single-use access** |",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Harness API Token}}",
+								"type": "string"
+							}
+						]
+					}
+				}
+			],
+			"description": "The table below provides a high-level \"before and after\" comparison. Please see the Split (BEFORE) and Harness (AFTER) folders below this one for more specific details.\n\n### **API Key Management in Split vs. Harness**\n\n| **Aspect** | **Split (Before)** | **Harness (After)** |\n| --- | --- | --- |\n| **Permission Management** | API keys have direct permissions. Each key is assigned roles and scopes individually. | Permissions are managed at the **Service Account** level. API keys inherit permissions from their parent Service Account. |\n| **Scope Management** | API keys define their own scope (workspace, users, groups, etc.). | Scope is determined by **Resource Groups**, which define what a role can access. |\n| **User/Principal Management** | No concept of Service Accounts. API keys function independently. | API keys belong to a **Service Account**, which acts as the principal entity managing access. |\n| **Key Expiration & Rotation** | No built-in expiration mechanism. Rotation requires manually deleting and recreating the key. | Tokens provide built-in expiration and can be rotated without deleting the API key. |\n| **Access Control** | API keys must be manually added to permission lists to maintain access to restricted resources. | Access is determined by **Role Assignments (Role Bindings)**, which associate a user, group, or Service Account with a role and resource group. |\n| **Security Model** | Less granular; API keys can be overly permissive. | More granular; permissions are set at the **Service Account** level, reducing excessive privileges. |\n| **Hierarchy of API Key Management** | Flat structure—each API key operates independently. | Hierarchical structure—Service Accounts own API keys, and API keys generate tokens for secure authentication. |"
+		},
+		{
+			"name": "Restrictions",
+			"item": [
+				{
+					"name": "Split (BEFORE)",
+					"item": [
+						{
+							"name": "List Restrictions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Split API Base URL}}/restrictions?resource_type={{Split Resource Type}}&resource_id={{Split Resource Identifier}}",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"restrictions"
+									],
+									"query": [
+										{
+											"key": "resource_type",
+											"value": "{{Split Resource Type}}"
+										},
+										{
+											"key": "resource_id",
+											"value": "{{Split Resource Identifier}}"
+										},
+										{
+											"key": "offset",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Restrictions",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"resource\": {\n        \"type\": \"workspace\",\n        \"id\": \"62eb1d50-046f-11ed-8301-22b32ea1d986\"\n    },\n    \"operations\": {\n        \"view\": true\n    },\n    \"resourcePermissions\": {\n        \"view\": [\n            {\n                \"type\": \"group\",\n                \"id\": \"e8613b00-abd6-11ec-9dd7-4e682933ca7c\"\n            },\n            {\n                \"type\": \"group\",\n                \"id\": \"72aae840-4c84-11ec-88a1-fe92fe968329\"\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Split API Base URL}}/restrictions",
+									"host": [
+										"{{Split API Base URL}}"
+									],
+									"path": [
+										"restrictions"
+									],
+									"query": [
+										{
+											"key": "dry_run",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "The `/restrictions` endpoint becomes unavailable to you once your account has been migrated to Harness.\n\nThis endpoint is used in Split for managing view restrictions on a project.\n\nPlease see the more detailed overview in the this folder's parent folder.",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Split API Token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Harness (AFTER)",
+					"item": [
+						{
+							"name": "Create Role Assignment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"identifier\": \"example_role_assignment2\",\n  \"resourceGroupIdentifier\": \"_all_account_level_resources\",\n  \"roleIdentifier\": \"_account_admin\",\n  \"roleReference\": {\n    \"identifier\": \"_account_admin\",\n    \"scopeLevel\": \"ACCOUNT\"\n  },\n  \"principal\": {\n    \"scope\": \"ACCOUNT\",\n    \"identifier\": \"test_service_account\",\n    \"type\": \"SERVICE_ACCOUNT\"\n  },\n  \"disabled\": false,\n  \"managed\": false,\n  \"internal\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Auth Base URL}}/roleassignments?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Auth Base URL}}"
+									],
+									"path": [
+										"roleassignments"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List role assignments",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Auth Base URL}}/roleassignments?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Auth Base URL}}"
+									],
+									"path": [
+										"roleassignments"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Role Assignment",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Auth Base URL}}/roleassignments/{{Harness Role Assignment Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Auth Base URL}}"
+									],
+									"path": [
+										"roleassignments",
+										"{{Harness Role Assignment Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Role",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"identifier\": \"test_role\",\n  \"name\": \"test role\",\n  \"permissions\": [\n    \"fme_fmefeatureflag_edit\",\n    \"fme_fmeenvironment_view\"\n  ],\n  \"allowedScopeLevels\": [\n    \"account\"\n  ]\n//   \"description\": \"string\",\n//   \"tags\": {\n//     \"property1\": \"string\",\n//     \"property2\": \"string\"\n//   }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Auth Base URL}}/roles?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Auth Base URL}}"
+									],
+									"path": [
+										"roles"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Role",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"identifier\": \"test_role\",\n  \"name\": \"test role updated\",\n  \"permissions\": [\n    \"fme_fmefeatureflag_edit\",\n    \"fme_fmeenvironment_view\",\n    \"core_usergroup_view\"\n  ],\n  \"allowedScopeLevels\": [\n    \"account\"\n  ]\n//   \"description\": \"string\",\n//   \"tags\": {\n//     \"property1\": \"string\",\n//     \"property2\": \"string\"\n//   }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Auth Base URL}}/roles/{{Harness Role Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Auth Base URL}}"
+									],
+									"path": [
+										"roles",
+										"{{Harness Role Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List roles",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Auth Base URL}}/roles?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Auth Base URL}}"
+									],
+									"path": [
+										"roles"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Role",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Auth Base URL}}/roles/{{Harness Role Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Auth Base URL}}"
+									],
+									"path": [
+										"roles",
+										"{{Harness Role Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Resource Group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"resourceGroup\": {\n    \"accountIdentifier\": \"{{Harness Account Identifier}}\",\n    // \"orgIdentifier\": \"string\",\n    // \"projectIdentifier\": \"string\",\n    \"identifier\": \"test_resource_group\",\n    \"name\": \"test resource group\"\n    // \"color\": \"string\",\n    // \"tags\": {\n    //   \"property1\": \"string\",\n    //   \"property2\": \"string\"\n    // },\n    // \"description\": \"string\",\n    // \"allowedScopeLevels\": [\n    //   \"string\"\n    // ],\n    // \"includedScopes\": [\n    //   {\n    //     \"filter\": \"EXCLUDING_CHILD_SCOPES\",\n    //     \"accountIdentifier\": \"string\",\n    //     \"orgIdentifier\": \"string\",\n    //     \"projectIdentifier\": \"string\"\n    //   }\n    // ],\n    // \"resourceFilter\": {\n    //   \"resources\": [\n    //     {\n    //       \"resourceType\": \"string\",\n    //       \"identifiers\": [\n    //         \"string\"\n    //       ],\n    //       \"attributeFilter\": {\n    //         \"attributeName\": \"string\",\n    //         \"attributeValues\": [\n    //           \"string\"\n    //         ]\n    //       }\n    //     }\n    //   ],\n    //   \"includeAllResources\": true\n    // }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Resource Group Base URL}}/resourcegroup?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Resource Group Base URL}}"
+									],
+									"path": [
+										"resourcegroup"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Resource Group",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"resourceGroup\": {\n    \"accountIdentifier\": \"{{Harness Account Identifier}}\",\n    // \"orgIdentifier\": \"string\",\n    // \"projectIdentifier\": \"string\",\n    \"identifier\": \"test_resource_group\",\n    \"name\": \"test resource group updated\"\n    // \"color\": \"string\",\n    // \"tags\": {\n    //   \"property1\": \"string\",\n    //   \"property2\": \"string\"\n    // },\n    // \"description\": \"string\",\n    // \"allowedScopeLevels\": [\n    //   \"string\"\n    // ],\n    // \"includedScopes\": [\n    //   {\n    //     \"filter\": \"EXCLUDING_CHILD_SCOPES\",\n    //     \"accountIdentifier\": \"string\",\n    //     \"orgIdentifier\": \"string\",\n    //     \"projectIdentifier\": \"string\"\n    //   }\n    // ],\n    // \"resourceFilter\": {\n    //   \"resources\": [\n    //     {\n    //       \"resourceType\": \"string\",\n    //       \"identifiers\": [\n    //         \"string\"\n    //       ],\n    //       \"attributeFilter\": {\n    //         \"attributeName\": \"string\",\n    //         \"attributeValues\": [\n    //           \"string\"\n    //         ]\n    //       }\n    //     }\n    //   ],\n    //   \"includeAllResources\": true\n    // }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Resource Group Base URL}}/resourcegroup/{{Harness Resource Group Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Resource Group Base URL}}"
+									],
+									"path": [
+										"resourcegroup",
+										"{{Harness Resource Group Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Resource Groups",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Resource Group Base URL}}/resourcegroup?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Resource Group Base URL}}"
+									],
+									"path": [
+										"resourcegroup"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Resource Group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{Harness API Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Harness Resource Group Base URL}}/resourcegroup/{{Harness Resource Group Identifier}}?accountIdentifier={{Harness Account Identifier}}",
+									"host": [
+										"{{Harness Resource Group Base URL}}"
+									],
+									"path": [
+										"resourcegroup",
+										"{{Harness Resource Group Identifier}}"
+									],
+									"query": [
+										{
+											"key": "accountIdentifier",
+											"value": "{{Harness Account Identifier}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "The `/roleassignments`, `/role`, and `/resourcegroup` endpoints here replace the Split `/restrictions` endpoint after your migration to Harness.\n\nThe examples in this folder demonstrate the power of Harness' RBAC structure for managing any sort of resource, not just a project. Please see the overview in the \"Restrictions\" folder (parent to this folder) for more context before you dive in here.",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Harness API Token}}",
+								"type": "string"
+							}
+						]
+					}
+				}
+			],
+			"description": "### **Before and After of Restrictions in Split vs. Harness**\n\n#### **Before (Split)**\n\n- **Restrictions were applied at the project (workspace) level** using an API endpoint.\n    \n- To restrict a project, users had to manually specify:\n    \n    - The list of users/groups allowed access.\n        \n    - The **Administrator group** as an allowed subject.\n        \n    - The **API key used to set restrictions** had to be explicitly added as an allowed subject.\n        \n- Access control was managed via the **resourcePermissions.view** field.\n    \n- Open projects had no access restrictions, while restricted ones required explicit access grants​\n    \n\n#### **After (Harness - RBAC Model)**\n\n- **Permissions are captured in a role** (e.g., `project_viewer`, `fme_manager`).\n    \n- **Scope is captured in a resource group** (e.g., `_fme_all_resources` for all features within a project).\n    \n- **Roles and resource groups are assigned to a user (or other principal) via a role binding**.\n    \n- Projects are **restricted by default** in Harness. If a migrated project was open in Split, Harness assigns broad access to mimic that behavior.\n    \n- To restrict access post-migration, the **default role bindings for all users/groups must be removed**, and explicit assignments should be made​\n    \n\n### **Before and After of Restrictions in Split vs. Harness**\n\n#### **Before (Split)**\n\n- **Restrictions were applied at the project (workspace) level** using an API endpoint.\n    \n- To restrict a project, users had to manually specify:\n    \n    - The list of users/groups allowed access.\n        \n    - The **Administrator group** as an allowed subject.\n        \n    - The **API key used to set restrictions** had to be explicitly added as an allowed subject.\n        \n- Access control was managed via the **resourcePermissions.view** field.\n    \n- Open projects had no access restrictions, while restricted ones required explicit access grants.\n    \n\n#### **After (Harness - RBAC Model)**\n\n- **Permissions are captured in a role** (e.g., `project_viewer`, `fme_manager`).\n    \n- **Scope is captured in a resource group** (e.g., `_fme_all_resources` for all features within a project).\n    \n- **Roles and resource groups are assigned to a user (or other principal) via a role binding**.\n    \n- Projects are **restricted by default** in Harness. If a migrated project was open in Split, Harness assigns broad access to mimic that behavior.\n    \n- To restrict access post-migration, the **default role bindings for all users/groups in that project must be removed**, and explicit assignments should be made.\n    \n\n---\n\nThese resources in the Harness Developer Hub provide more information on managing roles, resource groups, and role assignments within Harness.\n\n- **Roles**: [Manage roles](https://developer.harness.io/docs/platform/role-based-access-control/add-manage-roles/)\n    \n- **Resource Groups**: [Manage resource groups](https://developer.harness.io/docs/platform/role-based-access-control/add-resource-groups/)\n    \n- **Role Assignments (Role Binding)**: [Role-based access control (RBAC) in Harness](https://developer.harness.io/docs/platform/role-based-access-control/rbac-in-harness/)"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Split API Base URL",
+			"value": "https://api.split.io/internal/api/v2",
+			"type": "default"
+		},
+		{
+			"key": "Harness Account Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness API Base URL",
+			"value": "https://app.harness.io/ng/api",
+			"type": "default"
+		},
+		{
+			"key": "Harness API Token",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness User Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Split API Token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Split User Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Split Pending User Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Split Group Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Group Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Split Workspace Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Organization Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Project Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Split Environment Identifier",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Split Admin API Key Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Auth Base URL",
+			"value": "https://app.harness.io/ng/api",
+			"type": "string"
+		},
+		{
+			"key": "Harness Resource Group Base URL",
+			"value": "https://app.harness.io/resourcegroup/api/v2",
+			"type": "string"
+		},
+		{
+			"key": "Harness API Key Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Token Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Parent Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Rotate Timestamp",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness API Key Type",
+			"value": "SERVICE_ACCOUNT",
+			"type": "default"
+		},
+		{
+			"key": "Harness Service Account Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Role Assignment Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Split Resource Type",
+			"value": "workspace",
+			"type": "default"
+		},
+		{
+			"key": "Split Resource Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Role Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Resource Group Identifier",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "Harness Invite Identifier",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
