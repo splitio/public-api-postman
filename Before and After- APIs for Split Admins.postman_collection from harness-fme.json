@@ -273,9 +273,6 @@
 						{
 							"name": "Get List of Users",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -316,9 +313,6 @@
 						{
 							"name": "Get User",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -356,9 +350,6 @@
 						{
 							"name": "Update User",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -397,9 +388,6 @@
 						{
 							"name": "Add User to Group",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -441,9 +429,6 @@
 						{
 							"name": "Invite a New User",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -484,9 +469,6 @@
 						{
 							"name": "Delete Pending User",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "DELETE",
 								"header": [
 									{
@@ -518,9 +500,6 @@
 						{
 							"name": "List Pending Users",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -552,11 +531,16 @@
 					],
 					"description": "The `/user` and `/invites` endpoints here replace the Split `/users` endpoint after migration.\n\nSee the overview in the Users folder above this one for a side-by-side comparison of how users are managed in Split vs Harness.\n\n### Deleting and Disabling Users\n\n- Harness supports the deletion of pending and active users.\n    \n- Harness does not support a disabled user state because of conflicts that can create with different SCIM providers",
 					"auth": {
-						"type": "bearer",
-						"bearer": [
+						"type": "apikey",
+						"apikey": [
 							{
-								"key": "token",
+								"key": "value",
 								"value": "{{Harness API Token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "x-api-key",
 								"type": "string"
 							}
 						]
@@ -741,9 +725,6 @@
 						{
 							"name": "List Groups",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -775,9 +756,6 @@
 						{
 							"name": "Get Group",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -887,9 +865,6 @@
 						{
 							"name": "Delete Group",
 							"request": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "DELETE",
 								"header": [
 									{
@@ -921,11 +896,16 @@
 					],
 					"description": "The `/user-groups` endpoint here replaces the Split `/groups` and `/users` endpoints after migration.\n\n### **How User Groups Are Used in Harness**\n\nIn **Harness**, user groups function differently from **Split**, providing greater flexibility in managing permissions and access control.\n\n#### **Key Ways User Groups Are Used in Harness:**\n\n1. **User Groups Can Have Role Bindings**\n    \n    - In **Split**, groups were just lists of users with no assigned roles (except for Administrators).\n        \n    - In **Harness**, user groups **can be assigned one or more roles**, which determine what actions members can perform.\n        \n2. **Groups Can Exist at Different Levels**\n    \n    - In **Split**, all groups were **global (account-level only)**.\n        \n    - In **Harness**, groups can be created at the **Account, Organization, or Project level**, allowing for **more granular access control**.\n        \n3. **User Groups Control Access in RBAC**\n    \n    - In **Split**, groups granted access only be being included in **environment or object-level permissions** settings.\n        \n    - In **Harness**, groups are used **directly in Role Assignments (Role Bindings)** to manage access.\n        \n4. **Default Groups for Migrated Users**\n    \n    - **Harness automatically creates certain groups during migration** to mimic Split’s open-access behavior outside of restricted projects:\n        \n        - `_all_account_admins_` → Full access\n            \n        - `_all_account_fme_editors_` → Editing permissions\n            \n        - `_all_account_fme_viewers_` → Read-only access.\n            \n\n---\n\n### **Key Takeaways**\n\n✔ **Harness user groups manage permissions through role bindings, not just membership.**\n\n✔ **Groups exist at multiple levels (Account, Org, Project), unlike Split’s global groups.**\n\n✔ **User Groups are used in RBAC to assign permissions efficiently.**",
 					"auth": {
-						"type": "bearer",
-						"bearer": [
+						"type": "apikey",
+						"apikey": [
 							{
-								"key": "token",
+								"key": "value",
 								"value": "{{Harness API Token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "x-api-key",
 								"type": "string"
 							}
 						]
@@ -1274,11 +1254,16 @@
 					],
 					"description": "The `/projects` endpoint here replaces the `POST`, `PATCH`, and `DELETE` verbs for the Split `/workspaces` endpoint after migration.\n\nThe `GET` verb for the Split `/workspaces` endpoint will **not** be deprecated, in order to address the following use case:\n\n#### **Retrieving** **`wsId`** **Using the Harness Project Name**\n\nIn many of the remaining Split Admin API endpoints, you will need a workspace ID, often abbreviated as `ws` or `wsId`. Here is how you can obtain the `wsId` that corresponds to a Harness project:\n\n1. **Use the** **`filter`** **Option in GET Workspaces:** Submit GET /workspaces request to the Split Admin API that used the optional query param `name` and the value of the Harness Project `name` (not the Harness Project `identifier`).\n    \n2. **Extract the** **`wsId`** **from the Response:** Once the API returns the filtered result, the **workspace ID (**`wsId`**)** will be included in the response alongside the project name.\n    \n\nNote: The usage pattern here (using the editable `name` rather than the permanent `identifier`) differs from the typical Harness API pattern, but it is the correct pattern to use when calling this Split Admin API endpoint.",
 					"auth": {
-						"type": "bearer",
-						"bearer": [
+						"type": "apikey",
+						"apikey": [
 							{
-								"key": "token",
+								"key": "value",
 								"value": "{{Harness API Token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "x-api-key",
 								"type": "string"
 							}
 						]
@@ -2002,11 +1987,16 @@
 					],
 					"description": "The `/serviceaccount`, `/apikey`, `/token`, and `/roleassignments` endpoints here replace the Split `/apiKeys` endpoint after migration to Harness.\n\nHere are the **Harness API equivalents** for replacing the **Split API key creation process**, which now requires **three components**:\n\n1. **Service Account**\n    \n2. **API Key**\n    \n3. **Token**\n    \n\n---\n\n## **Step 1: Create a Service Account**\n\nBefore creating an API key, you must first create a **Service Account** since API keys are scoped under a **Service Account**.\n\n👉 **Save the** **`identifier`** **from the response to use in the next step as** `SERVICE_ACCOUNT_ID`\n\n---\n\n## **Step 2: Create an API Key**\n\nNow that the Service Account is created, you can generate an **API Key**.\n\n👉 **Save the** **`identifier`** **from the response to use in the next step as** `API_KEY_ID`\n\n---\n\n## **Step 3: Create a Token for the API Key**\n\nFinally, you need to create a **Token** to use with the API Key.\n\n👉 **Save the** **`token`** **value to use in API calls as the bearer token.**\n\n---\n\n# More Details on Harness API Key Structure\n\n## Service Account > API Key > Token\n\nWhile Split Admin API keys were a single entity, in Harness they consist of three entities at different levels for greater control.\n\n## **1\\. Service Account Level**\n\n- **Primary Role:** Defines **who** (a machine identity) is making API requests.\n    \n- **What Can Be Set Here?**\n    \n    - **Permissions & Roles**: Permissions are assigned at the **Service Account level**, not at the API Key or Token level.\n        \n    - **Scope**: A Service Account can be scoped at **Account, Organization, or Project level**.\n        \n    - **Ownership of API Keys**: Each API Key is linked to a specific **Service Account**.\n        \n- **Key Takeaway:** **Permissions are set at the Service Account level, and all API Keys created under it inherit these permissions.**\n    \n\n## **2\\. API Key Level**\n\n- **Primary Role:** Acts as an **access credential** tied to a Service Account.\n    \n- **What Can Be Set Here?**\n    \n    - **Scope**: An API Key belongs to a specific **Service Account**, meaning it has the same permissions.\n        \n    - **Token Generation**: Each API Key can have multiple **Tokens** for authentication.\n        \n    - **Expiry Control**: API Keys **do not expire** unless explicitly deleted.\n        \n- **Key Takeaway:** **API Keys provide authentication, but they do not define permissions themselves.**\n    \n\n## **3\\. Token Level**\n\n- **Primary Role:** A short-lived, displayed-once **credential** used to authenticate requests.\n    \n- **What Can Be Set Here?**\n    \n    - **Expiration Date**: Tokens can have an **expiration time** (or be permanent).\n        \n    - **One-Time Visibility**: A token is **only shown once** when created.\n        \n    - **Rotatable**: Tokens can be **revoked and rotated** without affecting the API Key.\n        \n- **Key Takeaway:** **Tokens are temporary authentication mechanisms derived from API Keys. They enable secure, limited-time API access.**\n    \n\n### **Summary: How They Work Together**\n\n| **Level** | **Purpose** | **What Can Be Set Here?** |\n| --- | --- | --- |\n| **Service Account** | Defines identity & permissions | **Roles, permissions, and scope** (Account/Org/Project) |\n| **API Key** | Authentication credential | **Scoped to a Service Account** (inherits permissions) |\n| **Token** | Temporary authentication | **Expiration, rotation, and single-use access** |",
 					"auth": {
-						"type": "bearer",
-						"bearer": [
+						"type": "apikey",
+						"apikey": [
 							{
-								"key": "token",
+								"key": "value",
 								"value": "{{Harness API Token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "x-api-key",
 								"type": "string"
 							}
 						]
@@ -2603,11 +2593,16 @@
 					],
 					"description": "The `/roleassignments`, `/role`, and `/resourcegroup` endpoints here replace the Split `/restrictions` endpoint after your migration to Harness.\n\nThe examples in this folder demonstrate the power of Harness' RBAC structure for managing any sort of resource, not just a project. Please see the overview in the \"Restrictions\" folder (parent to this folder) for more context before you dive in here.",
 					"auth": {
-						"type": "bearer",
-						"bearer": [
+						"type": "apikey",
+						"apikey": [
 							{
-								"key": "token",
+								"key": "value",
 								"value": "{{Harness API Token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "x-api-key",
 								"type": "string"
 							}
 						]
