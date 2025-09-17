@@ -17,9 +17,7 @@ Currently, this is a community maintained repo. Feel free to contribute any miss
 
 A new Postman collection with API examples for the five Split Admin API endpoints that will be replaced by Harness API endpoints during the Split-to-Harness migration. Each folder includes an overview section with detailed guidance tailored for both experienced Split administrators and those new to Split and Harness FME—to support a smooth and well-prepared transition for you. 
 
-You can jump right into this new collection online by visiting the [Harness FME workspace](https://www.postman.com/fme-tech-enablement/harness-fme/collection/qzyjhr8/before-and-after-apis-for-split-admins).
-
-**TIP:** If you have a Postman account (free or paid), **we recommend forking the collection from [here](https://www.postman.com/fme-tech-enablement/harness-fme/collection/qzyjhr8/before-and-after-apis-for-split-admins) instead.** That way, updates will be easier to evaluate and apply without losing any customizations you make.
+You can jump right into detailed documentation by visiting the [Admin API updates](https://developer.harness.io/docs/feature-management-experimentation/split-to-harness/api-updates/) page.
 
 
 # Contribute
