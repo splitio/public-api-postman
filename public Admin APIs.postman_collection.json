@@ -3687,55 +3687,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "Login",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"jwt-auth\", jsonData.data);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{base-url}}/internal/api/login",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"internal",
-						"api",
-						"login"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"auth": {
