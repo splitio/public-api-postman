@@ -3345,7 +3345,7 @@
 					"name": "Split (BEFORE)",
 					"item": [
 						{
-							"name": "Get Projects",
+							"name": "Get Projects (Workspaces)",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -3366,7 +3366,8 @@
 									"query": [
 										{
 											"key": "name",
-											"value": "",
+											"value": "{{Project_Display_Name}}",
+											"description": "The display name of your project (formerly called workspace in Split). Use '+' for spaces.",
 											"disabled": true
 										},
 										{
@@ -3385,19 +3386,16 @@
 							},
 							"response": [
 								{
-									"name": "200 OK - List of Projects",
+									"name": "200 - Success",
 									"originalRequest": {
 										"method": "GET",
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
-										"body": {
-											"mode": "raw",
-											"raw": ""
-										},
 										"url": {
 											"raw": "{{Split_API_Base_URL}}/workspaces",
 											"host": [
@@ -3409,7 +3407,8 @@
 											"query": [
 												{
 													"key": "name",
-													"value": "",
+													"value": "{{Project_Name}}",
+													"description": "The display name of your project (formerly called workspace in Split). Use '+' for spaces.",
 													"disabled": true
 												},
 												{
@@ -3430,18 +3429,93 @@
 									"_postman_previewlanguage": "json",
 									"header": [
 										{
+											"key": "Date",
+											"value": "Wed, 29 Oct 2025 05:11:45 GMT"
+										},
+										{
 											"key": "Content-Type",
 											"value": "application/json",
-											"description": ""
+											"description": "",
+											"type": "text"
+										},
+										{
+											"key": "Content-Length",
+											"value": "410"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=15770000; includeSubDomains"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "DENY"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1;  mode=block"
+										},
+										{
+											"key": "X-RateLimit-Remaining-IP",
+											"value": "29"
+										},
+										{
+											"key": "X-RateLimit-Reset-Seconds-IP",
+											"value": "4"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "private, no-store"
+										},
+										{
+											"key": "X-RateLimit-Remaining-Org",
+											"value": "19"
+										},
+										{
+											"key": "X-RateLimit-Reset-Seconds-Org",
+											"value": "4"
+										},
+										{
+											"key": "X-Request-ID",
+											"value": "4dae8239514605c299439714cd572e86"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "gzip"
+										},
+										{
+											"key": "content-security-policy",
+											"value": "frame-ancestors 'self'"
+										},
+										{
+											"key": "x-permitted-cross-domain-policies",
+											"value": "master-only"
 										}
 									],
-									"cookie": [],
-									"body": "{\n  \"objects\": [\n    {\n      \"id\": \"workspace_12345\",\n      \"name\": \"Project Alpha\",\n      \"description\": \"A sample project.\",\n      \"createdAt\": \"2023-01-01T12:00:00Z\",\n      \"updatedAt\": \"2023-01-02T12:00:00Z\"\n    },\n    {\n      \"id\": \"workspace_67890\",\n      \"name\": \"Project Beta\",\n      \"description\": \"Another project.\",\n      \"createdAt\": \"2023-02-01T12:00:00Z\",\n      \"updatedAt\": \"2023-02-02T12:00:00Z\"\n    }\n  ],\n  \"totalCount\": 2,\n  \"limit\": 20,\n  \"offset\": 0\n}"
+									"cookie": [
+										{
+											"expires": "Invalid Date",
+											"domain": "",
+											"path": ""
+										}
+									],
+									"body": "{\n    \"objects\": [\n        {\n            \"id\": \"07bc24a0-5ea9-22g4-95e6-62f888f94f2e\",\n            \"name\": \"Default\",\n            \"type\": \"workspace\",\n            \"requiresTitleAndComments\": false\n        },\n        {\n            \"id\": \"622c5c10-a108-22g4-bce4-36a868c30120\",\n            \"name\": \"API\",\n            \"type\": \"workspace\",\n            \"requiresTitleAndComments\": false\n        },\n        {\n            \"id\": \"82b5d760-a108-22g4-bce4-36a345c50996\",\n            \"name\": \"Website\",\n            \"type\": \"workspace\",\n            \"requiresTitleAndComments\": false\n        },\n        {\n            \"id\": \"c310c160-60e8-22g4-b244-06b880c0f57c\",\n            \"name\": \"UX optimizations\",\n            \"type\": \"workspace\",\n            \"requiresTitleAndComments\": false\n        }\n    ],\n    \"offset\": 0,\n    \"limit\": 10,\n    \"totalCount\": 4\n}"
 								}
 							]
 						},
 						{
-							"name": "Create Project",
+							"name": "Create Project (Workspaces)",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -3511,7 +3585,7 @@
 							]
 						},
 						{
-							"name": "Update Project",
+							"name": "Update Project (Workspaces)",
 							"request": {
 								"method": "PATCH",
 								"header": [],
@@ -3589,7 +3663,7 @@
 							]
 						},
 						{
-							"name": "Delete Project",
+							"name": "Delete Project (Workspaces)",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -4241,7 +4315,7 @@
 							]
 						}
 					],
-					"description": "The `/projects` endpoint here replaces the `POST`, `PATCH`, and `DELETE` verbs for the Split `/workspaces` endpoint after migration.\n\nThe `GET` verb for the Split `/workspaces` endpoint will **not** be deprecated, in order to address the following use case:\n\n#### **Retrieving** **`wsId`** **Using the Harness Project Name**\n\nIn many of the remaining Split Admin API endpoints, you will need a workspace ID, often abbreviated as `ws` or `wsId`. Here is how you can obtain the `wsId` that corresponds to a Harness project:\n\n1. **Use the** **`filter`** **Option in GET Workspaces:** Submit GET /workspaces request to the Split Admin API that used the optional query param `name` and the value of the Harness Project `name` (not the Harness Project `identifier`).\n    \n2. **Extract the** **`wsId`** **from the Response:** Once the API returns the filtered result, the **workspace ID (**`wsId`**)** will be included in the response alongside the project name.\n    \n\nNote: The usage pattern here (using the editable `name` rather than the permanent `identifier`) differs from the typical Harness API pattern, but it is the correct pattern to use when calling this Split Admin API endpoint.",
+					"description": "After migration, the Harness `/projects` endpoint replaces the `POST`, `PATCH`, and `DELETE` verbs for the Split `/workspaces` endpoint.\n\nThe `GET` verb for the Split `/workspaces` endpoint remains active and is **not** deprecated, to address the following use case:\n\n## **Retrieving a Workspace ID** **Using the Harness Project Name**\n\nIn many [Split Admin API](https://docs.split.io) endpoints that remain active post migration, you will need a workspace ID, referred to as `workspace-id`, `workspace_id`, or `wsId`.\n\nTo retrieve the workspace ID that corresponds to a Harness project:\n\n1. **Call the** [<b>Get Projects (Workspaces)</b>](https://www.postman.com/harness-fme-enablement/harness-fme/request/bhrn10d/get-projects) **Split Admin API** **endpoint:** This will list all projects visible to your API key.\n    \n    1. You can filter the list of projects using the endpoint's `name` query parameter: set the value to the Harness project **Name** value (not the Harness Project **Id** value).\n        \n    2. Your results will also be filtered by the scope and view permissions granted to the authentication key/token, which can be either a legacy Split Admin API key or a Harness API key.\n        \n2. **Extract the** **`id`** **property value from** **the response:** [The endpoint returns a list of projects](https://www.postman.com/harness-fme-enablement/harness-fme/example/43022685-f9e1971e-ef9f-47e5-95a3-dfe14bcc39fc), including each project's `name` and `id` properties. You can use the `id` value with Split endpoints that require `workspace-id` or `workspace_id` values.\n    \n\nIt is not possible to retrieve the workspace ID programmatically using the Harness (platform) project **Id** value, and care should be taken when using the project name because this field is not read-only. In Harness, the project name can be changed.\n\nYou can also view the workspace ID directly in Harness FME.\n\n## Viewing Workspace IDs in Harness\n\nFor any project, the project name and workspace ID can be located in the Harness UI.\n\nIn Harness, when you select an account in the left navigation scope selector, you can then click **Projects** to see a list of projects in your Harness account. You can also click **FME Settings** to see the Harness FME Project IDs listed by project name.\n\nThe **Project ID**s displayed in **FME Settings** are referred to as workspace IDs (`workspace-id`, `workspace_id`, or `wsId`) in the Split Admin API.\n\n<img src=\"https://content.pstmn.io/db77ea83-28fc-4e0d-a783-516d0f9b2c30/U3BsaXQgV29ya3NwYWNlIElEIGluIEhhcm5lc3MucG5n\">\n\nWithin your Harness account, we recommend you keep all project names unique and distinct.",
 					"auth": {
 						"type": "apikey",
 						"apikey": [
@@ -9093,6 +9167,11 @@
 		{
 			"key": "Harness_Resource_Group_Identifier",
 			"value": ""
+		},
+		{
+			"key": "Project_Name",
+			"value": "",
+			"type": "default"
 		}
 	]
 }
