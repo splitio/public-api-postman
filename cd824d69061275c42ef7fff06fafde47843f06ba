@@ -1,0 +1,53 @@
+CLAUDE.md
+  human 1-30
+.gitignore
+  human 2-5
+---
+{
+  "attestations": [
+    {
+      "entries": [
+        {
+          "accepted_lines": 30,
+          "added_lines": 30,
+          "deleted_lines": 0,
+          "hash": "human",
+          "lines": "1-30",
+          "overridden_lines": 0
+        }
+      ],
+      "file": "CLAUDE.md"
+    },
+    {
+      "entries": [
+        {
+          "accepted_lines": 4,
+          "added_lines": 4,
+          "deleted_lines": 0,
+          "hash": "human",
+          "lines": "2-5",
+          "overridden_lines": 0
+        }
+      ],
+      "file": ".gitignore"
+    }
+  ],
+  "base_commit_sha": "22296149e6ddb023ad88fe6a332fb1c7ce661ad3",
+  "branch": "fme-ml-dev-bootstrap",
+  "commit_sha": "cd824d69061275c42ef7fff06fafde47843f06ba",
+  "commit_time": "2026-06-02T08:31:41-07:00",
+  "git_ai_version": "1.2.6",
+  "prompts": {
+    "human": {
+      "accepted_lines": 34,
+      "agent_id": null,
+      "human_author": "Udayakumar Dhansingh <udayakumar.dhansingh@harness.io>",
+      "messages": [],
+      "overriden_lines": 0,
+      "total_additions": 34,
+      "total_deletions": 0
+    }
+  },
+  "repo": "git@github.com:splitio/public-api-postman.git",
+  "schema_version": "authorship/3.0.0"
+}
